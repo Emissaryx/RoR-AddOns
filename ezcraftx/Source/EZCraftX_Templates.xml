@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This application is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+The application is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with the application. If not, see <http://www.gnu.org/licenses/>.
+-->
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Windows>
+
+    <Window name="EZCraftX_Templates.PowerPreview" inherits="EA_Window_Default" savesettings="false" movable="false">
+      <Size>
+        <AbsPoint x="64" y="24"/>
+      </Size>
+      <Anchors>
+        <Anchor point="center" relativePoint="center"/>
+      </Anchors>
+      <Windows>
+        <FullResizeImage name="$parent.Background" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false" alpha="0.75">
+          <TintColor r="0" g="0" b="0"/>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"/>
+            <Anchor point="bottomright" relativePoint="bottomright"/>
+          </Anchors>
+        </FullResizeImage>
+        <Label name="$parent.label" font="font_chat_text_no_outline" textalign="center" inherits="EA_Settings_ItemTitle">
+          <Size>
+            <AbsPoint x="64" y="24"/>
+          </Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft">
+              <AbsPoint x="0" y="3"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="0" a="255"/>
+        </Label>
+      </Windows>
+      <EventHandlers>
+        <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_PowerPreview"/>
+      </EventHandlers>
+    </Window>
+
+  </Windows>
+</Interface>

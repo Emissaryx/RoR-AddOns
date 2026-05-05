@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Windows>
+		<Window name="DevHelperMessage" layer="secondary" movable="true" inherits="EA_Window_Default">
+			<Size>
+				<AbsPoint x="720" y="600" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+			</Anchors>
+			
+			<Windows>
+				<!-- Init -->
+				<Window name="$parentBackground" inherits="EA_Window_DefaultFrame">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft">
+							<AbsPoint x="0" y="32" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" />
+					</Anchors>
+				</Window>
+				
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+				
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="DevHelperMessage.MessageDialogHide" />
+					</EventHandlers>
+				</Button>
+				
+				<!-- Content -->
+				<ScrollWindow name="$parentContent" childscrollwindow="$parentScrollChild" scrollbar="$parentScrollbar" lineheight="18" autoHideScrollBar="false">
+					<Size>
+						<AbsPoint x="712" y="500" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+							<AbsPoint x="0" y="3" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+						<VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain" layer="popup">
+							<Size>
+								<AbsPoint x="24" y="500" />
+							</Size>
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+		                </VerticalScrollbar>
+		                
+		                <Window name="$parentScrollChild">
+		                	<Size>
+								<AbsPoint x="670" y="500" />
+							</Size>
+							<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+								<AbsPoint x="0" y="0" />
+							</Anchor>
+		                    <Windows>
+
+								<!-- Content: Label -->
+								<Label name="$parentLabelLabel" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+											<AbsPoint x="40" y="30" />
+										</Anchor>
+									</Anchors>
+								</Label>
+								<EditBox name="$parentLabelText" inherits="EA_EditBox_DefaultFrame" maxchars="500">
+									<Size>
+										<AbsPoint x="450" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentLabelLabel">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnMouseOver" function="DevHelperMessage.OnMouseOverLabelEditBox" />
+									</EventHandlers>
+								</EditBox>
+
+								<!-- Content: Label Color-->
+								<Label name="$parentLabelColor" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLabelLabel">
+											<AbsPoint x="0" y="50" />
+										</Anchor>
+									</Anchors>
+								</Label>
+								<ComboBox name="$parentLabelColorCombobox" inherits="EA_ComboBox_DefaultResizable">
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentLabelColor">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+								</ComboBox>
+
+								<Window name="$parentDivider1" inherits="EA_Window_DefaultSeparator">
+									<Size>
+										<AbsPoint x="710" y="28" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabelColor">
+											<AbsPoint x="-40" y="10" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<!-- Content: Message -->
+								<Label name="$parentMessageLabel" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentDivider1">
+											<AbsPoint x="40" y="50" />
+										</Anchor>
+									</Anchors>
+								</Label>
+								<EditBox name="$parentMessageText" inherits="EA_EditBox_DefaultFrame" maxchars="500">
+									<Size>
+										<AbsPoint x="450" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentMessageLabel">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnMouseOver" function="DevHelperMessage.OnMouseOverMessageEditBox" />
+									</EventHandlers>
+								</EditBox>
+
+								<!-- Content: Message Color-->
+								<Label name="$parentMessageColor" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageLabel">
+											<AbsPoint x="0" y="50" />
+										</Anchor>
+									</Anchors>
+								</Label>
+
+								<ComboBox name="$parentMessageColorCombobox" inherits="EA_ComboBox_DefaultResizable">
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentMessageColor">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+								</ComboBox>
+
+								<Window name="$parentDivider2" inherits="EA_Window_DefaultSeparator">
+									<Size>
+										<AbsPoint x="710" y="28" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentMessageColor">
+											<AbsPoint x="-40" y="10" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<!-- Content: Type -->
+								<Label name="$parentTypeLabel" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentDivider2">
+											<AbsPoint x="40" y="50" />
+										</Anchor>
+									</Anchors>
+								</Label>
+								<ComboBox name="$parentTypeCombobox" inherits="EA_ComboBox_DefaultResizable">
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentTypeLabel">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnMouseOver" function="DevHelperMessage.OnMouseOverTypeComboBox" />
+									</EventHandlers>
+								</ComboBox>
+
+
+								<!-- Content: Submenu -->
+								<Label name="$parentSubmenuLabel" font="font_chat_text">
+									<Size>
+										<AbsPoint x="150" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTypeLabel">
+											<AbsPoint x="0" y="50" />
+										</Anchor>
+									</Anchors>
+								</Label>
+								<ComboBox name="$parentSubmenuCombobox" inherits="EA_ComboBox_DefaultResizable">
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parentSubmenuLabel">
+											<AbsPoint x="0" y="-5" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnMouseOver" function="DevHelperMessage.OnMouseOverSubmenuComboBox" />
+									</EventHandlers>
+								</ComboBox>
+
+<!-- 								<Window name="$parentDivider1" inherits="EA_Window_DefaultSeparator">
+									<Size>
+										<AbsPoint x="710" y="28" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentMessageLabel">
+											<AbsPoint x="-40" y="10" />
+										</Anchor>
+									</Anchors>
+								</Window> -->
+								
+								
+							</Windows>
+						</Window>
+					</Windows>
+				</ScrollWindow>
+				
+				<!-- Bottom panel -->
+				<Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background">
+					<Size>
+						<AbsPoint x="0" y="65" />
+					</Size>
+				</Window>
+				
+				<Button name="$parentOkButton" inherits="EA_Button_DefaultResizeable">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom">
+							<AbsPoint x="-70" y="-10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="DevHelperMessage.OnOk" />
+					</EventHandlers>
+				</Button>
+				<Button name="$parentCancelButton" inherits="EA_Button_DefaultResizeable">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom">
+							<AbsPoint x="70" y="-10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="DevHelperMessage.MessageDialogHide" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+			
+			<EventHandlers>
+				<EventHandler event="OnShown" function="WindowUtils.OnShown" />
+				<EventHandler event="OnHidden" function="WindowUtils.OnHidden" />
+				<EventHandler event="OnKeyEscape" function="DevHelperMessage.MessageDialogHide" />
+			</EventHandlers>
+		</Window>
+	</Windows>
+</Interface>

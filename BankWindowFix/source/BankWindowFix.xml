@@ -1,0 +1,17 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <Windows>
+        <ActionButtonGroup name="BankWindowSlotsFixed" inherits="EA_ActionButtonGroup_DefaultSmall" draganddrop="true"  gameactionbutton="right"  >
+            <Anchors>
+                <Anchor point="bottom" relativePoint="top" relativeTo="BankWindowTabs">
+                    <AbsPoint x="0" y="10" />
+                </Anchor>
+            </Anchors>
+            <EventHandlers>
+                <EventHandler event="OnActionButtonLButtonDown" function="BankWindow.EquipmentLButtonDown" />
+                <EventHandler event="OnActionButtonLButtonUp" function="BankWindow.EquipmentLButtonUp" />
+                <EventHandler event="OnActionButtonRButtonDown" function="BankWindow.EquipmentRButtonDown" /> 
+                <EventHandler event="OnActionButtonMouseOver" function="BankWindow.EquipmentMouseOver" />
+            </EventHandlers>
+        </ActionButtonGroup>
+    </Windows>
+</Interface>

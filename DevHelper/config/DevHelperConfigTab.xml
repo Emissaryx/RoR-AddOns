@@ -1,0 +1,233 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Windows>
+	<Window name="DevHelperConfigTab" layer="secondary" movable="false">
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="DevHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+			<Anchor point="bottomright" relativePoint="bottomright" relativeTo="DevHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+		</Anchors>
+		<EventHandlers>
+			<EventHandler event="OnInitialize" function="DevHelperConfigTab.Initialize" />
+		</EventHandlers>
+		
+		<Windows>
+			<Window name="$parentSpaceAbove" handleinput="false">
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+						<AbsPoint x="0" y="0"/>
+					</Anchor>
+					<Anchor point="topright" relativePoint="bottomright" relativeTo="$parent">
+						<AbsPoint x="0" y="40"/>
+					</Anchor>
+				</Anchors>
+			</Window>
+
+
+			<Label name="$parentMessageLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove">
+						<AbsPoint x="30" y="15" />
+					</Anchor>
+				</Anchors>
+			</Label>
+
+			<Label name="$parentMessageStartLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<EditBox name="$parentMessageStartText" inherits="EA_EditBox_DefaultFrame" maxchars="100">
+				<Size>
+					<AbsPoint x="250" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageStartLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverMessageStartLabel" />
+                    <EventHandler event="OnTextChanged" function="DevHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</EditBox>
+			<Button name="$parentChooseIconButtonMessageStart" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="40" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageStartText">
+						<AbsPoint x="6" y="6" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.ChooseIconMessageStart" />
+				</EventHandlers>
+			</Button>
+
+			<Label name="$parentMessageEndLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageStartLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<EditBox name="$parentMessageEndText" inherits="EA_EditBox_DefaultFrame" maxchars="100">
+				<Size>
+					<AbsPoint x="250" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageEndLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverMessageEndLabel" />
+                    <EventHandler event="OnTextChanged" function="DevHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</EditBox>
+			<Button name="$parentChooseIconButtonMessageEnd" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="40" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageEndText">
+						<AbsPoint x="6" y="6" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.ChooseIconMessageEnd" />
+				</EventHandlers>
+			</Button>
+
+			<Label name="$parentMessageTextColorLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageEndLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<ComboBox name="$parentMessageTextColorCombobox" inherits="EA_ComboBox_DefaultResizable">
+				<Size>
+					<AbsPoint x="290" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageTextColorLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverMessageTextColorLabel" />
+                    <EventHandler event="OnSelChanged" function="DevHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</ComboBox>
+
+			<Label name="$parentLfgIconsLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageTextColorLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<Button name="$parentLfgIconsCheckBox" inherits="EA_Button_DefaultCheckBox">
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentLfgIconsLabel">
+						<AbsPoint x="0" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverLfgIconsLabel" />
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.OnLfgIconsCheckBoxUp" />
+				</EventHandlers>
+			</Button>
+
+
+			<!-- Separator 1 -->
+			<Window name="$parentDisplaySeperator1" inherits="EA_Window_DefaultSeparator" handleinput="false">
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLfgIconsLabel" >
+						<AbsPoint x="-30" y="40" />
+					</Anchor>
+					<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentLfgIconsLabel" >
+						<AbsPoint x="310" y="40" />
+					</Anchor>
+				</Anchors>
+			</Window>
+
+
+
+
+
+
+
+
+
+			<!-- Button bar -->
+			<Window name="$parentButtonBar" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+				<Size>
+					<AbsPoint x="0" y="65" />
+				</Size>
+			</Window>
+
+			<!-- Save button -->
+			<Button name="$parentSaveButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parentButtonBar" >
+						<AbsPoint x="10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverSaveButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.OnSave" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Reset button -->
+			<Button name="$parentResetButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentSaveButton" >
+						<AbsPoint x="5" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverResetButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.OnReset" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Preview button -->
+			<Button name="$parentApplyButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="right" relativeTo="$parentButtonBar" >
+						<AbsPoint x="-10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperConfigTab.OnMouseOverApplyButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperConfigTab.OnPreview" />
+				</EventHandlers>
+			</Button>
+
+		</Windows>
+	</Window>
+</Windows>
+</Interface>

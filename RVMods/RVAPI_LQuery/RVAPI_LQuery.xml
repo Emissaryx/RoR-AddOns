@@ -1,0 +1,40 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+
+		<Window name="RVAPI_LQuerySettingsWindow">
+			<Windows>
+				<Button name="$parentCheckBoxEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="40" y="40" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVAPI_LQuery.OnCheckBoxEnabled" />
+					</EventHandlers>
+				</Button>
+				<Label name="$parentLabelEnabled" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="600" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxEnabled">
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentLabelImportantInformation" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="600" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxEnabled">
+							<AbsPoint x="0" y="45" />
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

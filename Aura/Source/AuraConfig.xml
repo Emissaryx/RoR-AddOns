@@ -1,0 +1,1680 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <!--
+    This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see
+    <http://www.gnu.org/licenses/>.
+    -->
+    <Scripts>
+        <Script file="Source/AuraConfig.lua" />
+    </Scripts>
+    <Windows>
+        <Window name="AuraConfig" movable="true" layer="default">
+            <Size>
+                <AbsPoint x="485" y="700" />
+            </Size>
+            <Anchors>
+                <Anchor point="center" relativePoint="center" relativeTo="" xOffset="0" yOffset="0" />
+            </Anchors>
+            <EventHandlers>
+                <EventHandler event="OnHidden" function="AuraConfig.OnHidden" />
+                <EventHandler event="OnInitialize" function="AuraConfig.OnInitialize" />
+            </EventHandlers>
+            <!-- Child Windows -->
+            <Windows>
+                <!-- Default window background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+                <!-- Title Bar -->
+                <Window name ="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <!-- Top Right Close Button -->
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="AuraConfig.OnClose" />
+                    </EventHandlers>
+                </Button>
+                <!-- AuraConfigGeneral -->
+                <Window name="$parentGeneral">
+                    <Size>
+                        <AbsPoint x="0" y="225" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+                            <AbsPoint x="10" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentTitleBar">
+                            <AbsPoint x="-5" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <Button name="$parentIconButton" inherits="EA_Button_DefaultIconFrame_Large" handleinput="true" texturescale="2.0">
+                            <Size>
+                                <AbsPoint x="128" y="128" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="10" y="5" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnTextureChangeButton" />
+                                <EventHandler event="OnMouseOver" function="AuraConfig.OnIconMouseOver" />
+                            </EventHandlers>
+                        </Button>
+                        <Window name="$parentCircledImage" inherits="Aura_LabelCheckButton">
+                            <Size>
+                                <AbsPoint x="200" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentIconButton">
+                                    <AbsPoint x="5" y="5" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnCircledImageChanged" />
+                            </EventHandlers>
+                        </Window>
+                        <Window name="$parentMirrorImage" inherits="Aura_LabelCheckButton">
+                            <Size>
+                                <AbsPoint x="200" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCircledImage">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnMirrorImageChanged" />
+                            </EventHandlers>
+                        </Window>
+                        <Window name="$parentHideImage" inherits="Aura_LabelCheckButton">
+                            <Size>
+                                <AbsPoint x="200" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentMirrorImage">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentNameTitle" inherits="Aura_Default_Label_SmallFont" textalign="left">
+                        	<Size>
+                                <AbsPoint x="280" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIconButton">
+                                    <AbsPoint x="25" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <EditBox name="$parentName" inherits="Aura_EditBox_DefaultFrame"  taborder="1">
+                            <Size>
+                                <AbsPoint x="225" y="28" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentNameTitle">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnKeyEnter" function="" />
+                                <EventHandler event="OnKeyEscape" function="" />
+                            </EventHandlers>
+                        </EditBox>
+                        <DynamicImage name="$parentTintColorFrame" slice="Round-Swatch-Selection-Ring" texture="EA_HUD_01" popable="false" sticky="false" >
+                            <Size>
+                                <AbsPoint x="38" y="38" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="$parentTintColor">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+                        <Button name="$parentTintColor" inherits="EA_Templates_Color_Picker_Button" handleinput="true">
+                        	<Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentName">
+                                    <AbsPoint x="15" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnLButtonUpTextureTintColor" />
+                            </EventHandlers>
+                        </Button>
+                        <Window name="$parentOffset">
+                            <Size>
+                                <AbsPoint x="200" y="30"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentName">
+                                    <AbsPoint x="35" y="10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Label name="$parentXTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                    <Anchors>
+                                        <Anchor point="left" relativePoint="left">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentX" inherits="Aura_EditBox_DefaultFrame" input="nospaces" taborder="2" maxchars="5">
+                                    <Size>
+                                        <AbsPoint x="75" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentXTitle">
+                                            <AbsPoint x="5" y="-1" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnTextChanged" function="AuraConfig.OnTextureOffsetXChanged" />
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Label name="$parentYTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                    <Anchors>
+                                        <Anchor point="left" relativePoint="right" relativeTo="$parentY">
+                                            <AbsPoint x="-5" y="1" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentY" inherits="Aura_EditBox_DefaultFrame" input="nospaces" taborder="3" maxchars="5">
+                                    <Size>
+                                        <AbsPoint x="75" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="right" relativePoint="right">
+                                            <AbsPoint x="0" y="-1" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnTextChanged" function="AuraConfig.OnTextureOffsetYChanged" />
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                            </Windows>
+                        </Window>
+                        <Window name="$parentTextureRotation">
+                            <Size>
+                                <AbsPoint x="300" y="70" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOffset">
+                                    <AbsPoint x="-50" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Label name="$parentTitle" inherits="Aura_Default_Label_SmallFont" textalign="center" autoresizewidth="false">
+                                    <Size>
+                                        <AbsPoint x="200" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-47" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMinTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMaxTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <SliderBar name="$parentSlider" inherits="Aura_Default_SliderBar" numticks="360" locktoticks="false">
+                                    <Size>
+                                        <AbsPoint x="250" y="17" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-30" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnSlide" function="AuraConfig.OnTextureRotationSlide" />
+                                    </EventHandlers>
+                                </SliderBar>
+                            </Windows>
+                        </Window>
+                        <Window name="$parentTextureScale">
+                            <Size>
+                                <AbsPoint x="300" y="70" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTextureRotation">
+                                    <AbsPoint x="0" y="-15" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Label name="$parentTitle" inherits="Aura_Default_Label_SmallFont" textalign="center" autoresizewidth="false">
+                                    <Size>
+                                        <AbsPoint x="200" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-47" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMinTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMaxTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <SliderBar name="$parentSlider" inherits="Aura_Default_SliderBar" numticks="250" locktoticks="false">
+                                    <Size>
+                                        <AbsPoint x="250" y="17" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-30" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnSlide" function="AuraConfig.OnTextureScaleSlide" />
+                                    </EventHandlers>
+                                </SliderBar>
+                            </Windows>
+                        </Window>
+                    </Windows>
+                </Window>
+                <Window name="$parentTabs" layer="popup">
+                    <Anchors>
+                        <Anchor point="bottomleft"  relativePoint="topleft"  relativeTo="AuraConfigGeneral">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright"  relativePoint="bottomright"  relativeTo="AuraConfigGeneral">
+                            <AbsPoint x="0" y="37" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <Button name="$parentTriggerView" inherits="AuraTabButtonTemplate" id="1">
+                            <Size>
+                                <AbsPoint x="100" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="5" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnConfigTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <Button name="$parentActivationView" inherits="AuraTabButtonTemplate" id="2">
+                            <Size>
+                                <AbsPoint x="125" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTriggerView" >
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnConfigTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <Button name="$parentDeactivationView" inherits="AuraTabButtonTemplate" id="3">
+                            <Size>
+                                <AbsPoint x="135" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentActivationView" >
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnConfigTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <Button name="$parentTimerView" inherits="AuraTabButtonTemplate" id="4">
+                            <Size>
+                                <AbsPoint x="100" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentDeactivationView" >
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnConfigTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <Window name="$parentSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" layer="background">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="bottomleft">
+                                    <AbsPoint x="0" y="-7" />
+                                </Anchor>
+                                <Anchor point="bottomleft" relativePoint="topright" relativeTo="$parentTriggerView">
+                                    <AbsPoint x="0" y="-7" />
+                                </Anchor>
+                            </Anchors>
+                        </Window>
+                        <HorizontalResizeImage name="$parentSeparatorTrigger" inherits="EA_HorizontalResizeImage_TabSeparatorMiddle" layer="background">
+                            <Anchors>
+                                <Anchor point="bottomright" relativePoint="topleft"  relativeTo="$parentTriggerView">
+                                    <AbsPoint x="0" y="-5" />
+                                </Anchor>
+                                <Anchor point="bottomleft" relativePoint="bottomright"  relativeTo="$parentActivationView">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </HorizontalResizeImage>
+                        <HorizontalResizeImage name="$parentSeparatorActivation" inherits="EA_HorizontalResizeImage_TabSeparatorMiddle" layer="background">
+                            <Anchors>
+                                <Anchor point="bottomright" relativePoint="topleft"  relativeTo="$parentActivationView">
+                                    <AbsPoint x="0" y="-5" />
+                                </Anchor>
+                                <Anchor point="bottomleft" relativePoint="bottomright"  relativeTo="$parentDeactivationView">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </HorizontalResizeImage>
+                        <HorizontalResizeImage name="$parentSeparatorDeactivation" inherits="EA_HorizontalResizeImage_TabSeparatorMiddle" layer="background">
+                            <Anchors>
+                                <Anchor point="bottomright" relativePoint="topleft"  relativeTo="$parentDeactivationView">
+                                    <AbsPoint x="0" y="-5" />
+                                </Anchor>
+                                <Anchor point="bottomleft" relativePoint="bottomright"  relativeTo="$parentTimerView">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </HorizontalResizeImage>
+                        <Window name="$parentSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" layer="popup">
+                            <Anchors>
+                                <Anchor point="bottomright" relativePoint="topleft" relativeTo="$parentTimerView">
+                                    <AbsPoint x="0" y="-7" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" >
+                                    <AbsPoint x="-5" y="-7" />
+                                </Anchor>
+                            </Anchors>
+                        </Window>
+                    </Windows>
+                </Window>
+                <!-- AuraConfigTrigger -->
+                <Window name="$parentTrigger">
+                    <Size>
+                        <AbsPoint x="0" y="425" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="AuraConfigTabs">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AuraConfig" >
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" layer="background" />
+                        <Label name="$parentTypeTitle" inherits="Aura_Default_Label_SmallFont" textalign="left">
+                        	<Size>
+                                <AbsPoint x="280" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="25" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentTypeCombo" inherits="Aura_ComboBox_DefaultResizableLarge">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnSelChanged" function="AuraConfig.OnTriggerTypeSelChanged" />
+                            </EventHandlers>
+                        </ComboBox>
+                        <!-- Trigger General Window  -->
+                        <Window name="$parentGeneral">
+                            <Size>
+                                <AbsPoint x="400" y="75" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeCombo">
+                                    <AbsPoint x="0" y="10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Window name="$parentOnlyInCombat" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentOnlyOutOfCombat" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topright" relativeTo="">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentOnlyInGroup" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOnlyInCombat">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentOnlyInWarParty" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOnlyOutOfCombat">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentRvRFlagged" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOnlyInGroup">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentNotRvRFlagged" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOnlyInWarParty">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Ability Window  -->
+                        <Window name="$parentAbility">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentDragAndDropNote" font="font_chat_text" textalign="center" inherits="EA_Settings_SectionTitle">
+                                    <Size>
+                                        <AbsPoint x="400" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="top" relativePoint="top">
+                                            <AbsPoint x="0" y="15" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Window name="$parentWrapper">
+                                    <Size>
+                                        <AbsPoint x="364" y="75" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="top" relativeTo="$parentDragAndDropNote">
+                                            <AbsPoint x="25" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <Windows>
+                                        <Button name="$parentButton" inherits="AbilitiesWindowButtonDef" handleinput="true">
+                                            <Anchors>
+                                                <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                                                    <AbsPoint x="10" y="10" />
+                                                </Anchor>
+                                            </Anchors>
+                                            <EventHandlers>
+                                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnAbilityIconLButtonUp" />
+                                            </EventHandlers>
+                                        </Button>
+                                    </Windows>
+                                </Window>
+                                <Window name="$parentShowWhenNotActive" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="300" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentWrapper">
+                                            <AbsPoint x="-20" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentRequireExplicitActiveCheck" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="300" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentShowWhenNotActive">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentRequireValidityCheck" inherits="Aura_LargeLabelCheckButton" wordwrap="false">
+                                    <Size>
+                                        <AbsPoint x="300" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentRequireExplicitActiveCheck">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Action Points Window  -->
+                        <Window name="$parentActionPoints">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentOperatorTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft">
+                                            <AbsPoint x="25" y="15" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentValue">
+                                            <AbsPoint x="0" y="-5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentOperatorCombo">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentEnableSecondary" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorCombo">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <ComboBox name="$parentSecondaryOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableSecondary">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentSecondaryValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentSecondaryValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                 <ComboBox name="$parentSecondaryConditionalOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentSecondaryValue">
+                                            <AbsPoint x="0" y="-5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentMaximumActionPoints" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="25" y="10" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Career Window  -->
+                        <Window name="$parentCareer">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentOperatorTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft">
+                                            <AbsPoint x="25" y="15" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentValueTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentEnableSecondary" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorCombo">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <ComboBox name="$parentSecondaryOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableSecondary">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentSecondaryValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentSecondaryValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                 <ComboBox name="$parentSecondaryConditionalOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentSecondaryValue">
+                                            <AbsPoint x="0" y="-5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentClass" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="300" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="0" y="2" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentLimitMinimum" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="300" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentClass">
+                                            <AbsPoint x="0" y="2" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentLimitMaximum" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="300" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLimitMinimum">
+                                            <AbsPoint x="0" y="2" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Effect Window  -->
+                        <Window name="$parentEffect">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentTypeTitle" inherits="Aura_Default_Label_SmallFont" autoresize="true" autoresizewidth="true" textalign="left">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentTypeCombo">
+                                            <AbsPoint x="0" y="-3" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentTypeCombo" inherits="Aura_ComboBox_DefaultResizable" maxvisibleitems="5">
+                                    <Size>
+                                        <AbsPoint x="175" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topright">
+                                            <AbsPoint x="-20" y="30" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentNameTitle" inherits="Aura_Default_Label_SmallFont" autoresize="true" autoresizewidth="true" textalign="left">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentName">
+                                            <AbsPoint x="0" y="-3" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentName" inherits="Aura_EditBox_DefaultFrame"  taborder="1">
+                                    <Size>
+                                        <AbsPoint x="240" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft">
+                                            <AbsPoint x="20" y="30" />
+                                        </Anchor>
+                                        <Anchor point="bottomleft" relativePoint="bottomright" relativeTo="$parentTypeCombo">
+                                            <AbsPoint x="-5" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentEnableStacks" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="100" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentName">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <ComboBox name="$parentStackOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentEnableStacks">
+                                            <AbsPoint x="25" y="-1" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <EditBox name="$parentStackCount" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3" taborder="2">
+                                    <Size>
+                                        <AbsPoint x="75" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                    	<Anchor point="topright" relativePoint="topleft" relativeTo="$parentStackOperatorCombo">
+                                            <AbsPoint x="10" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentShowWhenNotActive" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableStacks">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentExactMatch" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentShowWhenNotActive">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentSelfCast" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentExactMatch">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentTargetSelf" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentExactMatch">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentTargetFriendly" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTargetSelf">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <Window name="$parentTargetEnemy" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="25"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTargetFriendly">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Hit Points Window  -->
+                        <Window name="$parentHitPoints">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentTypeTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft">
+                                            <AbsPoint x="25" y="15" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentTypeCombo" inherits="Aura_ComboBox_DefaultResizableLarge">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentOperatorTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeCombo">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentValue" inherits="Aura_EditBox_DefaultFrame" input="numbers" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentValueTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentEnableSecondary" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorCombo">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <ComboBox name="$parentSecondaryOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableSecondary">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentSecondaryValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentSecondaryValue" inherits="Aura_EditBox_DefaultFrame" input="numbers" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                 <ComboBox name="$parentSecondaryConditionalOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentSecondaryValue">
+                                            <AbsPoint x="0" y="-5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                            </Windows>
+                        </Window>
+                        <!-- Trigger Morale Window  -->
+                        <Window name="$parentMorale">
+                            <Size>
+                                <AbsPoint x="100" y="300" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGeneral">
+                                    <AbsPoint x="" y="10" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                                <Label name="$parentOperatorTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft">
+                                            <AbsPoint x="25" y="15" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <ComboBox name="$parentOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentValueTitle">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Window name="$parentEnableSecondary" inherits="Aura_LabelCheckButton">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOperatorCombo">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Window>
+                                <ComboBox name="$parentSecondaryOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableSecondary">
+                                            <AbsPoint x="0" y="5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                                <Label name="$parentSecondaryValueTitle" inherits="Aura_Default_Label_SmallFont">
+                                    <Size>
+                                        <AbsPoint x="200" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorTitle">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentSecondaryValue" inherits="Aura_EditBox_DefaultFrame" input="nospaces" maxchars="3">
+                                    <Size>
+                                        <AbsPoint x="225" y="28" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSecondaryOperatorCombo">
+                                            <AbsPoint x="25" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                 <ComboBox name="$parentSecondaryConditionalOperatorCombo" inherits="Aura_ComboBox_DefaultResizableTiny">
+                                    <Anchors>
+                                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentSecondaryValue">
+                                            <AbsPoint x="0" y="-5" />
+                                        </Anchor>
+                                    </Anchors>
+                                </ComboBox>
+                            </Windows>
+                        </Window>
+                    </Windows>
+                </Window>
+                <!-- AuraConfigActivation -->
+                <Window name="$parentActivation">
+                    <Size>
+                        <AbsPoint x="200" y="110" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="AuraConfigTabs">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AuraConfig" >
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                        <Label name="$parentAnimationTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="30" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentAnimationCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAnimationTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                        <Label name="$parentSoundTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAnimationCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentSoundCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSoundTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnSelChanged" function="AuraConfig.OnActivationSoundComboChanged" />
+                            </EventHandlers>
+                        </ComboBox>
+                        <Label name="$parentAlertTextTypeTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSoundCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentAlertTextTypeCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTypeTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                        <Label name="$parentAlertTextTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTypeCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <EditBox name="$parentAlertTextText" inherits="Aura_EditBox_DefaultFrame"  taborder="1">
+                            <Size>
+                                <AbsPoint x="250" y="28" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnKeyEnter" function="" />
+                                <EventHandler event="OnKeyEscape" function="" />
+                            </EventHandlers>
+                        </EditBox>
+                        <Button name="$parentAlertTextTestButton" inherits="AuraWindowButton">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentAlertTextText">
+									<AbsPoint x="5" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="AuraConfig.OnActivationAlertTextTestButton" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentScreenFlashTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextText">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentScreenFlashCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentScreenFlashTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                    </Windows>
+                </Window>
+                <!-- AuraConfigDeactivation -->
+                <Window name="$parentDeactivation">
+                    <Size>
+                        <AbsPoint x="0" y="110" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="AuraConfigTabs">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AuraConfig" >
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" layer="background" />
+                        
+                         <Label name="$parentAnimationTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="30" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentAnimationCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAnimationTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                        
+                        <Label name="$parentSoundTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAnimationCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentSoundCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSoundTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnSelChanged" function="AuraConfig.OnDeactivationSoundComboChanged" />
+                            </EventHandlers>
+                        </ComboBox>
+                        <Label name="$parentAlertTextTypeTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSoundCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentAlertTextTypeCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTypeTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                        <Label name="$parentAlertTextTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTypeCombo">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <EditBox name="$parentAlertTextText" inherits="Aura_EditBox_DefaultFrame"  taborder="1">
+                            <Size>
+                                <AbsPoint x="250" y="28" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnKeyEnter" function="" />
+                                <EventHandler event="OnKeyEscape" function="" />
+                            </EventHandlers>
+                        </EditBox>
+                        <Button name="$parentAlertTextTestButton" inherits="AuraWindowButton">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentAlertTextText">
+									<AbsPoint x="5" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="AuraConfig.OnDeactivationAlertTextTestButton" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentScreenFlashTitle" inherits="Aura_Default_Label_SmallFont">
+                            <Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAlertTextText">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </Label>
+                        <ComboBox name="$parentScreenFlashCombo" inherits="Aura_ComboBox_DefaultResizableLarge" maxvisibleitems="8">
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentScreenFlashTitle">
+                                    <AbsPoint x="0" y="2" />
+                                </Anchor>
+                            </Anchors>
+                        </ComboBox>
+                    </Windows>
+                </Window>
+                <!-- AuraConfigTimer -->
+                <Window name="$parentTimer">
+                    <Size>
+                        <AbsPoint x="0" y="110" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="AuraConfigTabs">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AuraConfig" >
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <FullResizeImage name="$parentBackground" inherits="AuraWindowBackground" />
+                        <Window name="$parentDisplayTimer" inherits="Aura_LabelCheckButton">
+                            <Size>
+                                <AbsPoint x="200" y="25"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentOffset">
+                                    <AbsPoint x="-25" y="-10" />
+                                </Anchor>
+                            </Anchors>
+                             <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraConfig.OnDisplayTimerChanged" />
+                            </EventHandlers>
+                        </Window>
+                        <Window name="$parentOffset">
+                            <Size>
+                                <AbsPoint x="200" y="50"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="top" relativePoint="top">
+                                    <AbsPoint x="0" y="50" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Label name="$parentXTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                    <Anchors>
+                                        <Anchor point="left" relativePoint="left">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentX" inherits="Aura_EditBox_DefaultFrame" input="nospaces" taborder="2" maxchars="5">
+                                    <Size>
+                                        <AbsPoint x="75" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentXTitle">
+                                            <AbsPoint x="5" y="-1" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnTextChanged" function="AuraConfig.OnTimerOffsetXChanged" />
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                                <Label name="$parentYTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                    <Anchors>
+                                        <Anchor point="left" relativePoint="right" relativeTo="$parentY">
+                                            <AbsPoint x="-5" y="1" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <EditBox name="$parentY" inherits="Aura_EditBox_DefaultFrame" input="nospaces" taborder="3" maxchars="5">
+                                    <Size>
+                                        <AbsPoint x="75" y="30" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="right" relativePoint="right">
+                                            <AbsPoint x="0" y="-1" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnTextChanged" function="AuraConfig.OnTimerOffsetYChanged" />
+                                        <EventHandler event="OnKeyEnter" function="" />
+                                        <EventHandler event="OnKeyEscape" function="" />
+                                    </EventHandlers>
+                                </EditBox>
+                            </Windows>
+                        </Window>
+						<Window name="$parentTintColor">
+							<Size>
+                                <AbsPoint x="200" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="top" relativeTo="$parentOffset">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+								<DynamicImage name="$parentFrame" slice="Round-Swatch-Selection-Ring" texture="EA_HUD_01" popable="false" sticky="false" >
+									<Size>
+										<AbsPoint x="38" y="38" />
+									</Size>
+									<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="$parentColor">
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</DynamicImage>
+								<Button name="$parentColor" inherits="EA_Templates_Color_Picker_Button" handleinput="true">
+									<Anchors>
+										<Anchor point="left" relativePoint="left" relativeTo="$parent">
+											<AbsPoint x="80" y="0" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="AuraConfig.OnLButtonUpTimerTintColor" />
+									</EventHandlers>
+								</Button>
+							</Windows>
+						</Window>
+                        <Window name="$parentScale">
+                            <Size>
+                                <AbsPoint x="300" y="75" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="top" relativeTo="$parentTintColor">
+                                    <AbsPoint x="0" y="5" />
+                                </Anchor>
+                            </Anchors>
+                            <Windows>
+                                <Label name="$parentTitle" inherits="Aura_Default_Label_SmallFont" textalign="center" autoresizewidth="false">
+                                    <Size>
+                                        <AbsPoint x="200" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-47" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMinTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >	
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <Label name="$parentMaxTitle" inherits="Aura_Default_Label_SmallFont" textalign="left" >
+                                	<Size>
+                                        <AbsPoint x="100" y="0" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentSlider">
+                                            <AbsPoint x="0" y="0" />
+                                        </Anchor>
+                                    </Anchors>
+                                </Label>
+                                <SliderBar name="$parentSlider" inherits="Aura_Default_SliderBar" numticks="200" locktoticks="false">
+                                    <Size>
+                                        <AbsPoint x="250" y="17" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="bottom" relativePoint="bottom">
+                                            <AbsPoint x="0" y="-30" />
+                                        </Anchor>
+                                    </Anchors>
+                                    <EventHandlers>
+                                        <EventHandler event="OnSlide" function="AuraConfig.OnTimerScaleSlide" />
+                                    </EventHandlers>
+                                </SliderBar>
+                            </Windows>
+                        </Window>
+                    </Windows>
+                </Window>
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

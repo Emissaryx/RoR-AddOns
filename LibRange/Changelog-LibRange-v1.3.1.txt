@@ -1,0 +1,27 @@
+------------------------------------------------------------------------
+r16 | philosound | 2010-10-23 19:17:52 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   A /tags/v1.3.1 (from /trunk:15)
+
+Tagging as v1.3.1
+------------------------------------------------------------------------
+r15 | philosound | 2010-10-23 19:17:14 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/LibRange.mod
+
+change version
+------------------------------------------------------------------------
+r14 | philosound | 2010-10-23 19:12:26 +0000 (Sat, 23 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/LibRange.lua
+   M /trunk/LibRange.mod
+
+change updatefreq determined by fullscan being in an active state
+------------------------------------------------------------------------
+r12 | philosound | 2010-10-14 00:40:39 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/LibRange.lua
+   M /trunk/LibRange.mod
+
+major changes, distributed searching, api updated
+------------------------------------------------------------------------

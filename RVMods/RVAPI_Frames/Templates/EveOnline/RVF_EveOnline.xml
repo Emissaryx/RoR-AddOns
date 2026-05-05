@@ -1,0 +1,965 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Assets>
+		<Texture name="TextureEveOnline" file="Textures/EveOnline.dds" />
+	</Assets>
+
+	<Windows>
+
+        <Window name="RVF_EveOnlineBuffIconTemplate" movable="false" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+            <Size>
+                <AbsPoint x="32" y="32" />
+            </Size>
+            <Windows>
+                <DynamicImage name="$parentIconBase" filtering="true" handleinput="false" layer="background" warnOnTextCropped="false" ellipsisOnCrop="true">
+                    <Size>
+                        <AbsPoint x="32" y="32" />
+                    </Size>
+                    <TexDims x="64" y="64" />
+                </DynamicImage>
+                <DynamicImage name="$parentFrame" handleinput="false" layer="background" >
+                    <Size>
+                        <AbsPoint x="32" y="32" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="center" relativePoint="center" relativeTo="$parentIconBase">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </DynamicImage>
+                <Label name="$parentTimer" handleinput="false" layer="overlay" font="font_clear_small_bold" maxchars="5" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+                    <Size>
+                        <AbsPoint x="48" y="20" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottom" relativePoint="bottom" relativeTo="$parent">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+            </Windows>
+        </Window>
+
+		<SliderBar name="RVF_EveOnlineSliderTemplate" inherits="EA_Default_SliderBar" autoresize="true" handlinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<EventHandlers>
+				<EventHandler event="OnSlide" function="RVF_EveOnline.OnSlide" />
+			</EventHandlers>
+			<Windows>
+				<Label name="$parentLabel" inherits="EA_Label_DefaultText" textalign="rightcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="right" relativeTo="$parent">
+							<AbsPoint x="-10" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentEdit" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="50" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</SliderBar>
+
+		<Window name="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="66" y="34" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnLButtonUpColorBox" />
+				<EventHandler event="OnMouseOver" function="RVF_EveOnline.OnMouseOverColorBox"/>
+			</EventHandlers>
+			<Windows>
+				<HorizontalResizeImage name="$parentBorder" inherits="RVF_EveOnlineHorizontalLineTintable">
+					<Size>
+						<AbsPoint x="66" y="34" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" relativeTo="$parent" />
+					</Anchors>
+					<TintColor r="50" g="50" b="50" />
+					<Windows>
+						<HorizontalResizeImage name="$parentForeground" inherits="RVF_EveOnlineHorizontalLineTintable">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft">
+									<AbsPoint x="2" y="2" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright">
+									<AbsPoint x="-2" y="-2" />
+								</Anchor>
+							</Anchors>
+							<TintColor r="255" g="255" b="255" />
+						</HorizontalResizeImage>
+					</Windows>
+				</HorizontalResizeImage>
+			</Windows>
+		</Window>
+
+		<!-- Settings template -->
+		<Window name="RVF_EveOnlineSettingsTemplate" handleinput="true" layer="secondary" movable="true" show="false" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="704" y="413" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" />
+			</Anchors>
+			<Windows>
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+				<Button name="$parentButtonClose" inherits="EA_Button_DefaultWindowClose" >
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVF_EveOnline.CloseSettings" />
+					</EventHandlers>
+				</Button>
+				<DynamicImage name="$parentCornerImage" inherits="EA_Default_CornerImage" texture="RV_CornerIcon_Mod" />
+				<Button name="$parentButtonOK" inherits="EA_Button_DefaultResizeable" >
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright">
+							<AbsPoint x="-20" y="-20" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVF_EveOnline.CloseSettings" />
+					</EventHandlers>
+				</Button>
+				<Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+					<Size>
+						<AbsPoint x="0" y="75" />
+					</Size>
+				</Window>
+
+				<!-- TABS Begin -->
+				<Window name="$parentTab" >
+					<Size>
+						<AbsPoint x="500" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar"/>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentTitleBar"/>
+					</Anchors>
+					<Windows>
+						<Window name="$parentSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" handleinput="true" layer="popup">
+							<Size>
+								<AbsPoint x="14" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo ="$parent">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+								<Anchor point="bottomleft" relativePoint="bottomright" relativeTo="$parentGeneral">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Button name="$parentGeneral" inherits="EA_Button_Tab">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft">
+									<AbsPoint x="25" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnClickTabGeneral" />
+							</EventHandlers>
+						</Button>
+						<Button name="$parentFrame" inherits="EA_Button_Tab">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentGeneral" />
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnClickTabFrame" />
+							</EventHandlers>
+						</Button>
+						<Button name="$parentStrings" inherits="EA_Button_Tab">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentFrame" />
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnClickTabStrings" />
+							</EventHandlers>
+						</Button>
+						<Button name="$parentCareerIcon" inherits="EA_Button_Tab">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentStrings" />
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnClickTabCareerIcon" />
+							</EventHandlers>
+						</Button>
+						<Button name="$parentAnimation" inherits="EA_Button_Tab">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCareerIcon" />
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.OnClickTabAnimation" />
+							</EventHandlers>
+						</Button>
+						<Window name="$parentSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" layer="background" popable="false">
+							<Size>
+								<AbsPoint x="0" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomright" relativePoint="bottomleft" relativeTo="$parentAnimation">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+				<!-- TABS End -->
+
+				<!-- Window General -->
+				<Window name="$parentTabWGeneral" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab" />
+						<Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" />
+					</Anchors>
+					<Windows>
+						<ComboBox name="$parentLayers" inherits="EA_ComboBox_DefaultResizable" >
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+		                    <EventHandlers>
+		                        <EventHandler event="OnSelChanged" function="RVF_EveOnline.OnComboBoxLayerChange" />
+		                    </EventHandlers>
+						</ComboBox>
+
+						<Button name="$parentCheckBoxEffectsEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLayers">
+									<AbsPoint x="0" y="100" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetEffectsEnabled" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelEffectsEnabled" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="420" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxEffectsEnabled">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<Button name="$parentCheckBoxUseGlobalScale" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxEffectsEnabled">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetUseGlobalScale" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelUseGlobalScale" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="420" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxUseGlobalScale">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<SliderBar name="$parentSliderBarScale" inherits="RVF_EveOnlineSliderTemplate" handleinput="true" numticks="9">
+							<Size>
+								<AbsPoint x="574" y="33" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxUseGlobalScale">
+									<AbsPoint x="55" y="15" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="RVF_EveOnline.OnSlideScale" />
+							</EventHandlers>
+						</SliderBar>
+					</Windows>
+				</Window>
+
+				<!-- Window Frame -->
+				<Window name="$parentTabWFrame" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab" />
+						<Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" />
+					</Anchors>
+					<Windows>
+						<Label name="$parentRectangleCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Button name="$parentCheckBoxRectangleEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentRectangleCaption">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetRectangleEnabled" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelRectangleEnabled" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxRectangleEnabled">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Window name="$parentRectangleLiveColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelRectangleEnabled">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentRectangleDeadColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentRectangleLiveColor">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Label name="$parentLinesCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxRectangleEnabled">
+									<AbsPoint x="0" y="30" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Button name="$parentCheckBoxLinesEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLinesCaption">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetLinesEnabled" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelLinesEnabled" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxLinesEnabled">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Window name="$parentLinesLiveColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelLinesEnabled">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentLinesDeadColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLinesLiveColor">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+
+				<!-- Window Strings -->
+				<Window name="$parentTabWStrings" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab" />
+						<Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" />
+					</Anchors>
+					<Windows>
+						<Label name="$parentCaptionColor" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="252" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="60" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Window name="$parentLiveColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCaptionColor">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentDeadColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLiveColor">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+						<Button name="$parentCheckBoxShowName" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCaptionColor">
+									<AbsPoint x="0" y="25" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowName" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowName" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowName">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+		
+						<Button name="$parentCheckBoxShowLevel" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelShowName">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowLevel" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowLevel" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowLevel">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+		
+						<Button name="$parentCheckBoxShowRange" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxShowName">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowRange" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowRange" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowRange">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+		
+						<Button name="$parentCheckBoxShowTier" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelShowRange">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowTier" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowTier" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowTier">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<Button name="$parentCheckBoxShowHealthPercent" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxShowRange">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowHealthPercent" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowHealthPercent" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowHealthPercent">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<Button name="$parentCheckBoxShowOutlineFont" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelShowHealthPercent">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetShowOutlineFont" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelShowOutlineFont" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxShowOutlineFont">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<Button name="$parentCheckBoxSwapNameFields" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxShowHealthPercent">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetSwapNameFields" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelSwapNameFields" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxSwapNameFields">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+					</Windows>
+				</Window>
+
+				<!-- Window CareerIcon -->
+				<Window name="$parentTabWCareerIcon" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab" />
+						<Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" />
+					</Anchors>
+					<Windows>
+						<Label name="$parentCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Button name="$parentCheckBoxEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCaption">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetCareerIconEnabled" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelEnabled" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxEnabled">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Window name="$parentLiveColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelEnabled">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentDeadColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLiveColor">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+
+				<!-- Window Animation -->
+				<Window name="$parentTabWAnimation" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab" />
+						<Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" />
+					</Anchors>
+					<Windows>
+						<Label name="$parentCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Button name="$parentCheckBoxEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCaption">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVF_EveOnline.SetAnimationEnabled" />
+							</EventHandlers>
+						</Button>
+						<Label name="$parentLabelEnabled" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="220" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxEnabled">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Window name="$parentLiveColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLabelEnabled">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentDeadColor" inherits="RVF_EveOnlineSettingsColorBoxTemplate" handleinput="true" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLiveColor">
+									<AbsPoint x="20" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+			</Windows>
+		</Window>
+
+		<!-- Horizontal line template -->
+		<HorizontalResizeImage name="RVF_EveOnlineHorizontalLineTintable" texture="EA_TintableImage" savesettings="false" handleinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="50" y="6" />
+			</Size>
+			<Sizes left="0" middle="50" right="0" />
+			<TexCoords>
+				<Left x="0" y="0" />
+				<Middle x="0" y="0" />
+				<Right x="0" y="50" />
+			</TexCoords>
+			<TintColor r="255" g="255" b="255" />
+		</HorizontalResizeImage>
+
+		<!-- Frame template -->
+		<Window name="RVF_EveOnlineFrameTemplate" handleinput="false" movable="false" layer="default" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="0" y="0" />
+			</Size>
+			<Windows>
+
+				<Window name="$parentAnchor">
+					<Size>
+						<AbsPoint x="110" y="110" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+
+				<AnimatedImage name="$parentAnimation" fps="95" layer="secondary" handleinput="false" sticky="false" texture="TextureEveOnline">
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parentAnchor">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsPoint x="110" y="110"/>
+					</Size>
+					<AnimFrames>
+						<AnimFrame id="1" x="0" y="0" />
+						<AnimFrame id="2" x="110" y="0" />
+						<AnimFrame id="3" x="220" y="0" />
+						<AnimFrame id="4" x="330" y="0" />
+						<AnimFrame id="5" x="440" y="0" />
+						<AnimFrame id="6" x="550" y="0" />
+						<AnimFrame id="7" x="660" y="0" />
+						<AnimFrame id="8" x="770" y="0" />
+						<AnimFrame id="9" x="880" y="0" />
+
+						<AnimFrame id="10" x="0" y="110" />
+						<AnimFrame id="11" x="110" y="110" />
+						<AnimFrame id="12" x="220" y="110" />
+						<AnimFrame id="13" x="330" y="110" />
+						<AnimFrame id="14" x="440" y="110" />
+						<AnimFrame id="15" x="550" y="110" />
+						<AnimFrame id="16" x="660" y="110" />
+						<AnimFrame id="17" x="770" y="110" />
+						<AnimFrame id="18" x="880" y="110" />
+
+						<AnimFrame id="19" x="0" y="220" />
+						<AnimFrame id="20" x="110" y="220" />
+						<AnimFrame id="21" x="220" y="220" />
+						<AnimFrame id="22" x="330" y="220" />
+						<AnimFrame id="23" x="440" y="220" />
+						<AnimFrame id="24" x="550" y="220" />
+						<AnimFrame id="25" x="660" y="220" />
+						<AnimFrame id="26" x="770" y="220" />
+						<AnimFrame id="27" x="880" y="220" />
+
+						<AnimFrame id="28" x="0" y="330" />
+						<AnimFrame id="29" x="110" y="330" />
+						<AnimFrame id="30" x="220" y="330" />
+						<AnimFrame id="31" x="330" y="330" />
+						<AnimFrame id="32" x="440" y="330" />
+						<AnimFrame id="33" x="550" y="330" />
+						<AnimFrame id="34" x="660" y="330" />
+						<AnimFrame id="35" x="770" y="330" />
+						<AnimFrame id="36" x="880" y="330" />
+
+						<AnimFrame id="37" x="0" y="440" />
+						<AnimFrame id="38" x="110" y="440" />
+						<AnimFrame id="39" x="220" y="440" />
+						<AnimFrame id="40" x="330" y="440" />
+						<AnimFrame id="41" x="440" y="440" />
+						<AnimFrame id="42" x="550" y="440" />
+						<AnimFrame id="43" x="660" y="440" />
+						<AnimFrame id="44" x="770" y="440" />
+						<AnimFrame id="45" x="880" y="440" />
+					</AnimFrames>
+				</AnimatedImage>
+
+				<Window name="$parentHorizontalLine" handleinput="false" movable="false" show="true" savesettings="false" layer="background" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Anchors>
+						<Anchor point="center" relativePoint="top" relativeTo="$parentReticle">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsPoint x="32000" y="1" />
+					</Size>
+					<Windows>
+						<HorizontalResizeImage name="$parentBar" inherits="RVF_EveOnlineHorizontalLineTintable">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+							</Anchors>
+						</HorizontalResizeImage>
+					</Windows>
+					<EventHandlers>
+						<EventHandler event="OnSizeUpdated" function="RVF_EveOnline.OnLinesUpdated" />
+					</EventHandlers>
+				</Window>
+				<Window name="$parentVerticalLine" handleinput="false" movable="false" show="true" savesettings="false" layer="background" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Anchors>
+						<Anchor point="center" relativePoint="left" relativeTo="$parentReticle">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsPoint x="1" y="32000" />
+					</Size>
+					<Windows>
+						<HorizontalResizeImage name="$parentBar" inherits="RVF_EveOnlineHorizontalLineTintable">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+							</Anchors>
+						</HorizontalResizeImage>
+					</Windows>
+					<EventHandlers>
+						<EventHandler event="OnSizeUpdated" function="RVF_EveOnline.OnLinesUpdated" />
+					</EventHandlers>
+				</Window>
+
+				<Window name="$parentEffects" handleinput="false" movable="false" show="true" savesettings="false" layer="background" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Anchors>
+						<Anchor point="top" relativePoint="center" relativeTo="$parentAnchor">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+
+				<DynamicImage name="$parentReticle" texture="TextureEveOnline" layer="background">
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parentAnchor" />
+					</Anchors>
+					<Size>
+						<AbsPoint x="65" y="65" />
+					</Size>
+					<TexDims x="65" y="65" />
+					<TexCoords x="0" y="550" />
+					<Windows>
+						<!-- Health Bar -->
+						<HorizontalResizeImage name="$parentHealth" inherits="RVF_EveOnlineHorizontalLineTintable">
+							<Size>
+								<AbsPoint x="67" y="8" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottom" relativePoint="top" relativeTo="$parent">
+									<AbsPoint x="0" y="3" />
+								</Anchor>
+							</Anchors>
+							<Windows>
+								<StatusBar name="$parentBar" background="" foreground="RVF_EveOnlineHorizontalLineTintable" reverseFill="false" interpolate="true">
+									<Size>
+										<AbsPoint x="65" y="6" />
+									</Size>
+									<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="$parent">
+											<AbsPoint x="0" y="1" />
+										</Anchor>
+									</Anchors>
+								</StatusBar>
+							</Windows>
+						</HorizontalResizeImage>
+
+						<!-- Action Bar -->
+						<HorizontalResizeImage name="$parentAction" inherits="RVF_EveOnlineHorizontalLineTintable">
+							<Size>
+								<AbsPoint x="67" y="8" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottom" relativePoint="top" relativeTo="$parentHealth">
+									<AbsPoint x="0" y="2" />
+								</Anchor>
+							</Anchors>
+							<Windows>
+								<StatusBar name="$parentBar" background="" foreground="RVF_EveOnlineHorizontalLineTintable" reverseFill="false" interpolate="true">
+									<Size>
+										<AbsPoint x="65" y="6" />
+									</Size>
+									<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="$parent">
+											<AbsPoint x="0" y="1" />
+										</Anchor>
+									</Anchors>
+								</StatusBar>
+							</Windows>
+						</HorizontalResizeImage>
+
+					</Windows>
+				</DynamicImage>
+
+				<DynamicImage name="$parentCareerIcon" layer="default">
+					<Size>
+						<AbsPoint x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parentReticle">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+
+				<Label name="$parentName1" font="font_journal_text_large" handleinput="false" textalign="bottomleft" layer="default" autoresize="true" wordwrap="false" sticky="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="1800" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="bottomleft" relativeTo="$parentReticle">
+							<AbsPoint x="2" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentName2" font="font_journal_text_large" handleinput="false" textalign="topleft" layer="default" autoresize="true" wordwrap="false" sticky="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="1800" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="topleft" relativeTo="$parentReticle">
+							<AbsPoint x="2" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentRange" font="font_journal_text_large" handleinput="false" textalign="left" layer="default" autoresize="true" wordwrap="false" sticky="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="150" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parentReticle">
+							<AbsPoint x="8" y="-8" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentHealth" font="font_journal_text_large" handleinput="false" textalign="right" layer="default" autoresize="true" wordwrap="false" sticky="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="1800" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="topright" relativeTo="$parentReticle">
+							<AbsPoint x="-2" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

@@ -1,0 +1,19 @@
+ <Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+  <Windows>
+    <Window name="MacroIcons" handleinput="true">
+      <Size><AbsPoint x="26" y="0"/></Size>
+      <Windows>
+        <VerticalScrollbar name="MacroIconsScrollBar" inherits="EA_ScrollBar_ChatVertical" layer="popup">
+          <Size><AbsPoint x="22" y="0"/></Size>
+          <EventHandlers>
+            <EventHandler event="OnScrollPosChanged" function="MacroIcons.ScrollPos"/>
+          </EventHandlers>
+          <Anchors>
+            <Anchor point="topright" relativeTo="$parent" relativePoint="topright"><AbsPoint x="-4" y="0"/></Anchor>
+            <Anchor point="bottomright" relativeTo="$parent" relativePoint="bottomright"><AbsPoint x="-4" y="0"/></Anchor>
+          </Anchors>
+        </VerticalScrollbar>
+      </Windows>
+    </Window>
+  </Windows>
+</Interface>

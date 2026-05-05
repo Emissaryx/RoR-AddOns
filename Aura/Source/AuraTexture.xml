@@ -1,0 +1,261 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <!--
+    This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see
+    <http://www.gnu.org/licenses/>.
+    -->
+    <Scripts>
+        <Script file="Source/AuraTexture.lua" />
+    </Scripts>
+    <Windows>
+        
+		<Button name="AuraIconButton" inherits="EA_Button_DefaultIconFrame_Large" handleinput="true">
+            <Size>
+                <AbsPoint x="64" y="64" />
+            </Size>
+            <EventHandlers>
+                <EventHandler event="OnLButtonUp" function="AuraTexture.OnIconLButtonUp" />
+            </EventHandlers>
+        </Button>
+        
+        <Window name="AuraIconRow">
+            <Size>
+                <AbsPoint x="512" y="64"/>
+            </Size>
+            <Windows>
+                <Button name="$parentIcon1" inherits="AuraIconButton" id="1">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                            <AbsPoint x="2" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon2" inherits="AuraIconButton" id="2">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon1">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon3" inherits="AuraIconButton" id="3">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon2">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon4" inherits="AuraIconButton" id="4">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon3">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon5" inherits="AuraIconButton" id="5">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon4">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon6" inherits="AuraIconButton" id="6">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon5">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon7" inherits="AuraIconButton" id="7">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon6">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <Button name="$parentIcon8" inherits="AuraIconButton" id="8">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcon7">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+            </Windows>
+        </Window>
+        <Window name="AuraTexture" movable="false" localscriptvars="true" layer="default">
+            <Size>
+                <AbsPoint x="550" y="345" />
+            </Size>
+            <Anchors>
+                <Anchor point="center" relativePoint="center" relativeTo="" xOffset="0" yOffset="0" />
+            </Anchors>
+             <EventHandlers>
+                <EventHandler event="OnShown" function="AuraTexture.OnShown" />
+            </EventHandlers>
+            <Windows>
+                <!-- Background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+                <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="AuraTexture.OnClose" />
+                    </EventHandlers>
+                </Button>
+                <Window name="$parentTabs" layer="popup">
+                    <Size>
+                        <AbsPoint x="500" y="35" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+                            <AbsPoint x="10" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <Button name="$parentIcons" inherits="AuraTabButtonTemplate" id="1">
+                            <Size>
+                                <AbsPoint x="100" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="5" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraTexture.OnRaceTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <!--
+                        <Button name="$parentAuras" inherits="AuraTabButtonTemplate" id="2">
+                            <Size>
+                                <AbsPoint x="125" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentIcons" >
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraTexture.OnRaceTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        <Button name="$parentCustom" inherits="AuraTabButtonTemplate" id="3">
+                            <Size>
+                                <AbsPoint x="125" y="35" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="topright" relativePoint="topleft" relativeTo="$parentAuras" >
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="AuraTexture.OnRaceTabSelected" />
+                            </EventHandlers>
+                        </Button>
+                        -->
+                    </Windows>
+                </Window>
+                <!-- Tabs end -->
+                <Window name="$parentIcons">
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTabs">
+                            <AbsPoint x="-5" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright">
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <ListBox name="$parentIcons" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AuraIconRow" visiblerows="4" rowspacing="0">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright">
+                                    <AbsPoint x="0" y="0"/>
+                                </Anchor>
+                            </Anchors>
+                            <ListData table="AuraTexture.listIconDisplayData" populationfunction="AuraTexture.PopulateIconsListDisplay"/>
+                        </ListBox>
+                    </Windows>
+                </Window>
+                <!--
+                <Window name="$parentAuras">
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTabs">
+                            <AbsPoint x="-5" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright">
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <ListBox name="$parentIcons" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AuraIconRow" visiblerows="4" rowspacing="0">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright">
+                                    <AbsPoint x="0" y="0"/>
+                                </Anchor>
+                            </Anchors>
+                            <ListData table="AuraTexture.listAbilityDisplayData" populationfunction="AuraTexture.PopulateAbilityListDisplay">
+                                <ListColumns>
+                                    <ListColumn windowname="Icon1" variable="Icon1" format="icon" />
+                                    <ListColumn windowname="Icon2" variable="Icon2" format="icon" />
+                                    <ListColumn windowname="Icon3" variable="Icon3" format="icon" />
+                                    <ListColumn windowname="Icon4" variable="Icon4" format="icon" />
+                                    <ListColumn windowname="Icon5" variable="Icon5" format="icon" />
+                                    <ListColumn windowname="Icon6" variable="Icon6" format="icon" />
+                                    <ListColumn windowname="Icon7" variable="Icon7" format="icon" />
+                                    <ListColumn windowname="Icon8" variable="Icon8" format="icon" />
+                                </ListColumns>
+                            </ListData>
+                        </ListBox>
+                    </Windows>
+                </Window>
+                <Window name="$parentCustom">
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTabs">
+                            <AbsPoint x="-5" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright">
+                            <AbsPoint x="-10" y="-10" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <ListBox name="$parentIcons" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AuraIconRow" visiblerows="4" rowspacing="0">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                                <Anchor point="bottomright" relativePoint="bottomright">
+                                    <AbsPoint x="0" y="0"/>
+                                </Anchor>
+                            </Anchors>
+                            <ListData table="AuraTexture.listAbilityDisplayData" populationfunction="AuraTexture.PopulateAbilityListDisplay">
+                                <ListColumns>
+                                    <ListColumn windowname="Icon1" variable="Icon1" format="icon" />
+                                    <ListColumn windowname="Icon2" variable="Icon2" format="icon" />
+                                    <ListColumn windowname="Icon3" variable="Icon3" format="icon" />
+                                    <ListColumn windowname="Icon4" variable="Icon4" format="icon" />
+                                    <ListColumn windowname="Icon5" variable="Icon5" format="icon" />
+                                    <ListColumn windowname="Icon6" variable="Icon6" format="icon" />
+                                    <ListColumn windowname="Icon7" variable="Icon7" format="icon" />
+                                    <ListColumn windowname="Icon8" variable="Icon8" format="icon" />
+                                </ListColumns>
+                            </ListData>
+                        </ListBox>
+                    </Windows>
+                </Window>
+            	-->
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

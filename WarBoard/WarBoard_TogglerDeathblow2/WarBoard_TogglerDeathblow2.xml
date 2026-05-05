@@ -1,0 +1,6 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Assets>
+		<Texture name="db2iconv4" file="db2iconv4.tga" />
+		<Texture name="db2iconv5" file="db2iconv5.tga" />
+	</Assets>
+</Interface>

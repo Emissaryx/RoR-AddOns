@@ -1,0 +1,283 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Assets>
+		<Texture name="TextureColorBlack" file="Textures/ColorSelectionBlack.tga" />
+		<Texture name="TextureColorWhite" file="Textures/ColorSelectionWhite.tga" />
+		<Texture name="TextureColorPointer" file="Textures/ColorSelectionPointer.dds" />
+	</Assets>
+
+	<Windows>
+		<SliderBar name="RVAPI_ColorDialogSliderTemplate" inherits="EA_Default_SliderBar" autoresize="true" handlinput="true">
+			<EventHandlers>
+				<EventHandler event="OnSlide" function="RVAPI_ColorDialog.OnSlide" />
+			</EventHandlers>
+			<Windows>
+				<Label name="$parentLabel" inherits="EA_Label_DefaultText" textalign="rightcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="right" relativeTo="$parent">
+							<AbsPoint x="-10" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentEdit" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</SliderBar>
+
+		<EditBox name="RVAPI_ColorDialogEditBoxTemplate" inherits="EA_EditBox_DefaultFrame" history="10" taborder="1">
+			<Size>
+				<AbsPoint x="48" y="30" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnTextChanged" function="RVAPI_ColorDialog.OnTextChangedEdit" />
+			</EventHandlers>
+			<Windows>
+				<Label name="$parentLabel" inherits="EA_Label_DefaultText" textalign="right" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="70" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="right" relativeTo="$parent">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentMetrics" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="70" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</EditBox>
+
+		<!-- Horizontal line template -->
+		<HorizontalResizeImage name="RVAPI_ColorDialogHorizontalLineTintable" texture="EA_TintableImage" savesettings="false" handleinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="50" y="6" />
+			</Size>
+			<Sizes left="0" middle="50" right="0" />
+			<TexCoords>
+				<Left x="0" y="0" />
+				<Middle x="0" y="0" />
+				<Right x="0" y="50" />
+			</TexCoords>
+			<TintColor r="255" g="255" b="255" />
+		</HorizontalResizeImage>
+
+		<Window name="RVAPI_ColorDialogColorBoxTemplate" handleinput="true" autoresize="true">
+			<Windows>
+				<HorizontalResizeImage name="$parentForeground" inherits="RVAPI_ColorDialogHorizontalLineTintable">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" />
+						<Anchor point="bottomright" relativePoint="bottomright" />
+					</Anchors>
+					<TintColor r="255" g="255" b="255" />
+				</HorizontalResizeImage>
+			</Windows>
+		</Window>
+
+		<Window name="RVAPI_ColorDialogWindow" handleinput="true" layer="default" movable="true" show="false" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="600" y="400" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" />
+			</Anchors>
+			<Windows>
+
+				<Window name="$parentBackground" handleinput="false" layer="background">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"/>
+						<Anchor point="bottomright" relativePoint="bottomright"/>
+					</Anchors>
+					<Windows>
+						<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_BlackTransparent" alpha="0.9">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" />
+								<Anchor point="bottomleft" relativePoint="bottomleft" />
+							</Anchors>
+						</FullResizeImage>				
+						<FullResizeImage name="$parentFrame" inherits="EA_FullResizeImage_TanBorder" >
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" />
+								<Anchor point="bottomleft" relativePoint="bottomleft" />
+							</Anchors>
+						</FullResizeImage>
+					</Windows>
+				</Window>
+
+				<Button name="$parentButtonOK" inherits="EA_Button_DefaultResizeable" >
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+							<AbsPoint x="-20" y="20" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVAPI_ColorDialog.OnLButtonUpButtonOK" />
+					</EventHandlers>
+				</Button>
+				<Button name="$parentButtonCancel" inherits="EA_Button_DefaultResizeable" >
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentButtonOK">
+							<AbsPoint x="0" y="10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVAPI_ColorDialog.OnLButtonUpButtonCancel" />
+					</EventHandlers>
+				</Button>
+
+				<Window name="$parentColor" handleinput="true">
+					<Size>
+						<AbsPoint x="256" y="256" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="20" y="20" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+						<DynamicImage name="$parentWhite" texture="TextureColorWhite" textureScale="1.0" handleinput="false" layer="default" sticky="false">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+							</Anchors>
+						</DynamicImage>
+						<DynamicImage name="$parentBlack" texture="TextureColorBlack" textureScale="1.0" handleinput="false" layer="default" sticky="false">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+							</Anchors>
+						</DynamicImage>
+						<DynamicImage name="$parentPointer" texture="TextureColorPointer" textureScale="1.0" handleinput="false" layer="secondary" sticky="false">
+							<Size>
+								<AbsPoint x="20" y="20" />
+							</Size>
+						</DynamicImage>
+					</Windows>
+					<EventHandlers>
+						<EventHandler event="OnLButtonDown" function="RVAPI_ColorDialog.OnLButtonDownColor" />
+					</EventHandlers>
+				</Window>
+
+				<Label name="$parentColorNewLabel" inherits="EA_Label_DefaultText" textalign="center" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="64" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentColor">
+							<AbsPoint x="20" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Window name="$parentColorNew" inherits="RVAPI_ColorDialogColorBoxTemplate">
+					<Size>
+						<AbsPoint x="64" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorNewLabel">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Window name="$parentColorCurrent" inherits="RVAPI_ColorDialogColorBoxTemplate">
+					<Size>
+						<AbsPoint x="64" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorNew">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Label name="$parentColorCurrentLabel" inherits="EA_Label_DefaultText" textalign="center" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="64" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+
+				<EditBox name="$parentColorCurrentHue" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentLabel">
+							<AbsPoint x="0" y="20"/>
+						</Anchor>
+					</Anchors>
+				</EditBox>
+				<EditBox name="$parentColorCurrentSaturation" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentHue" />
+					</Anchors>
+				</EditBox>
+				<EditBox name="$parentColorCurrentBrightness" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentSaturation" />
+					</Anchors>
+				</EditBox>
+
+				<EditBox name="$parentColorCurrentRed" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentBrightness">
+							<AbsPoint x="0" y="20"/>
+						</Anchor>
+					</Anchors>
+				</EditBox>
+				<EditBox name="$parentColorCurrentGreen" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentRed" />
+					</Anchors>
+				</EditBox>
+				<EditBox name="$parentColorCurrentBlue" inherits="RVAPI_ColorDialogEditBoxTemplate">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColorCurrentGreen" />
+					</Anchors>
+				</EditBox>
+
+
+
+				<SliderBar name="$parentSliderBarSaturation" inherits="RVAPI_ColorDialogSliderTemplate" handleinput="true">
+					<Size>
+						<AbsPoint x="256" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentColor">
+							<AbsPoint x="0" y="10" />
+						</Anchor>
+					</Anchors>
+				</SliderBar>
+
+				<SliderBar name="$parentSliderBarAlpha" inherits="RVAPI_ColorDialogSliderTemplate" handleinput="true">
+					<Size>
+						<AbsPoint x="400" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom" relativeTo="$parent">
+							<AbsPoint x="0" y="-20" />
+						</Anchor>
+					</Anchors>
+				</SliderBar>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

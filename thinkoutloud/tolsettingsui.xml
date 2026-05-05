@@ -1,0 +1,292 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <!-- vim:ts=3:sw=3:sts=3:et:
+   -->
+   <Windows>
+
+      <!-- The outside window, with titlebar. -->
+      <Window name="TOLSettingsMainWindow" movable="true" layer="secondary" savesettings="false">
+         <Size>
+            <AbsPoint x="820" y="500" />
+         </Size>
+         <Anchors>
+            <Anchor point="center" relativePoint="center" relativeTo="Root">
+               <AbsPoint x="0" y="0" />
+            </Anchor>
+         </Anchors>
+         <Windows>
+            <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+            <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+            <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" >
+               <EventHandlers>
+                  <EventHandler event="OnLButtonUp" function="TOLSettingsUI.CloseLButtonUp" />
+               </EventHandlers>
+            </Button>
+
+            <!-- The actual settings window, i.e. starts just under the title. -->
+            <Window name="TOLSettingsWindow" handleinput="true">
+               <Anchors>
+                  <Anchor point="topleft" relativePoint="topleft">
+                     <AbsPoint x="15" y="37" />
+                  </Anchor>
+                  <Anchor point="bottomright" relativePoint="bottomright">
+                     <AbsPoint x="-15" y="-15" />
+                  </Anchor>
+               </Anchors>
+
+               <Windows>
+
+                  <!-- Combo boxes across the top -->
+                  <ComboBox name="$parentEventComboBox" inherits="EA_ComboBox_DefaultResizable" layer="secondary">
+                     <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft">
+                           <AbsPoint x="10" y="10" />
+                        </Anchor>
+                     </Anchors>
+                     <EventHandlers>
+                        <EventHandler event="OnSelChanged" function="TOLSettingsUI.OnEventSelChanged" />
+                        <EventHandler event="OnLButtonUp" function="TOLSettingsUI.OnEventSelChanged" />
+                        <EventHandler event="OnRButtonUp" function="TOLSettingsUI.OnEventSelChanged" />
+                     </EventHandlers>
+                  </ComboBox>
+
+                  <ComboBox name="$parentSkillComboBox" inherits="EA_ComboBox_DefaultResizable" >
+                     <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentEventComboBox">
+                           <AbsPoint x="10" y="0" />
+                        </Anchor>
+                     </Anchors>
+                     <EventHandlers>
+                        <EventHandler event="OnSelChanged" function="TOLSettingsUI.OnSkillSelChanged" />
+                     </EventHandlers>
+                  </ComboBox>
+
+                  <ComboBox name="$parentPhraseComboBox" inherits="EA_ComboBox_DefaultResizable" >
+                     <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentSkillComboBox">
+                           <AbsPoint x="10" y="0" />
+                        </Anchor>
+                     </Anchors>
+                     <EventHandlers>
+                        <EventHandler event="OnSelChanged" function="TOLSettingsUI.OnPhraseSelChanged" />
+                     </EventHandlers>
+                  </ComboBox>
+
+                  <!------------------------>
+                  <!-- The edit window(s) -->
+                  <!------------------------>
+                  <!-- Skill Editing -->
+                  <Window name="$parentSkillEditWindow">
+                     <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEventComboBox">
+                           <AbsPoint x="5" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                           <AbsPoint x="-5" y="-5" />
+                        </Anchor>
+                     </Anchors>
+                     <Windows>
+                        <Label name="$parentTitleLabel" inherits="EA_Label_DefaultText" textalign="left">
+                           <Anchors>
+                              <Anchor point="topleft" relativePoint="topleft">
+                                 <AbsPoint x="5" y="5" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+
+                        <Label name="$parentSkillNameLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <EditBox name="$parentSkillNameEdit" inherits="EA_EditBox_DefaultFrame">
+                           <Size>
+                              <AbsPoint x="320" y="30" />
+                           </Size>
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSkillNameLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </EditBox>
+
+                        <Label name="$parentSkillSpeakChanceLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSkillNameEdit">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <ComboBox name="$parentSkillSpeakChanceComboBox" inherits="EA_ComboBox_DefaultResizable">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSkillSpeakChanceLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </ComboBox>
+
+                        <Label name="$parentSkillIsUrgentLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSkillSpeakChanceComboBox">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <ComboBox name="$parentSkillIsUrgentComboBox" inherits="EA_ComboBox_DefaultResizable">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSkillIsUrgentLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </ComboBox>
+
+                        <Button name="$parentEditPhrasesButton" inherits="EA_Button_DefaultResizeable">
+                           <Anchors>
+                              <Anchor point="topright" relativePoint="topright">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                           <EventHandlers>
+                              <EventHandler event="OnLButtonUp" function="TOLSettingsUI.BeginEditPhrases" />
+                           </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentDeleteButton" inherits="EA_Button_DefaultResizeable">
+                           <Anchors>
+                              <Anchor point="bottom" relativePoint="bottomleft">
+                                 <AbsPoint x="0" y="-5" />
+                              </Anchor>
+                           </Anchors>
+                           <EventHandlers>
+                              <EventHandler event="OnLButtonUp" function="TOLSettingsUI.SkillDeleteLButtonUp" />
+                           </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentSaveButton" inherits="EA_Button_DefaultResizeable">
+                           <Anchors>
+                              <Anchor point="bottom" relativePoint="bottomright">
+                                 <AbsPoint x="0" y="-5" />
+                              </Anchor>
+                           </Anchors>
+                           <EventHandlers>
+                              <EventHandler event="OnLButtonUp" function="TOLSettingsUI.SkillSaveLButtonUp" />
+                           </EventHandlers>
+                        </Button>
+                     </Windows>
+                  </Window>
+
+                  <!-- Phrase Editing -->
+                  <Window name="$parentPhraseEditWindow">
+                     <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEventComboBox">
+                           <AbsPoint x="5" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                           <AbsPoint x="-5" y="-5" />
+                        </Anchor>
+                     </Anchors>
+                     <Windows>
+
+                        <Label name="$parentTitleLabel" inherits="EA_Label_DefaultText" textalign="left">
+                           <Anchors>
+                              <Anchor point="topleft" relativePoint="topleft">
+                                 <AbsPoint x="5" y="5" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+
+                        <Label name="$parentPhraseTextLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <EditBox name="$parentPhraseTextEdit" inherits="EA_EditBox_DefaultFrame">
+                           <Size>
+                              <AbsPoint x="320" y="30" />
+                           </Size>
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPhraseTextLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </EditBox>
+
+                        <Label name="$parentPhraseChannelLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPhraseTextEdit">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <ComboBox name="$parentPhraseChannelComboBox" inherits="EA_ComboBox_DefaultResizable">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPhraseChannelLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </ComboBox>
+
+                        <Label name="$parentPhraseSayselfLabel" inherits="DefaultWindowSubTitle" textalign="left">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPhraseChannelComboBox">
+                                 <AbsPoint x="0" y="10" />
+                              </Anchor>
+                           </Anchors>
+                        </Label>
+                        <ComboBox name="$parentPhraseSayselfComboBox" inherits="EA_ComboBox_DefaultResizable">
+                           <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPhraseSayselfLabel">
+                                 <AbsPoint x="0" y="0" />
+                              </Anchor>
+                           </Anchors>
+                        </ComboBox>
+<Label name="$parentPhraseInstructionLabel"
+       inherits="EA_Label_DefaultText"
+       textalign="left">
+   <Size>
+      <AbsPoint x="350" y="200" />
+   </Size>
+   <Anchors>
+                              <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+                                 <AbsPoint x="460" y="10" />
+      </Anchor>
+   </Anchors>
+</Label>
+                        <Button name="$parentDeleteButton" inherits="EA_Button_DefaultResizeable">
+                           <Anchors>
+                              <Anchor point="bottom" relativePoint="bottomleft">
+                                 <AbsPoint x="0" y="-5" />
+                              </Anchor>
+                           </Anchors>
+                           <EventHandlers>
+                              <EventHandler event="OnLButtonUp" function="TOLSettingsUI.PhraseDeleteLButtonUp" />
+                           </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentSaveButton" inherits="EA_Button_DefaultResizeable">
+                           <Anchors>
+                              <Anchor point="bottom" relativePoint="bottomright">
+                                 <AbsPoint x="0" y="-5" />
+                              </Anchor>
+                           </Anchors>
+                           <EventHandlers>
+                              <EventHandler event="OnLButtonUp" function="TOLSettingsUI.PhraseSaveLButtonUp" />
+                           </EventHandlers>
+                        </Button>
+
+                     </Windows>
+                  </Window>
+
+               </Windows>
+            </Window>
+            <!-- End of TOLSettingsWindow -->
+
+         </Windows>
+      </Window>
+      <!-- End of TOLSettingsMainWindow -->
+
+   </Windows>
+</Interface>

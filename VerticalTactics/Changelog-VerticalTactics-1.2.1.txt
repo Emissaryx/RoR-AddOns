@@ -1,0 +1,19 @@
+------------------------------------------------------------------------
+r23 | gridgendal | 2010-02-24 12:09:27 +0000 (Wed, 24 Feb 2010) | 1 line
+Changed paths:
+   A /tags/1.2.1 (from /trunk:22)
+
+Tagging as 1.2.1
+------------------------------------------------------------------------
+r22 | gridgendal | 2010-02-24 12:08:35 +0000 (Wed, 24 Feb 2010) | 1 line
+Changed paths:
+   M /trunk/VerticalTactics.mod
+
+Game Version Bump
+------------------------------------------------------------------------
+r21 | gridgendal | 2010-02-24 11:56:51 +0000 (Wed, 24 Feb 2010) | 1 line
+Changed paths:
+   M /trunk/VerticalTactics.mod
+
+Game Version Bump
+------------------------------------------------------------------------

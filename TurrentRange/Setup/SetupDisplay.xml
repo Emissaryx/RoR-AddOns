@@ -1,0 +1,648 @@
+<Interface xmlns:xsi="http://wutf-8.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+	
+        <Button name="TurretRangeContextMenuItemFontSelection" inherits="EA_Button_DefaultMenuButton" id="1">
+            <Size>
+                <AbsPoint x="350" y="25" />
+            </Size>
+            <Windows>
+                <Label name="$parentLabel" font="font_default_text" maxchars="256" textalign="left" autoresize="true" handleinput="false">
+                    <Size>
+                        <AbsPoint x="350" y="25" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+            </Windows>
+        </Button>
+		
+		<Window name="TurretRangeSetupDisplayWindow" inherits="EA_Window_Default" movable="false" layer="popup" savesettings="false" scale="1.0">
+			<EventHandlers>
+				<EventHandler event="OnHidden" function="TurretRange.Setup.Display.OnHidden" />
+			</EventHandlers>
+			<Size>
+				<AbsPoint x="580" y="520" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+ 				</Anchor>
+			</Anchors>
+			<Windows>
+			
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<Anchors>
+						<Anchor point="topright" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="-15" y="15" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnCloseLUp" />
+                    </EventHandlers>
+                </Button>
+			
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true">
+					<Anchors>
+           				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+           				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+       				</Anchors>
+				</Window>
+				
+				<Label name="$parentTitleLabel" font="font_default_text" textalign="left" maxchars="35">
+					<Size>
+						<AbsPoint x="480" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="20" y="20" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<Window name="$parentExample" inherits="TurretRangeDisplay">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+							<AbsPoint x="-50" y="30" />
+						</Anchor>
+					</Anchors>
+				</Window>
+						
+				<Label name="$parentElementLabel" font="font_clear_small" textalign="left">
+					<Size>
+						<AbsPoint x="80" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+							<AbsPoint x="20" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<ComboBox name="$parentElementComboBox" inherits="EA_ComboBox_DefaultResizable">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentElementLabel">
+							<AbsPoint x="10" y="10"/>
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnElementChanged" />
+					</EventHandlers>
+				</ComboBox>
+				
+				<Window name="$parentDistance">
+					<Size>
+						<AbsPoint x="500" y="400" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentElementComboBox">
+							<AbsPoint x="0" y="20" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+				
+						<Label name="$parentLabel" font="font_clear_small_bold" textalign="left" maxchars="100">
+							<Size>
+								<AbsPoint x="480" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<Label name="$parentTypeLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabel">
+									<AbsPoint x="10" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<ComboBox name="$parentTypeComboBox" inherits="EA_ComboBox_DefaultResizable">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnDistanceTypeChanged" />
+							</EventHandlers>
+						</ComboBox>
+						
+						<DynamicImage name="$parentColorExample" texture="EA_TintableImage" layer="default" handleinput="true">
+							<Size>
+								<AbsPoint x="40" y="40"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeComboBox">
+									<AbsPoint x="20" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnDistanceColorLUp" />
+							</EventHandlers>
+						</DynamicImage>
+				
+						<Label name="$parentLayoutLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeLabel">
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<ComboBox name="$parentLayoutComboBox" inherits="EA_ComboBox_DefaultResizable">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentLayoutLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnDistanceLayoutChanged" />
+							</EventHandlers>
+						</ComboBox>
+				
+						<Label name="$parentOffsetLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLayoutLabel">
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+				
+						<Label name="$parentOffsetXLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="40" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOffsetLabel">
+									<AbsPoint x="20" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+								
+						<EditBox name="$parentOffsetXEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="4">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentOffsetXLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnDistanceOffsetXChanged" />
+							</EventHandlers>
+						</EditBox>
+				
+						<Label name="$parentOffsetYLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="40" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOffsetXLabel">
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+								
+						<EditBox name="$parentOffsetYEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="4">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentOffsetYLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnDistanceOffsetYChanged" />
+							</EventHandlers>
+						</EditBox>
+						
+						<Label name="$parentFontLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentOffsetYLabel">
+									<AbsPoint x="-20" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<Label name="$parentFontExampleLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="500" y="40" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentFontLabel">
+									<AbsPoint x="20" y="10" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnDistanceFontLUp" />
+								<EventHandler event="OnMouseOver" function="TurretRange.Setup.Display.OnDistanceFontMouseOver" />
+								<EventHandler event="OnMouseOverEnd" function="TurretRange.Setup.Display.OnDistanceFontMouseOut" />
+							</EventHandlers>
+						</Label>
+						
+						<Label name="$parentScaleLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentFontExampleLabel">
+									<AbsPoint x="-20" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentScaleSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="250" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentScaleLabel">
+									<AbsPoint x="20" y="10" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Display.OnSlideDistanceScale" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<Label name="$parentScaleValue" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentScaleSlider">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+					</Windows>
+				</Window>
+				
+				<Window name="$parentGraphic">
+					<Size>
+						<AbsPoint x="500" y="400" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentElementComboBox">
+							<AbsPoint x="0" y="20" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+
+						<Label name="$parentLabel" font="font_clear_small_bold" textalign="left" maxchars="100">
+							<Size>
+								<AbsPoint x="480" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<Label name="$parentTypeLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabel">
+									<AbsPoint x="10" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<ComboBox name="$parentTypeComboBox" inherits="EA_ComboBox_DefaultResizable">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnGraphicTypeChanged" />
+							</EventHandlers>
+						</ComboBox>
+						
+						<DynamicImage name="$parentColorExample" texture="EA_TintableImage" layer="default" handleinput="true">
+							<Size>
+								<AbsPoint x="40" y="40"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeComboBox">
+									<AbsPoint x="20" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnGraphicColorLUp" />
+							</EventHandlers>
+						</DynamicImage>
+						
+						<Label name="$parentLimitLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="480" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeLabel">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+								
+						<EditBox name="$parentLimitEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLimitLabel">
+									<AbsPoint x="20" y="10"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnGraphicLimitChanged" />
+							</EventHandlers>
+						</EditBox>
+					
+					</Windows>
+				</Window>
+				
+				<Window name="$parentCircle">
+					<Size>
+						<AbsPoint x="500" y="400" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentElementComboBox">
+							<AbsPoint x="0" y="20" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+
+						<Label name="$parentLabel" font="font_clear_small_bold" textalign="left" maxchars="100">
+							<Size>
+								<AbsPoint x="480" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<Label name="$parentTypeLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabel">
+									<AbsPoint x="10" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<ComboBox name="$parentTypeComboBox" inherits="EA_ComboBox_DefaultResizable">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnCircleTypeChanged" />
+							</EventHandlers>
+						</ComboBox>
+						
+						<DynamicImage name="$parentColorExample" texture="EA_TintableImage" layer="default" handleinput="true">
+							<Size>
+								<AbsPoint x="40" y="40"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTypeComboBox">
+									<AbsPoint x="20" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnCircleColorLUp" />
+							</EventHandlers>
+						</DynamicImage>
+						
+						<Label name="$parentModeLabel" font="font_clear_small" textalign="left">
+							<Size>
+								<AbsPoint x="80" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTypeLabel">
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<ComboBox name="$parentModeComboBox" inherits="EA_ComboBox_DefaultResizable">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentModeLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSelChanged" function="TurretRange.Setup.Display.OnCircleModeChanged" />
+							</EventHandlers>
+						</ComboBox>
+						
+						<Label name="$parentModeInfoLabel" font="font_clear_small" textalign="left" wordwrap="true">
+							<Size>
+								<AbsPoint x="350" y="40" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentModeComboBox">
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<Window name="$parentInvert" inherits="EA_LabelCheckButton">
+							<Size>
+								<AbsPoint x="25" y="25" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentModeLabel">
+									<AbsPoint x="0" y="60"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Display.OnCircleInvertLUp" />
+							</EventHandlers>
+						</Window>
+						
+						<Label name="$parentInvertCheckboxLabel" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="300" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentInvert">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+					
+					</Windows>
+				</Window>
+				
+				<Window name="$parentSelectColor" layer="secondary">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentColorButton">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsPoint x="280" y="140" />
+					</Size>
+					<Windows>
+						<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="true">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+							</Anchors>
+						</FullResizeImage>
+						
+						<Label name="$parentTintRed" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintRedSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintRed">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Display.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintRedEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintRedSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+						
+						<Label name="$parentTintGreen" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTintRed">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintGreenSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintGreen">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Display.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintGreenEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintGreenSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+						
+						<Label name="$parentTintBlue" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTintGreen">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintBlueSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintBlue">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Display.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintBlueEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintBlueSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Display.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+					</Windows>
+				</Window>				
+				
+			</Windows>
+		</Window>
+		
+	</Windows>
+</Interface>

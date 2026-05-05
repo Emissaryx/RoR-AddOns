@@ -1,0 +1,13 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Assets>
+		<Texture name="RV_CornerIcon_Mod" file="Textures/RVMOD.dds" />
+	</Assets>
+
+	<Windows>
+		<!-- RVAPI_Frames settings window -->
+
+
+	</Windows>
+
+</Interface>

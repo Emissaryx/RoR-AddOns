@@ -1,0 +1,27 @@
+------------------------------------------------------------------------
+r40 | emissary | 2026-01-19 | 1 line
+Changed paths:
+   M /trunk/NoOverheal.lua
+   M /trunk/no_SlashHandler.lua
+   M /trunk/no_localization.en.lua
+   M /trunk/no_localization.de.lua
+
+Updated to v1.40. Refactored healer career detection to CareerLine system, fixed OnUpdate errors, corrected window visibility for non-healers, improved tooltip text, and cleaned up localization.
+------------------------------------------------------------------------
+r15 | archivar | 2009-08-20 22:54:28 +0000 (Thu, 20 Aug 2009) | 1 line
+Changed paths:
+   A /tags/v1.03 (from /trunk:14)
+
+Fixed. Window position now saved again.
+------------------------------------------------------------------------
+r14 | archivar | 2009-08-20 22:54:10 +0000 (Thu, 20 Aug 2009) | 1 line
+Changed paths:
+   M /trunk/NoOverheal.lua
+   M /trunk/NoOverheal.mod
+   M /trunk/NoOverheal.xml
+   M /trunk/no_SlashHandler.lua
+   M /trunk/no_localization.de.lua
+   M /trunk/no_localization.en.lua
+
+Fixed. Window position now saved again.
+------------------------------------------------------------------------

@@ -1,0 +1,139 @@
+--
+-- Subclass the existing unit frame, as we do not need to replace it entirely, just handle the career resource update
+--
+if not PurePlayerUnitFrame_CareerBar then
+	local derivedObject = setmetatable ({}, PurePlayerUnitFrame)
+    
+    derivedObject.__index       = derivedObject
+    derivedObject.m_Template    = PurePlayerUnitFrame.m_Template
+    
+    for k, v in pairs( PurePlayerUnitFrame )
+    do
+    	if( type (v) == "function" ) then
+    		-- Derive with a different name than Frame:Subclass function to prevent stack overflow
+    		derivedObject["CareerBar"..k] = v
+        end
+    end
+    
+    PurePlayerUnitFrame_CareerBar = derivedObject
+end
+
+local min						= math.min
+
+function PurePlayerUnitFrame_CareerBar:Create( ... )
+	local unitFrame = self:CareerBarCreate( ... )
+	if( unitFrame == nil ) then return nil end
+	
+	-- Initialize our member storage
+	unitFrame.PureCareerBar = {}
+	
+	return unitFrame
+end
+
+function PurePlayerUnitFrame_CareerBar:InitializeFrameElements()
+	-- Call our base class first
+	self:CareerBarInitializeFrameElements()
+	
+	local windowId = self:GetName()
+	
+	-- The action bar background is used as the background for this bar so grab its dimensions
+	self.PureCareerBar.dx, self.PureCareerBar.dy = WindowGetDimensions( windowId .. "ActionPointsStatusBackground" )
+	
+	-- Initialize our career bar texture
+	local careerTexture, careerSize = Pure.GetActionPointsTextureAndSize()
+    DynamicImageSetTextureDimensions( windowId .. "CareerStatus", unpack( careerSize ) )
+	DynamicImageSetTexture( windowId .. "CareerStatus", careerTexture, 0, 0 )
+end
+
+function PurePlayerUnitFrame_CareerBar:UpdateCareerResource( ... )
+	-- Call our base class first
+	self:CareerBarUpdateCareerResource( ... )
+	
+	local prev, curr = ...
+	local p_career = GameData.Player.career.line
+    
+	if (nil == prev or nil == curr or nil == p_career) then return end
+    
+    --default values
+    local newcolorRed,newcolorGreen, newcolorBlue = unpack( PureCareerBar.Get( "color1" ) );
+    local max = 0
+    
+    --special for shaman and archmage
+	if ((GameData.CareerLine.SHAMAN == p_career) or
+		  (GameData.CareerLine.ARCHMAGE == p_career)) 
+	then
+        max = 5
+		if (curr > 5) then 
+            newcolorRed,newcolorGreen, newcolorBlue = unpack( PureCareerBar.Get( "color2" ) );
+			curr = curr - 5
+		end
+    --special for bo and swordmaster
+    elseif (p_career == GameData.CareerLine.BLACK_ORC or
+        p_career == GameData.CareerLine.SWORDMASTER) 
+    then
+        max = 3
+    --special for witchhunter and witchelf        
+    elseif (p_career == GameData.CareerLine.WITCH_HUNTER or
+          p_career == GameData.CareerLine.ASSASSIN) 
+    then
+        max = 5        
+		if (curr == max) then 
+            newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color3" )  );
+		end       
+    --special for ironbreaker, brightwizzard,  socrcerer and blackguard
+    elseif (p_career == GameData.CareerLine.IRON_BREAKER or
+              p_career == GameData.CareerLine.BRIGHT_WIZARD or
+              p_career == GameData.CareerLine.SORCERER or
+              p_career == GameData.CareerLine.SHADE) 
+    then
+        max = 100
+        if (curr == max) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color3" ) );
+        elseif (curr >= max/2) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color2" ) );
+        else
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color1" ) );
+        end        
+    --special for slayer and choppa
+	elseif ((GameData.CareerLine.SLAYER == p_career) or
+		  (GameData.CareerLine.CHOPPA == p_career)) 
+	then    
+        max = 100
+        if (curr > max-26) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color3" ) );
+        elseif (curr > max-76) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color2" ) );
+        else
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color1" ) );
+        end  
+    --special for warrior priest and disciple of khaine
+    elseif (p_career == GameData.CareerLine.BLOOD_PRIEST or
+              p_career == GameData.CareerLine.WARRIOR_PRIEST or
+			  p_career == GameData.CareerLine.DISCIPLE)
+    then
+        max = 250
+        if (curr < max-149) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color3" ) );
+        elseif (curr < max-74) then
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color2" ) );
+        else
+          newcolorRed,newcolorGreen, newcolorBlue = unpack (PureCareerBar.Get( "color1" ) );
+        end       
+    --special for engeneer, magus, white lion and squigee        
+    elseif (p_career == GameData.CareerLine.ENGINEER or
+              p_career == GameData.CareerLine.MAGUS or
+              career == GameData.CareerLine.SEER or
+              p_career == GameData.CareerLine.SQUIG_HERDER) 
+    then
+        max = 100
+    else
+        --strange career don't know what to do :)
+		max = 250
+        --return
+    end
+    
+    local windowId = self:GetName()
+    WindowSetTintColor( windowId .. "CareerStatus", newcolorRed, newcolorGreen, newcolorBlue )
+    WindowSetDimensions( windowId .. "CareerStatus", min( self.PureCareerBar.dx * ( curr / max ) ), self.PureCareerBar.dy )
+    LabelSetText(  windowId .. "CareerPoints", towstring(curr))
+end

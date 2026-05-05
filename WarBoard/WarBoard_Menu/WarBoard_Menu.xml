@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+		
+		<Window name="WarBoard_Menu" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" >
+			<!-- Anchors are not necessary, WarBoard sets them -->
+			<Size>
+				<AbsPoint x="250" y="30" /><!-- You can make the size anything you like but the height should probably stay at 30. But even that is not required. -->
+			</Size>
+
+			<!--			
+			<EventHandlers>
+				<EventHandler event="OnMouseOver" function="WarBoard_Loc.OnMouseOver" />
+				
+				<EventHandler event="OnLButtonUp" function="WarBoard_Loc.OnLButtonUp" />
+			</EventHandlers>
+			-->
+			<Windows>
+			
+
+				<FullResizeImage name="$parentBackground" inherits="ModBackgroundTemplate" /><!-- Inherits this template so if I find a way to hack in some rounded corners all mods will have it -->
+				<!-- Add any sort of windows, buttons, status bars, images etc. you need -->
+				<!--
+				<Window name="&parentSpellBook" inherits="EA_Window_HUDMenuButton" >
+				            <Windows>
+				                <DynamicImage name="$parentImage" inherits="EA_Image_HUDMenuButton" slice="Spellbook-Button" />
+				                <Button name="$parentButton" inherits="EA_Button_HUDMenuButton" >
+				                    <Anchors>
+				                        <Anchor point="top" relativePoint="top" relativeTo="">
+				                            <AbsPoint x="0" y="0" />
+				                        </Anchor>
+				                    </Anchors>
+				                    <TexSlices>
+				                        <NormalHighlit id="Spellbook-Button-Highlighted" />
+				                        <Pressed id="Spellbook-Button-Selected" />
+				                        <PressedHighlit id="Spellbook-Button-Highlighted" />
+				                    </TexSlices>
+				                </Button>            
+				            </Windows>
+        </Window>-->
+
+
+			</Windows>
+		</Window>
+		
+		
+		
+		<Window name="WarBoard_MenuElement" layer="popup">
+			<Windows>
+				
+				<DynamicImage name="$parentIcon" textureScale="1" handleinput="false" layer="popup">
+					<Size>
+						<AbsPoint x="28" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativeTo="$parent" relativePoint="left">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+				
+				<Label name="$parentLabel" font="font_clear_small_bold" textalign="leftcenter" handleinput="false" autoresize="false" layer="popup">
+					<EventHandlers>
+						<!-- EventHandler event="OnInitialize" function="InfluenceText.OnInitialize" / -->
+						<!-- EventHandler event="OnRButtonUp" function="InfluenceText.RightClick" / -->
+						<!-- EventHandler event="OnLButtonUp" function="WaaaghBar.WaaaghBarPluginLBUp" / -->
+						<!-- EventHandler event="OnMouseOver" function="WaaaghBar.XpRp.OnMouseOver" / -->
+						<!-- EventHandler event="OnMouseOverEnd" function="InfluenceText.OnMouseOverEnd" / -->
+					</EventHandlers>
+					<Anchors>
+						<Anchor point="right" relativeTo="$parentIcon" relativePoint="left">
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+		
+			</Windows>
+		</Window>
+				
+	</Windows>
+	
+</Interface>

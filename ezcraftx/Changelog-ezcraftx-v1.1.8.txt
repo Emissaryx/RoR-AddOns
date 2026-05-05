@@ -1,0 +1,130 @@
+------------------------------------------------------------------------
+r25 | iphitos | 2009-07-25 09:06:48 +0000 (Sat, 25 Jul 2009) | 1 line
+Changed paths:
+   A /tags/v1.1.8 (from /trunk:24)
+
+Tagging as v1.1.8
+------------------------------------------------------------------------
+r24 | iphitos | 2009-07-25 09:06:31 +0000 (Sat, 25 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Source/EZCraftX.lua
+
+v1.1.8
+------------------------------------------------------------------------
+r23 | iphitos | 2009-07-25 09:05:06 +0000 (Sat, 25 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/Source/EZCraftX.lua
+
+v1.1.8
+------------------------------------------------------------------------
+r21 | iphitos | 2009-07-25 08:59:41 +0000 (Sat, 25 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Source/EZCraftX.lua
+
+v1.1.7
+------------------------------------------------------------------------
+r20 | iphitos | 2009-07-24 12:47:19 +0000 (Fri, 24 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/Source/EZCraftX.xml
+
+v1.1.6
+------------------------------------------------------------------------
+r18 | iphitos | 2009-07-24 12:44:22 +0000 (Fri, 24 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+
+v1.1.6
+------------------------------------------------------------------------
+r17 | iphitos | 2009-07-24 12:43:30 +0000 (Fri, 24 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/Source/EZCraftX.lua
+
+v1.1.6
+------------------------------------------------------------------------
+r15 | iphitos | 2009-07-24 12:33:28 +0000 (Fri, 24 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Localization/deDE.lua
+   M /trunk/Localization/enUS.lua
+   M /trunk/Localization/itIT.lua
+   M /trunk/Localization/ruRU.lua
+   M /trunk/Source/EZCraftX.lua
+   M /trunk/Source/EZCraftX.xml
+   A /trunk/Source/EZCraftX_Templates.xml
+
+v1.1.5
+------------------------------------------------------------------------
+r13 | iphitos | 2009-07-18 04:46:26 +0000 (Sat, 18 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Localization/enUS.lua
+
+v1.1.4
+------------------------------------------------------------------------
+r11 | iphitos | 2009-07-17 16:51:57 +0000 (Fri, 17 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/Localization/deDE.lua
+   M /trunk/Localization/enUS.lua
+   M /trunk/Localization/itIT.lua
+   M /trunk/Localization/ruRU.lua
+
+v1.1.3
+------------------------------------------------------------------------
+r9 | iphitos | 2009-07-17 16:41:12 +0000 (Fri, 17 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Localization/deDE.lua
+   M /trunk/Localization/itIT.lua
+   M /trunk/Localization/ruRU.lua
+
+v1.1.2
+------------------------------------------------------------------------
+r7 | iphitos | 2009-07-16 15:29:58 +0000 (Thu, 16 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Localization/deDE.lua
+   M /trunk/Localization/enUS.lua
+   M /trunk/Localization/itIT.lua
+   M /trunk/Localization/ruRU.lua
+
+v1.1.1
+------------------------------------------------------------------------
+r5 | iphitos | 2009-07-16 14:41:18 +0000 (Thu, 16 Jul 2009) | 1 line
+Changed paths:
+   M /trunk/EZCraftX.mod
+   M /trunk/Localization/deDE.lua
+   M /trunk/Localization/enUS.lua
+   A /trunk/Localization/itIT.lua
+   M /trunk/Localization/ruRU.lua
+   M /trunk/Source/EZCraftX.lua
+   M /trunk/Source/EZCraftX.xml
+
+v1.1.0
+------------------------------------------------------------------------
+r2 | iphitos | 2009-07-09 07:56:32 +0000 (Thu, 09 Jul 2009) | 1 line
+Changed paths:
+   A /trunk/EZCraftX.mod
+   A /trunk/Libraries
+   A /trunk/Libraries/AceLocale-3.0.lua
+   A /trunk/Libraries/LibGUI.lua
+   A /trunk/Libraries/LibStub.lua
+   A /trunk/Localization
+   A /trunk/Localization/deDE.lua
+   A /trunk/Localization/enUS.lua
+   A /trunk/Localization/ruRU.lua
+   A /trunk/Source
+   A /trunk/Source/EZCraftX.lua
+   A /trunk/Source/EZCraftX.xml
+
+Repository Init
+------------------------------------------------------------------------
+r1 | root | 2009-07-08 23:39:19 +0000 (Wed, 08 Jul 2009) | 1 line
+Changed paths:
+   A /branches
+   A /tags
+   A /trunk
+
+"ezcraftx/mainline: Initial Import"
+------------------------------------------------------------------------

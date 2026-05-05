@@ -1,0 +1,203 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Windows>
+	<Window name="DevHelperMessagesTab" layer="secondary" movable="false">
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="DevHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+			<Anchor point="bottomright" relativePoint="bottomright" relativeTo="DevHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+		</Anchors>
+		<EventHandlers>
+			<EventHandler event="OnInitialize" function="DevHelperMessagesTab.Initialize" />
+		</EventHandlers>
+		
+		<Windows>
+			<Window name="$parentSpaceAbove" handleinput="false">
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+						<AbsPoint x="0" y="0"/>
+					</Anchor>
+					<Anchor point="topright" relativePoint="bottomright" relativeTo="$parent">
+						<AbsPoint x="0" y="40"/>
+					</Anchor>
+				</Anchors>
+			</Window>
+	
+
+
+
+			<Label name="$parentLabel" font="font_default_text_large">
+				<Size>
+					<AbsPoint x="200" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove">
+						<AbsPoint x="20" y="20" />
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="204" b="102" />
+			</Label>
+
+ 			<FullResizeImage name="$parentListBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+				<Size>
+					<AbsPoint x="400" y="340" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabel" />
+				</Anchors>
+			</FullResizeImage>
+
+			<ListBox name="$parentList" rowdef="DevHelperSimpleListRowTemplate" visiblerows="16" rowspacing="1" scrollbar="EA_ScrollBar_DefaultVerticalChain">
+				<Size>
+					<AbsPoint x="426" y="340" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLabel" />
+				</Anchors>
+
+ 				<ListData table="DevHelperMessagesTab.messagesListData" populationfunction="DevHelperMessagesTab.OnMessagesListPopulate">
+				</ListData>
+				
+ 				<EventHandlers>
+	                <EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.OnListLButtonUp" />
+	            </EventHandlers>
+			</ListBox>
+
+			<Button name="$parentAddButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="50" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentList">
+						<AbsPoint x="0" y="15" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.MessageAdd" />
+				</EventHandlers>
+			</Button>
+
+			<Button name="$parentEditButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="50" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentAddButton">
+						<AbsPoint x="20" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.MessageEdit" />
+				</EventHandlers>
+			</Button>
+
+			<Button name="$parentDeleteButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="75" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentEditButton">
+						<AbsPoint x="20" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.ListDelete" />
+				</EventHandlers>
+			</Button>
+			<Button name="$parentUpButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="75" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentDeleteButton">
+						<AbsPoint x="60" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.ListUp" />
+				</EventHandlers>
+			</Button>
+			<Button name="$parentDownButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="75" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentUpButton">
+						<AbsPoint x="20" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.ListDown" />
+				</EventHandlers>
+			</Button>
+			
+			<Button name="$parentEnableButton" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="75" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAddButton">
+						<AbsPoint x="0" y="15" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.ListEnable" />
+				</EventHandlers>
+			</Button>
+			
+
+
+
+
+			<!-- Button bar -->
+			<Window name="$parentButtonBar" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+				<Size>
+					<AbsPoint x="0" y="65" />
+				</Size>
+			</Window>
+
+			<!-- Save button -->
+			<Button name="$parentSaveButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parentButtonBar" >
+						<AbsPoint x="10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperMessagesTab.OnMouseOverSaveButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.OnSaveMessages" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Reset button -->
+			<Button name="$parentResetButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentSaveButton" >
+						<AbsPoint x="5" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperMessagesTab.OnMouseOverResetButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.OnResetMessages" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Preview button -->
+			<Button name="$parentApplyButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="right" relativeTo="$parentButtonBar" >
+						<AbsPoint x="-10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="DevHelperMessagesTab.OnMouseOverApplyButton" />
+					<EventHandler event="OnLButtonUp" function="DevHelperMessagesTab.OnPreviewMessages" />
+				</EventHandlers>
+			</Button>
+
+		</Windows>
+	</Window>
+</Windows>
+</Interface>

@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Scripts>
+		<Script file="Source/WarBoard.lua" />
+	</Scripts>
+
+	<Windows>
+		<!--Template-->
+		<Window name="SliderWindowTemplate">
+			<Size>
+				<AbsPoint x="" y="45" />
+			</Size>
+			<Windows>
+
+				<FullResizeImage name="$parentBackground" font="font_clear_small_bold" >
+					<Anchors>
+						<Anchor point="topleft" relativeTo="" relativePoint="topleft" />
+						<Anchor point="bottomright" relativeTo="" relativePoint="bottomright" />
+					</Anchors>
+				</FullResizeImage>
+				<Label name="$parentName" font="font_clear_small_bold" textalign="left" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="50" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" relativeTo="$parent">
+							<AbsPoint x="14" y="9" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentValue" font="font_clear_small_bold" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="50" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="right" relativeTo="$parent">
+							<AbsPoint x="-14" y="9" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<SliderBar name="$parentSlider" inherits="EA_Default_SliderBar" numticks="9" >
+					<Size>
+						<AbsPoint x="100" y="33" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentName">
+							<AbsPoint x="0" y="-5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSlide" function="WarBoard.Options.OnSlide" />
+					</EventHandlers>
+				</SliderBar>
+			</Windows>
+		</Window>
+
+		<!--Template-->
+		<Window name="OptionsTemplate">
+			<Size>
+				<AbsPoint x="231" y="240" />
+			</Size>
+			<Windows>
+				<Label name="$parentName" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="222" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="top" relativeTo="$parent">
+							<AbsPoint x="" y="10" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Window name="$parentRed" inherits="SliderWindowTemplate" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentName" >
+							<AbsPoint x="" y="10" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentName" >
+							<AbsPoint x="" y="10" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Window name="$parentGreen" inherits="SliderWindowTemplate" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentRed" />
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentRed" />
+					</Anchors>
+				</Window>
+				<Window name="$parentBlue" inherits="SliderWindowTemplate" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGreen" />
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentGreen" />
+					</Anchors>
+				</Window>
+				<Window name="$parentAlpha" inherits="SliderWindowTemplate" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentBlue" />
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentBlue" />
+					</Anchors>
+				</Window>
+			</Windows>
+		</Window>
+		<!-- Tab button template -->
+		<Button name="TabButtonTemplate" inherits="EA_Button_Tab">
+			<Size>
+				<AbsPoint x="164" y="35" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="WarBoard.Options.OnLButtonUpTab" />
+			</EventHandlers>
+			<TextOffset x="0" y="5" />
+		</Button>
+
+		<Window name="WarBoardOptions" inherits="EA_Window_Default" layer="secondary" movable="true" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="462" y="790" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center">
+					<AbsPoint x="" y=""/>
+				</Anchor>
+			</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnShown" function="WarBoard.Options.ShowTopOptions" />
+			</EventHandlers>
+
+			<Windows>
+				<!-- Title Bar, Close button, and Corner Image -->
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnOptionsButton" />
+					</EventHandlers>
+				</Button>
+				<!-- Main Window Background -->
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true" >
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" >
+							<AbsPoint x="0" y="32" />
+						</Anchor>
+					<Anchor point="bottomright" relativePoint="bottomright" />
+					</Anchors>
+				</Window>
+
+				<Window name="$parentTabs">
+					<Size>
+						<AbsPoint x="462" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar"/>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentTitleBar"/>
+					</Anchors>
+
+					<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_MetalFill">
+						<Anchors>
+							<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"/>
+							<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+						</Anchors>
+					</FullResizeImage>
+					 <Windows>
+						<Window name="$parentSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" layer="background" popable="false">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="bottomleft">
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+								<Anchor point="bottomleft" relativePoint="topright" relativeTo="$parentTopBoardTab">
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+						<Button name="$parentTopBoardTab" inherits="TabButtonTemplate" id="1">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Button>
+						<Button name="$parentBottomBoardTab" inherits="TabButtonTemplate" id="2">
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTopBoardTab"/>
+							</Anchors>
+						</Button>
+
+						<Window name="$parentSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" layer="background" popable="false">
+							<Anchors>
+								<Anchor point="bottomright" relativePoint="topleft" relativeTo="$parentBottomBoardTab">
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" >
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+						<Button name="WBTogglerManagerButton" inherits="EA_Button_DefaultResizeable">
+							<Size>
+								<AbsPoint x="100" y="30" />
+							</Size>
+							<Anchor point="right" relativeTo="WarBoardOptionsTabsBottomBoardTab" relativePoint="left">
+								<AbsPoint x="5" y="0"/>
+							</Anchor>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="LibWBTogglerManager.ToggleManager" />
+							</EventHandlers>
+						</Button>
+
+					</Windows>
+				</Window>
+				<!-- MAIN WINDOW -->
+				<Window name="WarBoardOptionsTabMainSocket" layer="secondary" movable="false">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTabs"/>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+					</Anchors>
+					<Windows>
+
+						<Window name="WarBoardButtonCheck" inherits="EA_Window_Default" >
+							<Size>
+								<AbsPoint x="462" y="100" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+							</Anchors>
+							<Windows>
+								<Window name="$parentBox" inherits="EA_LabelCheckButton" id="1">
+									<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="$parent" >
+											<AbsPoint x="25" y="0" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="WarBoard.Options.DisableCornerButtons" />
+									</EventHandlers>
+								</Window>
+
+								<Window name="$parentBoxEnabled" inherits="EA_LabelCheckButton" id="1">
+									<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="$parent" >
+											<AbsPoint x="25" y="0" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="WarBoard.Options.ToggleBar" />
+									</EventHandlers>
+								</Window>
+
+								<Window name="$parentBoxDefault" inherits="EA_LabelCheckButton" id="1">
+									<Anchors>
+										<Anchor point="bottom" relativePoint="bottom" relativeTo="$parent" >
+											<AbsPoint x="25" y="0" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="WarBoard.Options.SetBarDefault" />
+									</EventHandlers>
+								</Window>
+
+							</Windows>
+						</Window>
+
+						<Window name="WarBoardBg" inherits="OptionsTemplate" >
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="WarBoardButtonCheck">
+									<AbsPoint x="" y="5" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="WarBoardMods" inherits="OptionsTemplate" >
+							<Anchors>
+								<Anchor point="bottomright" relativePoint="topright" relativeTo="WarBoardButtonCheck">
+									<AbsPoint x="" y="5" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentHorizontalDivider" inherits="EA_Window_DefaultSeparator" layer="popup">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="WarBoardBg" >
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="WarBoardMods" >
+									<AbsPoint x="0" y="10" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentHorizontalDividerTop" inherits="EA_Window_DefaultSeparator" layer="popup">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="WarBoardBg" >
+									<AbsPoint x="0" y="-10" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" relativeTo="WarBoardMods" >
+									<AbsPoint x="0" y="-10" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Window name="$parentVertDivider" inherits="EA_Window_DefaultVerticalSeparator" layer="popup">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" relativeTo="WarBoardBg" >
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="WarBoardBg" >
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+						<Window name="WarBoardAlignOptions" layer="secondary" inherits="EA_Window_Default" handleinput="true">
+							<Size>
+								<AbsPoint x="462" y="170" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="WarBoardBg" />
+							</Anchors>
+							<Windows>
+								<Label name="$parentName" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+									<Size>
+										<AbsPoint x="462" y="30" />
+									</Size>
+									<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="$parent" />
+									</Anchors>
+								</Label>
+
+								<Window name="WarBoardAlignOptionsWindow" inherits="EA_Window_Default" handleinput="true">
+									<Size>
+										<AbsPoint x="462" y="140" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentName" />
+									</Anchors>
+									<Windows>
+										<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="false" >
+											<Anchors>
+												<Anchor point="topleft" relativePoint="topleft" />
+												<Anchor point="bottomright" relativePoint="bottomright" />
+											</Anchors>
+										</Window>
+
+										<ComboBox name="WarBoardComboAlignRow1" inherits="EA_ComboBox_DefaultResizableSmall" >
+											<Anchors>
+												<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+													<AbsPoint x="96" y="10" />
+												</Anchor>
+											</Anchors>
+										</ComboBox>
+										<ComboBox name="WarBoardComboAlignRow2" inherits="EA_ComboBox_DefaultResizableSmall" >
+											<Anchors>
+												<Anchor point="topright" relativePoint="topright" relativeTo="">
+													<AbsPoint x="-15" y="10" />
+												</Anchor>
+											</Anchors>
+										</ComboBox>
+										<ComboBox name="WarBoardComboAlignRow3" inherits="EA_ComboBox_DefaultResizableSmall" >
+											<Anchors>
+												<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+													<AbsPoint x="96" y="48" />
+												</Anchor>
+											</Anchors>
+										</ComboBox>
+										<ComboBox name="WarBoardComboAlignRow4" inherits="EA_ComboBox_DefaultResizableSmall" >
+											<Anchors>
+												<Anchor point="topright" relativePoint="topright" relativeTo="">
+													<AbsPoint x="-15" y="48" />
+												</Anchor>
+											</Anchors>
+										</ComboBox>
+
+										<Label name="WarBoardComboAlignRow1Name" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="90" y="30" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="WarBoardComboAlignRow1" />
+											</Anchors>
+										</Label>
+										<Label name="WarBoardComboAlignRow2Name" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="90" y="30" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="WarBoardComboAlignRow2" />
+											</Anchors>
+										</Label>
+										<Label name="WarBoardComboAlignRow3Name" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="90" y="30" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="WarBoardComboAlignRow3" />
+											</Anchors>
+										</Label>
+										<Label name="WarBoardComboAlignRow4Name" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="90" y="30" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="WarBoardComboAlignRow4" />
+											</Anchors>
+										</Label>
+
+										<Button name="ApplyRowAlignButton" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="300" y="38" />
+											</Size>
+											<Anchors>
+												<Anchor point="bottom" relativePoint="bottom" relativeTo="">
+													<AbsPoint x="0" y="-15" />
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="WarBoard.Options.SetRowAlign" />
+											</EventHandlers>
+										</Button>
+										
+									</Windows>
+								</Window>
+								
+							</Windows>
+						</Window><!-- END OF WarBoardAlignOptions -->
+
+						<Window name="WarBoardPadOptionsWindow" inherits="EA_Window_Default" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="462" y="90" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="WarBoardAlignOptionsWindow" />
+							</Anchors>
+							<Windows>
+
+								<Window name="WarBoardHorizontalPadding" inherits="EA_Window_Default" >
+									<Size>
+										<AbsPoint x="462" y="37" />
+									</Size>
+									<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="">
+											<AbsPoint x="-5" y="7" />
+										</Anchor>
+									</Anchors>
+									<Windows>
+
+										<Label name="$parentName" inherits="EA_Settings_ItemTitle" textalign="left" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="300" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="left" relativeTo="">
+													<AbsPoint x="50" y="0" />
+												</Anchor>
+											</Anchors>
+										</Label>
+										<Label name="$parentValue" inherits="EA_Settings_ItemTitle" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="50" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="PlusMinus">
+													<AbsPoint x="-25" y="0" />
+												</Anchor>
+											</Anchors>
+										</Label>
+
+										<Window name="PlusMinus" layer="popup">
+											<Size>
+												<AbsPoint x="18" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="right" relativePoint="right" relativeTo="" >
+													<AbsPoint x="-50" y="0" />
+												</Anchor>
+											</Anchors>
+											<Windows>
+												<Button name="$parentMaxButton" inherits="EA_Button_DefaultPlus" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+													<Anchors>
+														<Anchor point="top" relativePoint="top">
+															<AbsPoint x="0" y="0" />
+														</Anchor>
+													</Anchors>
+													<EventHandlers>
+														<EventHandler event="OnLButtonUp" function="WarBoard.Options.PlusHorPad" />
+													</EventHandlers>
+												</Button>
+												<Button name="$parentMinButton" inherits="EA_Button_DefaultMinus" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+													<Anchors>
+														<Anchor point="bottom" relativePoint="bottom" />
+													</Anchors>
+													<EventHandlers>
+														<EventHandler event="OnLButtonUp" function="WarBoard.Options.MinusHorPad" />
+													</EventHandlers>
+												</Button>
+											</Windows>
+										</Window>
+									</Windows>
+								</Window>
+
+								<Window name="WarBoardVerticalPadding" inherits="EA_Window_Default" >
+									<Size>
+										<AbsPoint x="462" y="37" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottom" relativePoint="top" relativeTo="WarBoardHorizontalPadding">
+											<AbsPoint x="0" y="5" />
+										</Anchor>
+									</Anchors>
+									<Windows>
+
+										<Label name="$parentName" inherits="EA_Settings_ItemTitle" textalign="left" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="300" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="left" relativeTo="">
+													<AbsPoint x="50" y="0" />
+												</Anchor>
+											</Anchors>
+										</Label>
+										<Label name="$parentValue" inherits="EA_Settings_ItemTitle" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+											<Size>
+												<AbsPoint x="50" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="left" relativePoint="right" relativeTo="PlusMinusVert">
+													<AbsPoint x="-25" y="0" />
+												</Anchor>
+											</Anchors>
+										</Label>
+
+										<Window name="PlusMinusVert" layer="popup">
+											<Size>
+												<AbsPoint x="18" y="37" />
+											</Size>
+											<Anchors>
+												<Anchor point="right" relativePoint="right" relativeTo="" >
+													<AbsPoint x="-50" y="0" />
+												</Anchor>
+											</Anchors>
+											<Windows>
+												<Button name="$parentMaxButton" inherits="EA_Button_DefaultPlus" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+													<Anchors>
+														<Anchor point="top" relativePoint="top">
+															<AbsPoint x="0" y="0" />
+														</Anchor>
+													</Anchors>
+													<EventHandlers>
+														<EventHandler event="OnLButtonUp" function="WarBoard.Options.PlusVertPad" />
+													</EventHandlers>
+												</Button>
+												<Button name="$parentMinButton" inherits="EA_Button_DefaultMinus" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+													<Anchors>
+														<Anchor point="bottom" relativePoint="bottom" />
+													</Anchors>
+													<EventHandlers>
+														<EventHandler event="OnLButtonUp" function="WarBoard.Options.MinusVertPad" />
+													</EventHandlers>
+												</Button>
+											</Windows>
+										</Window>
+									</Windows>
+								</Window>
+								
+							</Windows>
+						</Window>
+
+						<Window name="$parentHorizontalDivider2" inherits="EA_Window_DefaultSeparator" layer="secondary">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="WarBoardPadOptionsWindow" >
+									<AbsPoint x="0" y="-18" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" relativeTo="WarBoardPadOptionsWindow" >
+									<AbsPoint x="0" y="-18" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+						<Window name="$parentHorizontalDivider3" inherits="EA_Window_DefaultSeparator" layer="popup">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="WarBoardPadOptionsWindow" >
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="topright" relativeTo="WarBoardPadOptionsWindow" >
+									<AbsPoint x="0" y="-6" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+
+				<Button name="OpenUiModWindowButton" inherits="EA_Button_DefaultResizeable" layer="popup" >
+					<Size>
+						<AbsPoint x="300" y="38" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="bottom" relativeTo="ToggleLayoutButton">
+							<AbsPoint x="0" y="-5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.Options.OpenUiModWindow" />
+					</EventHandlers>
+				</Button>
+
+				<Button name="ToggleLayoutButton" inherits="EA_Button_DefaultResizeable" layer="popup" >
+					<Size>
+						<AbsPoint x="300" y="38" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom" relativeTo="">
+							<AbsPoint x="0" y="-15" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnLayoutModeButton" />
+					</EventHandlers>
+				</Button>
+
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>
+

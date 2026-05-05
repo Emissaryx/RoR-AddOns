@@ -1,0 +1,39 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+		<Window name="Vectors_Point" layer="popup" handleinput="false">
+			<Size>
+				<AbsPoint x="30" y="30" />
+			</Size>
+			<Windows>
+				<DynamicImage name="$parent_Icon" texture="Vectors_Point" filtering="true" handleinput="false">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<TexDims x="30" y="30" />
+				</DynamicImage>
+				<DynamicImage name="$parent_Scope" texture="Vectors_Scope" filtering="true" handleinput="false">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<TexDims x="30" y="30" />
+				</DynamicImage>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Invis" handleinput="false">
+			<Size>
+				<AbsPoint x="0" y="0" />
+			</Size>
+		</Window>
+	</Windows>
+</Interface>

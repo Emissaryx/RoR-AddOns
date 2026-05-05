@@ -1,0 +1,130 @@
+<Interface xmlns:xsi="http://wutf-8.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+	
+		<Window name="TurretRangeSetupDistancesRowTemplate">
+			<Size>
+				<AbsPoint x="455" y="30" />
+			</Size>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+					<Size>
+						<AbsPoint x="455" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor>
+							<Anchor point="topleft" relativePoint="topleft" relativeTo="" />
+							<Anchor point="bottomright" relativePoint="bottomright" relativeTo="" />
+						</Anchor>
+					</Anchors>
+				</FullResizeImage>
+				<Label name="$parentText" font="font_clear_small" handleinput="false" textalign="leftcenter" wordwrap="true">
+					<Size>
+						<AbsPoint x="450" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor>
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>			
+			</Windows>
+			<EventHandlers>
+				<EventHandler event="OnLButtonDown" function="TurretRange.Setup.Distances.OnRowLDown" />
+				<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distances.OnRowLUp" />
+				<EventHandler event="OnRButtonDown" function="TurretRange.Setup.Distances.OnRowRDown" />
+				<EventHandler event="OnRButtonUp" function="TurretRange.Setup.Distances.OnRowRUp" />
+				<EventHandler event="OnMouseOver" function="TurretRange.Setup.Distances.OnRowMouseOver" />
+				<EventHandler event="OnMouseOverEnd" function="TurretRange.Setup.Distances.OnRowMouseOut" />
+			</EventHandlers>
+		</Window>
+		
+		<Window name="TurretRangeSetupDistancesWindow" inherits="EA_Window_Default" movable="false" layer="popup" savesettings="false" scale="1.0">
+			<EventHandlers>
+				<EventHandler event="OnHidden" function="TurretRange.Setup.Distances.OnHidden" />
+			</EventHandlers>
+			<Size>
+				<AbsPoint x="580" y="380" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+ 				</Anchor>
+			</Anchors>
+			<Windows>
+			
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<Anchors>
+						<Anchor point="topright" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="-15" y="15" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distances.OnCloseLUp" />
+                    </EventHandlers>
+                </Button>
+			
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true">
+					<Anchors>
+           				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+           				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+       				</Anchors>
+				</Window>
+				
+				<Label name="$parentTitleLabel" font="font_default_text" textalign="left" maxchars="35">
+					<Size>
+						<AbsPoint x="480" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="20" y="20" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<Label name="$parentDistancesLabel" font="font_clear_small" textalign="left" maxchars="200">
+					<Size>
+						<AbsPoint x="400" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+							<AbsPoint x="10" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<ListBox name="$parentDistancesList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="TurretRangeSetupDistancesRowTemplate" visiblerows="7" rowspacing="0">
+					<Size>
+						<AbsPoint x="480" y="210" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDistancesLabel">
+							<AbsPoint x="10" y="10"/>
+						</Anchor>
+					</Anchors>
+
+					<ListData table="TurretRange.Setup.Distances.Entries" populationfunction="TurretRange.Setup.Distances.OnPopulate">
+						<ListColumns>
+							<ListColumn windowname="Text" variable="Text" format="wstring" />
+						</ListColumns>
+					</ListData>
+				</ListBox>
+				
+				<Button name="$parentAddButton" inherits="EA_Button_DefaultResizeable">
+					<Size>
+						<AbsPoint x="200" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentDistancesList">
+							<AbsPoint x="10" y="20"/>
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distances.OnAddLClick" />
+					</EventHandlers>
+				</Button>
+				
+			</Windows>
+		</Window>
+		
+	</Windows>
+</Interface>

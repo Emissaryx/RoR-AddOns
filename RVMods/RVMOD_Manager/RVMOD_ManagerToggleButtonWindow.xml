@@ -1,0 +1,24 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Windows>
+
+		<Button name="RVMOD_ManagerToggleButtonWindow" backgroundtexture="EA_HUD_01" highlighttexture="EA_HUD_01" savesettings="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="40" y="40" />
+			</Size>
+			<TexSlices>
+				<Normal id="GroupConfigButton" />
+				<NormalHighlit id="GroupConfigButton-Rollover" />
+				<Pressed id="GroupConfigButton-Rollover" />
+				<PressedHighlit id="GroupConfigButton-Rollover" />
+			</TexSlices>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root" />
+			</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpToggleButton" />
+			</EventHandlers>
+		</Button>
+
+	</Windows>
+</Interface>

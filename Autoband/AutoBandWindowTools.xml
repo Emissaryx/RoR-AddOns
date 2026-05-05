@@ -1,0 +1,588 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Scripts>
+        <Script file="AutoBandWindowTools.lua" />
+</Scripts>
+<Windows>
+
+        <Window name="AutoBandWindowTools" layer="secondary" movable="false">
+                <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="AutoBandTabsWindow">
+                                <AbsPoint x="0" y="0"/>
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AutoBandTabsWindow">
+                                <AbsPoint x="0" y="0"/>
+                        </Anchor>
+                </Anchors>
+                <EventHandlers>
+                        <EventHandler event="OnInitialize" function="AutoBandWindowTools.Initialize" />
+                        <EventHandler event="OnShutdown" function="AutoBandWindowTools.Shutdown" />
+                </EventHandlers>
+
+                <Windows>
+                        <Window name="$parentSpaceAbove" handleinput="false">
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                                <AbsPoint x="0" y="0"/>
+                                        </Anchor>
+                                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parent">
+                                                <AbsPoint x="0" y="40"/>
+                                        </Anchor>
+                                </Anchors>
+                        </Window>
+
+                        <Label name="$parentKickLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+                                <Size>
+                                        <AbsPoint x="170" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove">
+                                                <AbsPoint x="30" y="15" />
+                                        </Anchor>
+                                </Anchors>
+                        </Label>
+
+
+                        <Button name="$parentKickOfflineCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentKickLabel">
+                                                <AbsPoint x="0" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnKickOfflineCheckBox" />
+                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnKickOfflineMouseOver" />
+                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnKickOfflineMouseOverEnd" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentKickOfflineLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="200" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentKickOfflineCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickKickOfflineLabel" />
+                    <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnKickOfflineMouseOver" />
+                    <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnKickOfflineMouseOverEnd" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentKickZoneCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentKickOfflineCheckBox">
+                                                <AbsPoint x="0" y="10"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnKickZoneCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentKickZoneLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentKickZoneCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickKickZoneLabel" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentKickRankCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentKickZoneCheckBox">
+                                                <AbsPoint x="0" y="10"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnKickRankCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentKickRankLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="200" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentKickRankCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickKickRankLabel" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentPrintButton" inherits="EA_Button_DefaultResizeable">
+                                <Anchors>
+                                        <Anchor point="center" relativePoint="center" relativeTo="$parentSpaceAbove" >
+                                                <AbsPoint x="-130" y="150" />
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnPrintButton" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentKickButton" inherits="EA_Button_DefaultResizeable">
+                                <Anchors>
+                                        <Anchor point="center" relativePoint="center" relativeTo="$parentSpaceAbove" >
+                                                <AbsPoint x="20" y="150" />
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnKickButton" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentSearchRoleLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentPrintButton">
+                                                <AbsPoint x="0" y="90" />
+                                        </Anchor>
+                                </Anchors>
+                        </Label>
+
+      <Button name="$parentSearchRoleChan1CheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSearchRoleLabel">
+                                                <AbsPoint x="0" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                                </Button>
+
+                        <Label name="$parentSearchRoleChan1Label" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentSearchRoleChan1CheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickSearchRoleChan1Label" />
+                </EventHandlers>
+                        </Label>
+
+      <Button name="$parentSearchRoleChanT4CheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSearchRoleChan1CheckBox">
+                                                <AbsPoint x="0" y="10"/>
+                                        </Anchor>
+                                </Anchors>
+                                </Button>
+
+                        <Label name="$parentSearchRoleChanT4Label" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentSearchRoleChanT4CheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickSearchRoleChanT4Label" />
+                </EventHandlers>
+                        </Label>
+
+      <Button name="$parentSearchRoleChan5CheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSearchRoleChanT4CheckBox">
+                                                <AbsPoint x="0" y="10"/>
+                                        </Anchor>
+                                </Anchors>
+                        </Button>
+
+	                        <Label name="$parentSearchRoleChan5Label" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+	                                <Size>
+	                                        <AbsPoint x="300" y="30" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="right" relativePoint="left" relativeTo="$parentSearchRoleChan5CheckBox">
+	                                                <AbsPoint x="15" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                <EventHandlers>
+	                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickSearchRoleChan5Label" />
+	                </EventHandlers>
+	                        </Label>
+
+	                        <Button name="$parentDiscordReqCheckBox" inherits="EA_Button_DefaultCheckBox">
+	                                <Anchors>
+	                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSearchRoleChan5CheckBox">
+	                                                <AbsPoint x="0" y="10"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnDiscordReqCheckBox" />
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnDiscordReqMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnDiscordReqMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Button>
+
+	                        <Label name="$parentDiscordReqLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+	                                <Size>
+	                                        <AbsPoint x="300" y="30" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="right" relativePoint="left" relativeTo="$parentDiscordReqCheckBox">
+	                                                <AbsPoint x="15" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                <EventHandlers>
+	                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickDiscordReqLabel" />
+	                    <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnDiscordReqMouseOver" />
+	                    <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnDiscordReqMouseOverEnd" />
+	                </EventHandlers>
+	                        </Label>
+
+	                        <Button name="$parentNoMicCheckBox" inherits="EA_Button_DefaultCheckBox">
+	                                <Size>
+	                                        <AbsPoint x="18" y="18" />
+	                                </Size>
+	                                <OverlaySize x="14" y="15"/>
+	                                <OverlayOffset x="2" y="1"/>
+	                                <Anchors>
+	                                        <Anchor point="left" relativePoint="right" relativeTo="$parentDiscordReqCheckBox">
+	                                                <AbsPoint x="255" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnNoMicCheckBox" />
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnNoMicMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnNoMicMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Button>
+
+	                        <Label name="$parentNoMicLabel" inherits="EA_Label_DefaultText" font="font_default_text_small" textalign="left" wordwrap="false" handleinput="true" layer="overlay">
+	                                <Size>
+	                                        <AbsPoint x="100" y="30" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="right" relativePoint="left" relativeTo="$parentNoMicCheckBox">
+	                                                <AbsPoint x="10" y="6"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                <EventHandlers>
+	                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickNoMicLabel" />
+	                    <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnNoMicMouseOver" />
+	                    <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnNoMicMouseOverEnd" />
+	                </EventHandlers>
+	                        </Label>
+
+	                        <Button name="$parentAutoFormSearchCheckBox" inherits="EA_Button_DefaultCheckBox">
+	                                <Anchors>
+	                                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDiscordReqCheckBox">
+	                                                <AbsPoint x="0" y="10"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnAutoFormSearchCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentAutoFormSearchLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentAutoFormSearchCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickAutoFormSearchLabel" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentSearchRoleButton" inherits="EA_Button_DefaultResizeable">
+                                <Size>
+                                        <AbsPoint x="170" y="39" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentAutoFormSearchCheckBox">
+                                                <AbsPoint x="0" y="80" />
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnSearchRoleButton" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentFormWarbandButton" inherits="EA_Button_DefaultResizeable">
+                                <Size>
+                                        <AbsPoint x="160" y="39" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentSearchRoleButton">
+                                                <AbsPoint x="20" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnFormWarbandButton" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Button name="$parentAutoSearchCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentSearchRoleButton">
+                                                <AbsPoint x="0" y="80"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnAutoSearchCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentAutoSearchLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentAutoSearchCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickAutoSearchLabel" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentAutoPartyNoteCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentAutoSearchCheckBox">
+                                                <AbsPoint x="0" y="60"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnAutoPartyNoteCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentAutoPartyNoteLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="300" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentAutoPartyNoteCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickAutoPartyNoteLabel" />
+                </EventHandlers>
+                        </Label>
+
+
+      <Button name="$parentOrganizeButton" inherits="EA_Button_DefaultResizeable">
+                                <Size>
+                                        <AbsPoint x="170" y="39" />
+                                </Size>
+        <Anchors>
+          <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentAutoPartyNoteCheckBox">
+            <AbsPoint x="0" y="80" />
+          </Anchor>
+        </Anchors>
+        <EventHandlers>
+          <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnOrganizeButton" />
+        </EventHandlers>
+      </Button>
+
+      <Button name="$parentOrganizeRangeButton" inherits="EA_Button_DefaultResizeable" warnOnTextCropped="false" warnOnTextAutoFit="false">
+                                <Size>
+                                        <AbsPoint x="160" y="39" />
+                                </Size>
+        <Anchors>
+          <Anchor point="right" relativePoint="left" relativeTo="$parentOrganizeButton">
+            <AbsPoint x="20" y="0"/>
+          </Anchor>
+        </Anchors>
+        <EventHandlers>
+          <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnOrganizeRangeButton" />
+        </EventHandlers>
+      </Button>
+
+      <Button name="$parentNotifyBuffsCheckBox" inherits="EA_Button_DefaultCheckBox">
+        <Anchors>
+          <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentOrganizeButton">
+            <AbsPoint x="0" y="80"/>
+          </Anchor>
+        </Anchors>
+        <EventHandlers>
+          <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnNotifyBuffsCheckBox" />
+        </EventHandlers>
+      </Button>
+
+      <Label name="$parentNotifyBuffsLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+        <Size>
+          <AbsPoint x="300" y="30" />
+        </Size>
+        <Anchors>
+          <Anchor point="right" relativePoint="left" relativeTo="$parentNotifyBuffsCheckBox">
+            <AbsPoint x="15" y="0"/>
+          </Anchor>
+        </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickNotifyBuffsLabel" />
+                </EventHandlers>
+      </Label>
+
+                        <Button name="$parentRightClickOrganizeCheckBox" inherits="EA_Button_DefaultCheckBox">
+                                <Anchors>
+                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentNotifyBuffsCheckBox">
+                                                <AbsPoint x="0" y="60"/>
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnRightClickOrganizeCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+                        <Label name="$parentRightClickOrganizeLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+                                <Size>
+                                        <AbsPoint x="330" y="30" />
+                                </Size>
+                                <Anchors>
+                                        <Anchor point="right" relativePoint="left" relativeTo="$parentRightClickOrganizeCheckBox">
+                                                <AbsPoint x="15" y="0"/>
+                                        </Anchor>
+                                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickRightClickOrganizeLabel" />
+                </EventHandlers>
+                        </Label>
+
+                        <Button name="$parentPrintRoleCheckBox" inherits="EA_Button_DefaultCheckBox">
+                        <Anchors>
+                                <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentRightClickOrganizeCheckBox">
+                                        <AbsPoint x="0" y="60"/>
+                                </Anchor>
+                        </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnPrintRoleCheckBox" />
+                                </EventHandlers>
+                        </Button>
+
+	                        <Label name="$parentPrintRoleLabel" inherits="EA_CheckButtonLabel" textalign="left" wordwrap="false" handleinput="true">
+	                                <Size>
+	                                        <AbsPoint x="300" y="30" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="right" relativePoint="left" relativeTo="$parentPrintRoleCheckBox">
+	                                                <AbsPoint x="15" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                <EventHandlers>
+	                    <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnClickPrintRoleLabel" />
+	                </EventHandlers>
+	                        </Label>
+
+	                        <Button name="$parentStatsButton" inherits="EA_Button_DefaultResizeable">
+	                                <Size>
+	                                        <AbsPoint x="170" y="39" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentPrintRoleCheckBox">
+	                                                <AbsPoint x="0" y="80" />
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnStatsButton" />
+	                                        <EventHandler event="OnRButtonUp" function="AutoBandWindowTools.OnStatsButtonRightClick" />
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnStatsButtonMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnStatsButtonMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Button>
+
+	                        <Button name="$parentStatsBreakdownButton" inherits="EA_Button_DefaultResizeable" warnOnTextCropped="false" warnOnTextAutoFit="false">
+	                                <Size>
+	                                        <AbsPoint x="160" y="39" />
+	                                </Size>
+	                                <Anchors>
+	                                        <Anchor point="right" relativePoint="left" relativeTo="$parentStatsButton">
+	                                                <AbsPoint x="20" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnStatsBreakdownButton" />
+	                                        <EventHandler event="OnRButtonUp" function="AutoBandWindowTools.OnStatsBreakdownButtonRightClick" />
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnStatsBreakdownButtonMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnStatsBreakdownButtonMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Button>
+
+	                        <Window name="$parentStatsButtonDisabledHover" alpha="0.0" handleinput="true">
+	                                <Anchors>
+	                                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentStatsButton">
+	                                                <AbsPoint x="0" y="0"/>
+	                                        </Anchor>
+	                                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentStatsButton">
+	                                                <AbsPoint x="0" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnStatsButtonMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnStatsButtonMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Window>
+
+	                        <Window name="$parentStatsBreakdownButtonDisabledHover" alpha="0.0" handleinput="true">
+	                                <Anchors>
+	                                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentStatsBreakdownButton">
+	                                                <AbsPoint x="0" y="0"/>
+	                                        </Anchor>
+	                                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentStatsBreakdownButton">
+	                                                <AbsPoint x="0" y="0"/>
+	                                        </Anchor>
+	                                </Anchors>
+	                                <EventHandlers>
+	                                        <EventHandler event="OnMouseOver" function="AutoBandWindowTools.OnStatsBreakdownButtonMouseOver" />
+	                                        <EventHandler event="OnMouseOverEnd" function="AutoBandWindowTools.OnStatsBreakdownButtonMouseOverEnd" />
+	                                </EventHandlers>
+	                        </Window>
+	
+	                              <Window name="$parentButtonBar" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+	                                <Size>
+	                                        <AbsPoint x="0" y="65" />
+	                                </Size>
+        <Anchors>
+          <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+            <AbsPoint x="0" y="0"/>
+          </Anchor>
+          <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+            <AbsPoint x="0" y="0"/>
+          </Anchor>
+        </Anchors>
+                        </Window>
+
+                        <Button name="$parentResetButton" inherits="EA_Button_DefaultResizeable">
+                                <Size>
+                                        <AbsPoint x="200" y="39" />
+                                </Size>
+                                <Anchors>
+        <Anchor point="center" relativePoint="center" relativeTo="$parentButtonBar" >
+                                                <AbsPoint x="0" y="7" />
+                                        </Anchor>
+                                </Anchors>
+                                <EventHandlers>
+                                        <EventHandler event="OnLButtonUp" function="AutoBandWindowTools.OnResetTools" />
+                                </EventHandlers>
+                        </Button>
+
+                </Windows>
+        </Window>
+</Windows>
+</Interface>

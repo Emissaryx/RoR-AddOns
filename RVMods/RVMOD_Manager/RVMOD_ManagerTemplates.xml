@@ -1,0 +1,447 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Assets>
+		<Texture name="RV_CornerIcon_Manager" file="Textures/RV_ModsManager.dds" />
+		<Texture name="RV_CornerIcon_Mod" file="Textures/RVMOD.dds" />
+		<Texture name="RVMOD_ManagerStatusIcon1Texture" file="Textures/StatusIcon1.dds" />
+		<Texture name="RVMOD_ManagerStatusIcon2Texture" file="Textures/StatusIcon2.dds" />
+		<Texture name="RVMOD_ManagerSettingsIconTexture" file="Textures/SettingsIcon.dds" />
+		<Texture name="RVMOD_ManagerMagnifierIconTexture" file="Textures/MagnifierIcon.dds" />
+		<Texture name="RVMOD_ManagerFilterAllIcon1Texture" file="Textures/FilterAllIcon1.dds" />
+		<Texture name="RVMOD_ManagerFilterAllIcon2Texture" file="Textures/FilterAllIcon2.dds" />
+		<Texture name="RVMOD_ManagerFilterRVIcon1Texture" file="Textures/FilterRVIcon1.dds" />
+		<Texture name="RVMOD_ManagerFilterRVIcon2Texture" file="Textures/FilterRVIcon2.dds" />
+		<Texture name="RVMOD_ManagerFilterEAIcon1Texture" file="Textures/FilterEAIcon1.dds" />
+		<Texture name="RVMOD_ManagerFilterEAIcon2Texture" file="Textures/FilterEAIcon2.dds" />
+		<Texture name="RVMOD_ManagerSortByIcon1Texture" file="Textures/SortByIcon1.dds" />
+		<Texture name="RVMOD_ManagerSortByIcon2Texture" file="Textures/SortByIcon2.dds" />
+	</Assets>
+
+	<Windows>
+		<DynamicImage name="RVMOD_ManagerStatusTemplate" textureScale="1.0" handleinput="false" layer="secondary" sticky="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="16" y="16" />
+			</Size>
+		</DynamicImage>
+
+		<Window name="RVMOD_ManagerListBoxRowTemplate" handleinput="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="272" y="32" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonDown" function="RVMOD_Manager.OnLButtonDownRow" />
+			</EventHandlers>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" >
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" />
+						<Anchor point="bottomright" relativePoint="bottomright" />
+					</Anchors>
+				</FullResizeImage>
+				<Label name="$parentName" maxchars="40" font="font_default_medium_heading" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="226" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" >
+							<AbsPoint x="12" y="4" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Window name="$parentStatus">
+					<Size>
+						<AbsPoint x="16" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="right" relativeTo="$parent" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonDown" function="RVMOD_Manager.OnLButtonDownStatusIcon" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverStatusIcon"/>
+					</EventHandlers>
+					<Windows>
+						<DynamicImage name="$parentIcon" texture="RVMOD_ManagerStatusIcon1Texture" inherits="RVMOD_ManagerStatusTemplate">
+							<Anchors>
+								<Anchor point="center" relativePoint="center" relativeTo="$parent" />
+							</Anchors>
+						</DynamicImage>
+					</Windows>
+				</Window>
+				<Window name="$parentSettings">
+					<Size>
+						<AbsPoint x="16" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="right" relativeTo="$parentStatus" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonDown" function="RVMOD_Manager.OnLButtonDownSettingsIcon" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverSettingsIcon"/>
+					</EventHandlers>
+					<Windows>
+						<DynamicImage name="$parentIcon" texture="RVMOD_ManagerSettingsIconTexture" inherits="RVMOD_ManagerStatusTemplate">
+							<Anchors>
+								<Anchor point="center" relativePoint="center" relativeTo="$parent" />
+							</Anchors>
+						</DynamicImage>
+					</Windows>
+				</Window>
+			</Windows>
+		</Window>
+
+		<Window name="RVMOD_ManagerRVSettingsTemplate">
+			<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" />
+				<Anchor point="bottomright" relativePoint="bottomright" />
+			</Anchors>
+			<Windows>
+				<Label name="$parentNoSettingsLabel" font="font_chat_text_no_outline" textalign="center" handleinput="false" wordwrap="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="300" y="160" />
+					</Size>
+					<Anchors>
+						<Anchor point="center" relativePoint="center" />
+					</Anchors>
+					<Color r="100" g="100" b="100" />
+				</Label>
+			</Windows>
+		</Window>
+
+		<!-- Scrolling Mod Details Window. This is exact copy from the EA_ScrollWindow_ModInfoTemplate plus some additional fields and changes-->
+		<ScrollWindow name="RVMOD_ManagerModInfoTemplate" childscrollwindow="$parentScrollChild" scrollbar="$parentScrollbar" lineheight="18">
+			<Size>
+				<AbsPoint x="450" y="425" />
+			</Size>
+			<Windows>
+				<!-- Scroll Bar -->
+				<VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain" layer="popup">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</VerticalScrollbar>
+
+				<Window name="$parentScrollChild">
+					<Size>
+						<AbsPoint x="430" y="365"/>
+					</Size>
+					<Windows>
+
+
+						<!-- Mod Name -->
+						<FullResizeImage name="$parentNameBackground" handleinput="true" inherits="EA_FullResizeImage_TintableSolidBackground" >
+							<Size>
+								<AbsPoint x="0" y="50" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" relativeTo="">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</FullResizeImage>
+						<Label name="$parentName" font="font_default_heading"  textalign="left" handleinput="false" layer="background" textAutoFitMinScale="0.5" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="500" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameBackground">
+									<AbsPoint x="10" y="10" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" relativeTo="$parentNameBackground">
+									<AbsPoint x="-10" y="-10" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="255" b="255" a="255" />
+						</Label>
+
+						<Window name="$parentStatus" >
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentNameBackground">
+									<AbsPoint x="10" y="5" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" relativeTo="$parentNameBackground">
+									<AbsPoint x="-10" y="5" />
+								</Anchor>
+							</Anchors>						   
+							<Windows>
+								<FullResizeImage name="$parentFrame" inherits="EA_FullResizeImage_TanBorder"  >
+
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+										<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</FullResizeImage>
+								<Label name="$parentText" inherits="ModDetailsTextDef" autoresize="true" warnOnTextCropped="false" ellipsisOnCrop="true">
+									<Size>
+										<AbsPoint x="390" y="365"/>
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+											<AbsPoint x="10" y="10"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+							</Windows>
+						</Window>
+
+
+						<!-- Author -->
+						<Label name="$parentAuthorLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentStatus">
+									<AbsPoint x="0" y="5" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentAuthorText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentAuthorLabel">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Credits -->
+						<Label name="$parentCreditsLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAuthorText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentCreditsText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCreditsLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Version -->
+						<Label name="$parentVersionLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCreditsText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentVersionText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentVersionLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Date -->
+						<Label name="$parentDateLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentVersionText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentDateText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentDateLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Game Version -->
+						<Label name="$parentGameVersionLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDateText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentGameVersionText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentGameVersionLabel">
+									<AbsPoint x="10" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- License -->
+						<Label name="$parentLicenseLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentGameVersionText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentLicenseText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentLicenseLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Categories Needed -->
+						<Label name="$parentCategoriesLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLicenseText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentCategoriesText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCategoriesLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+
+						<!-- Careers Needed -->
+						<Label name="$parentCareersLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">						  
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCategoriesText">
+									<AbsPoint x="-210" y="2"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<Label name="$parentCareersText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCareersLabel">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+						</Label>
+						<ActionButtonGroup name="$parentCareers" inherits="EA_ActionButtonGroup_CareerIconsWithTooltip" hideButtonWhenIconBlank="true" >
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCareersLabel" >
+									<AbsPoint x="5" y="0" />
+								</Anchor>
+							</Anchors>
+						</ActionButtonGroup>
+
+						<!-- Description -->
+						<Label name="$parentDescriptionLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="410" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCareers">
+									<AbsPoint x="-5"  y="5" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="204" b="102" a="255"/>
+						</Label>
+						<Label name="$parentDescriptionText" inherits="ModDetailsTextDef" maxchars="1024" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="410" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDescriptionLabel">
+									<AbsPoint x="0"  y="5" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="255" b="255" a="255" />
+						</Label>
+
+						<!-- Project URL -->
+						<Label name="$parentProjectURLLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="410" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDescriptionText">
+									<AbsPoint x="0"  y="5" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="204" b="102" a="255"/>
+						</Label>
+						<EditBox name="$parentProjectURLText" inherits="EA_EditBox_DefaultFrame" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="645" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentProjectURLLabel">
+									<AbsPoint x="0"  y="5" />
+								</Anchor>
+							</Anchors>
+						</EditBox>
+
+						<!-- Recent Updates -->
+						<Label name="$parentRecentUpdatesLabel" inherits="ModDetailsLabelDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="410" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentProjectURLText">
+									<AbsPoint x="0"  y="5" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="204" b="102" a="255"/>
+						</Label>
+						<Label name="$parentRecentUpdatesText" inherits="ModDetailsTextDef" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="410" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentRecentUpdatesLabel">
+									<AbsPoint x="0"  y="5" />
+								</Anchor>
+							</Anchors>
+							<Color r="255" g="255" b="255" a="255" />
+						</Label>
+
+					</Windows>
+				</Window>
+				<!-- Scroll Child -->
+
+			</Windows>
+		</ScrollWindow>
+
+		<SliderBar name="RVMOD_ManagerSliderTemplate" inherits="EA_Default_SliderBar" autoresize="true" handlinput="true">
+			<Windows>
+				<Label name="$parentMinLabel" inherits="EA_Settings_ItemTitle">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentMaxLabel" inherits="EA_Settings_ItemTitle" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentMidLabel" inherits="EA_Settings_ItemTitle" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+			</Windows>
+		</SliderBar>
+
+	</Windows>
+</Interface>

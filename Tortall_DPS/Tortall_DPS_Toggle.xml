@@ -1,0 +1,34 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <Scripts>
+        <Script file="Tortall_DPS_Detail.lua" />
+    </Scripts>
+    <Windows>
+        <Button name="TortallDPSToggle" inherits="EA_Button_Default" drawchildrenfirst="true" savesettings="true">
+            <EventHandlers>
+                <EventHandler event="OnLButtonUp" function="TortallDPSMeter.Toggle" />
+            </EventHandlers>
+            <Size>
+              <AbsPoint x="80" y="25" />
+            </Size>
+            <Windows>
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+                <Label name="$parentLabel" font="font_clear_small" textalign="center" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="5" y="2" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="70" y="20" />
+                    </Size>
+                    <Color r="255" g="0" b="0" />
+                </Label>
+            </Windows>
+        </Button>
+    </Windows>
+</Interface>

@@ -1,0 +1,6 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Assets>
+		<Texture name="EnemyIcon_red" file="EnemyIcon_red.tga" />
+		<Texture name="EnemyIcon_green" file="EnemyIcon_green.tga" />
+	</Assets>
+</Interface>

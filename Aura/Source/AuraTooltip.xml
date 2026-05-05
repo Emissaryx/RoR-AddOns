@@ -1,0 +1,265 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!--
+    This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see
+    <http://www.gnu.org/licenses/>.
+    -->
+    <Windows>
+        <Window name="AuraTooltip" inherits="TooltipBase">
+            <Size>
+                <AbsPoint x="0" y="0" />
+            </Size>
+            <Windows>
+                <!-- Background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentName">
+                            <AbsPoint x="-15" y="-15" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentDelete">
+                            <AbsPoint x="15" y="15" />
+                        </Anchor>
+                    </Anchors>
+                </Window>
+                <!--  Left Side -->
+                <Label name="$parentName" font="font_default_sub_heading" maxchars="256" wordwrap="true" autoresize="true" >
+                    <Size>
+                        <AbsPoint x="300" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentHeaderSeperator">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <!-- Right Side -->
+                <Label name="$parentType" font="font_default_sub_heading" textalign="right" autoresize="true">
+                    <Size>
+                        <AbsPoint x="230" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentHeaderSeperator">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <FullResizeImage name="$parentHeaderSeperator" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentDesc" font="font_chat_text" maxchars="512" wordwrap="true" autoresize="true"  sticky="true">
+                    <Size>
+                        <AbsPoint x="350" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <FullResizeImage name="$parentFooterSeperator" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentPreview" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentFooterSeperator">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentFooterSeperator">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+                <Label name="$parentEdit" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentPreview">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentPreview">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+                <Label name="$parentEnable" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEdit">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentEdit">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+                <Label name="$parentDelete" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnable">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentEnable">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+            </Windows>
+        </Window>
+        
+        
+        <Window name="AuraShareTooltip" inherits="TooltipBase">
+            <Size>
+                <AbsPoint x="0" y="0" />
+            </Size>
+            <Windows>
+                <!-- Background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentName">
+                            <AbsPoint x="-15" y="-15" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentExport">
+                            <AbsPoint x="15" y="15" />
+                        </Anchor>
+                    </Anchors>
+                </Window>
+                <!--  Left Side -->
+                <Label name="$parentName" font="font_default_sub_heading" maxchars="256" wordwrap="true" autoresize="true" >
+                    <Size>
+                        <AbsPoint x="300" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentHeaderSeperator">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <!-- Right Side -->
+                <Label name="$parentType" font="font_default_sub_heading" textalign="right" autoresize="true">
+                    <Size>
+                        <AbsPoint x="230" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentHeaderSeperator">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <FullResizeImage name="$parentHeaderSeperator" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="-5" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentDesc" font="font_chat_text" maxchars="512" wordwrap="true" autoresize="true"  sticky="true">
+                    <Size>
+                        <AbsPoint x="350" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <FullResizeImage name="$parentFooterSeperator" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentDesc">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentShare" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentFooterSeperator">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentFooterSeperator">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+                <Label name="$parentExport" font="font_chat_text" textalign="left" autoresize="true">
+                    <Size>
+                        <AbsPoint x="25" y="" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentShare">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentShare">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="175" g="175" b="175"/>
+                </Label>
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

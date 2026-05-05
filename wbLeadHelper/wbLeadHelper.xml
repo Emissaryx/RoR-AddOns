@@ -1,0 +1,123 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+    <Assets>
+        <Icon id="00092" texture="icon/LMB.tga" name=""/>    
+        <Icon id="00093" texture="icon/RMB.tga" name=""/>                      
+    </Assets>
+
+	<Windows>
+	
+		<Window name="wbLeadHelperWindow" layer="background" movable="true" handleinput="true" savesettings="true" >
+		
+			<Size> <AbsPoint x="320" y="40" /> </Size>
+            <Anchors>
+                <Anchor point="top" relativePoint="top" relativeTo="Root">
+                    <AbsPoint x="100" y="200" />
+                </Anchor>
+            </Anchors>
+			
+			<Windows>
+				
+				<!-- TITLE CONTAINER: BEGIN -->
+				<Window name="$parentTitle" layer="default" movable="false" handleinput="true" savesettings="false" >
+				
+					<Size> <AbsPoint x="250" y="30" /> </Size>
+					<Anchors> <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"> <AbsPoint x="25" y="2" /> </Anchor> </Anchors>
+
+					<Windows>
+					
+						<!-- TITLE BACKGROUND: BEGIN -->
+						<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="true" layer="default">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+							</Anchors>
+						</FullResizeImage>
+						<!-- TITLE BACKGROUND: END -->						
+
+						<!-- TITLE LABEL: BEGIN -->
+						<Label name="$parentLabel" font="font_clear_medium" textalign="center" maxchars="100" layer="popup">
+							<Size> <AbsPoint x="250" y="30" /> </Size>
+							<Anchors> <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"> <AbsPoint x="1" y="1" /> </Anchor> </Anchors>
+							<EventHandlers>
+								<EventHandler event="OnHyperLinkLButtonUp" function="EA_ChatWindow.OnHyperLinkLButtonUp" />
+								<EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" />
+							</EventHandlers>					
+						</Label>
+						<!-- TITLE LABEL: END -->
+					
+					</Windows>
+				
+				</Window>
+				<!-- TITLE CONTAINER: END -->			
+				
+				<!-- Topleft Chat Button: BEGIN -->
+				<Button name="$parentChatButton" inherits="EA_Button_DefaultText" font="font_chat_text" layer="popup" handleinput="true" texturescale="0.95" >
+					<Size><AbsPoint x="26" y="26"/></Size>
+					<Anchors> <Anchor point="topleft" relativePoint="center" relativeTo="$parentTitle"> <AbsPoint x="18" y="16" /> </Anchor> </Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="wbLeadHelper.toggleColoredChat" />
+					</EventHandlers>
+				</Button>
+				<!-- Topleft Chat Button: END -->
+
+				<!-- Topright Close Button: BEGIN -->
+				<Button name="$parentCloseButton" inherits="EA_Button_DefaultText" font="font_chat_text" layer="popup" handleinput="true" texturescale="1" >
+					<Size><AbsPoint x="26" y="26"/></Size>
+					<Anchors> <Anchor point="topright" relativePoint="center" relativeTo="$parentTitle"> <AbsPoint x="-12" y="15" /> </Anchor> </Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="wbLeadHelper.toggleWbLeadHelperWindow" />
+					</EventHandlers>
+				</Button>
+				<!-- Topright Close Button: END -->
+				
+				
+			</Windows>
+		</Window>
+		
+		
+		<!-- Window Template: BEGIN -->
+		<Window name="wbLeadHelper_Message_Template" layer="default" movable="false" popable="false" sticky="true" handleinput="true" >
+			
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="wbLeadHelper.onLMB" />
+				<EventHandler event="OnRButtonUp" function="wbLeadHelper.onRMB" />
+			</EventHandlers>
+			
+			<Windows>
+			
+					<!-- Background: BEGIN -->
+					<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="true" layer="background">
+						<Anchors>
+							<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+							<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+						</Anchors>
+
+						<EventHandlers>
+							<EventHandler event="OnMouseOver" function="wbLeadHelper.onMouseOver" />
+							<EventHandler event="OnMouseOverEnd" function="wbLeadHelper.onMouseOut" />
+						</EventHandlers>
+
+					</FullResizeImage>
+					<!-- Background: END -->
+			
+			
+					<!-- Label: BEGIN -->
+					<Label name="$parentLabel" font="font_clear_medium_bold" textalign="center" autoresize="true" layer="overlay" popable="false" handleinput="false" wordwrap="true">	
+						<Size><AbsPoint x="250" y="30" /></Size>
+						<Anchors><Anchor point="center" relativePoint="center" relativeTo="$parent"> <AbsPoint x="0" y="0" /></Anchor> </Anchors>
+						<Color r="255" g="255" b="255" />
+						<EventHandlers>
+							<EventHandler event="OnHyperLinkLButtonUp" function="EA_ChatWindow.OnHyperLinkLButtonUp" />
+							<EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" />
+						</EventHandlers>
+					</Label>
+					<!-- Label: END -->
+		
+			</Windows>		 				 
+		</Window>
+		<!-- Window Template: END -->
+		
+		
+	</Windows>
+</Interface>

@@ -1,0 +1,10410 @@
+LUA Scripting
+
+Ability
+An instance of an ability, created when a Unit starts casting it.
+
+GetActionPointCost
+Returns the action point cost, after modifications by buffs and debuffs. 
+ Synopsis 
+ actionPointCost = Player:GetActionPointCost()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ actionPointCost 
+ bool
+
+GetCaster
+Returns the Unit that casted the Ability. 
+ Synopsis 
+ caster = Ability:GetCaster()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ caster 
+ Unit
+
+GetCastTime
+Returns the cast time in milliseconds. After modifications by buffs and debuffs. 
+ Synopsis 
+ castTime = Player:GetCastTime()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ castTime 
+ bool
+
+GetId
+Returns the entry ID of the Ability. 
+ Synopsis 
+ id = Ability:GetId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ id 
+ ushort
+
+GetName
+Returns the name of the ability. 
+ Synopsis 
+ name = Ability:GetName()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string
+
+GetTarget
+Returns the target Unit of the Ability. 
+ The target can be any of the following Object types: - Player - Creature - GameObject 
+ Synopsis 
+ target = Ability:GetTarget()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ Unit
+
+Remove
+Remove this Ability from all Units it is applied to. 
+ Synopsis 
+ Ability:Remove()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+Battlefront
+The instance of the battlefront in the region. Nil if the region does not have an RvR lake.
+
+GetActiveZoneId
+Returns the active zone id. Only valid in Tier 4 as other zones consist of multiple zone IDs of which all are active if the pairing is open. 
+ Synopsis 
+ activeZoneId = Battlefront:GetActiveZoneId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ activeZoneId 
+ ushort
+
+GetBOStatus
+Returns the status of all BOs in the battlefront. 
+ Synopsis 
+ status = Battlefront:GetBOStatus()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ status 
+ Table 
+ 
+ 
+ 
+ 
+ The table is returned as a map of BO ID -> Status mappings. 
+ The status table has the following keys: 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ Name 
+ string 
+ 
+ 
+ 
+ State 
+ int 
+ 
+ 
+ 
+ OwningRealm 
+ Realms 
+ 
+ 
+ 
+ 
+ State is as follows: 
+ Open = 0,
+ Hidden = 1,
+ Abandoned = 2,
+ Contested = 4,
+ Locked = 8,
+ ResourceInteraction = 16,
+ ZoneLocked = 9,
+ 
+ The main ones are Open (no owner), Contested (in contest), ResourceInteraction (secured).
+
+GetRandomPlayer
+Returns a random player from the specified realm who is actively in the RvR lake. 
+ Synopsis 
+ player = Battlefront:GetRandomPlayer(realm)
+ 
+ Arguments 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realms 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player
+
+GetTier
+Returns the tier (1-4) of the battlefront. 
+ Synopsis 
+ tier = Battlefront:GetTier()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ tier 
+ byte
+
+IsActive
+Returns true if the battlefront is open (pairing is unlocked and contested). 
+ Synopsis 
+ isActive = Battlefront:IsActive()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isActive 
+ bool
+
+Battlefront.AAO
+Provides access to AAO information / functions for the current lake.
+
+GetMultiplier
+Returns the AAO multiplier that would be applied to renown gains from kills and zone locks. If < 1, it means malus is active. 
+ Synopsis 
+ multiplier = Battlefront.AAO:GetMultiplier(realm)
+ 
+ Arguments 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realm 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ multiplier 
+ double
+
+GetPercent
+Returns the AAO in percentage as shown on SoR (20 - 400%) for the specified realm. Cannot be used to determine malus. 
+ Synopsis 
+ aao = Battlefront.AAO:GetPercent(realm)
+ 
+ Arguments 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realm 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ aao 
+ int
+
+GetRawValue
+Returns the internal AAO value, from -400 (full order AAO) to +400 (full destro AAO). 
+ 
+ Synopsis 
+ rawAAO = Battlefront.AAO:GetRawValue()
+ 
+ 
+ Arguments 
+ None 
+ 
+ Returns 
+ integer
+
+GetRealm
+Returns the realm that currently has AAO, or neutral if none. 
+ Synopsis 
+ realm = Battlefront.AAO:GetRealm()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realm
+
+IsPlayerIncludedInCalculation
+Determines if the specified player has been included in the AAO calculation (meaning they were actively part of the lake within the last 5 minutes). If this is false, they should not benefit from any AAO effects as they are probably AFK in the warcamp. 
+ 
+ Synopsis 
+ isIncluded = Battlefront.AAO:IsPlayerIncludedInCalculation(player)
+ 
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ The player to check 
+ 
+ 
+ 
+ 
+ Returns 
+ bool
+
+Battlefront.Event
+Provides access to RvR event information / functions.
+
+End
+Immediately ends the current RvR event controlled by this creature. 
+ Call this when the event has finished — either due to success, failure, or early cancellation — to cleanly shut down the event and remove it from the campaign. 
+ 
+ Synopsis 
+ Battlefront.Event:End()
+ 
+ 
+ Arguments 
+ None 
+ 
+ Returns 
+ Nothing 
+ 
+ Notes 
+ 
+ This should be called after distributing rewards and final SendWinOMeter updates. 
+ Optionally pair with RemovePlayer to manually clean up individual players.
+
+GetCreature
+Returns the RvR event creature. 
+ Synopsis 
+ creature = Battlefront.Event:GetCreature()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ creature 
+ Creature
+
+GetTier
+Returns the tier (1-4) of the battlefront. 
+ Synopsis 
+ tier = Battlefront:GetTier()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ tier 
+ byte
+
+IsActive
+Returns true if the RvR event is active (creature spawned). 
+ Synopsis 
+ isActive = Battlefront.Event:IsActive()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isActive 
+ bool
+
+RemovePlayer
+Removes a specific player from an active RvR event controlled by this creature or object. 
+ Use this when a player leaves the event area, dies, disconnects, or otherwise should no longer receive event updates (such as the WinOMeter UI). 
+ 
+ Synopsis 
+ Battlefront.Event:RemovePlayer(player)
+ 
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ The player to remove from the event 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing
+
+SendWinOMeter
+Sends a WinOMeter update to all players within range of the creature. 
+ 
+ Synopsis 
+ Creature:SendWinOMeter(orderPoints, destroPoints)
+ 
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ orderPoints 
+ ushort 
+ Current points for Order faction 
+ 
+ 
+ destroPoints 
+ ushort 
+ Current points for Destruction 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing
+
+Creature
+Inherits all methods from: WorldObject, Unit
+
+AddHatred
+Adds hatred to the Creature from the victim. 
+ Synopsis 
+ Creature:AddHatred( victim, hatred )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ victim 
+ Unit 
+ 
+ 
+ 
+ 
+ hatred 
+ double 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+AttackStart
+Makes the creature attack the given unit. 
+ Synopsis 
+ Creature:AttackStart( target )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+AttackStop
+The Creature stops attacking its target 
+ Synopsis 
+ isAttacking = Creature:AttackStop()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isAttacking 
+ bool 
+ If the Creature was attacking.
+
+ClearHatredList
+Clears the Unit's threat list. 
+ Synopsis 
+ Creature:ClearHatredList()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+ClearHatredList
+Clears the Creature's hatred list. 
+ Synopsis 
+ Creature:ClearHatredList()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+ClearInCombat
+Clears the Unit's combat status 
+ Synopsis 
+ Unit:ClearInCombat()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+DespawnOrUnsummon
+Despawns or unsommons the npcs. The npc will respawn on its usual timer. 
+ Synopsis 
+ Creature:DespawnOrUnsummon( delay )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ delay 
+ uint 
+ 
+ Milliseconds 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Emote
+The Creature will say the message using Monster Emote 
+ Synopsis 
+ Creature:Emote( message )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ message 
+ string 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+EquipItem
+Equips the given item or item entry to the given slot. 
+ Synopsis 
+ Creature:EquipItem( slotId, modelId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ slotId 
+ ushort 
+ 
+ Slots 
+ 
+ 
+ modelId 
+ ushort 
+ 
+ From objects.csv 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+GetAITarget
+Returns a target from the Creature's threat list based on the supplied arguments. 
+ enum SelectAggroTarget
+{
+ SELECT_TARGET_RANDOM = 0, //Just selects a random target
+ SELECT_TARGET_TOPAGGRO, //Selects targets from top aggro to bottom
+ SELECT_TARGET_BOTTOMAGGRO, //Selects targets from bottom aggro to top
+ SELECT_TARGET_NEAREST,
+ SELECT_TARGET_FARTHEST
+};
+ 
+ For example, if you wanted to select the third-farthest Player within 500 units that has a knockback immunity buff (Ability group ID 708), you could use this function like so: 
+ target = creature:GetAITarget(SelectAggroTarget.SELECT_TARGET_FARTHEST, true, 3, 500, 708)
+ 
+ Synopsis 
+ target = Creature:GetAITarget( targetType, playerOnly = false, position = 1, distance = 0, abilityGroupId = 0)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ targetType 
+ SelectAggroTarget 
+ 
+ 
+ 
+ 
+ playerOnly 
+ boolean 
+ false 
+ 
+ 
+ 
+ position 
+ int 
+ 1 
+ 
+ 
+ 
+ distance 
+ double 
+ 0 
+ 
+ 
+ 
+ abilityGroupId 
+ ushort 
+ 0 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ nil if no matching target in the hatred list
+
+GetAITargetsCount
+Returns the number of Units in this Creature's hatred list. 
+ Synopsis 
+ targetsCount = Creature:GetAITargetsCount()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ targetsCount 
+ int
+
+GetBrain
+Returns the current brain of the Creature. 
+ Synopsis 
+ brainType = Creature:GetBrain()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ brainType 
+ CreatureBrain
+
+GetCurrentAAO
+Fetches the current Against All Odds (AAO) value for the region the creature is in. 
+ A positive value means Destruction is the underdog , and a negative value means Order is the underdog . 
+ ⚠️ Note: The value is divided by 20 compared to what players see in the UI. 
+To get the actual AAO percentage shown to players, multiply the result by 20. 
+ Example: 
+ 
+ 3 → 60% AAO bonus for Destruction 
+ -2 → 40% AAO bonus for Order 
+ 0 → No AAO bonus (balanced) 
+ 
+ 
+ Synopsis 
+ aao = Creature:GetCurrentAAO()
+ 
+ 
+ Arguments 
+ None 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ aao 
+ int 
+ Scaled AAO value. Positive = Destruction underdog, Negative = Order underdog. Multiply by 20 for % shown to players.
+
+GetEnrageDistance
+Returns the current value of the enrage distance. 
+ Synopsis 
+ Creature:GetEnrageDistance( )
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ units 
+ uint 
+ Enrage disance units
+
+GetEntry
+Returns the entry of the Creature. 
+ Synopsis 
+ entry = Creature:GetEntry()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ entry 
+ uint
+
+GetHatred
+Get the Creature's current amount of hatred towards the victim. 
+ Synopsis 
+ hatred = Creature:GetHatred( victim )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ victim 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hatred 
+ double
+
+GetHatredList
+Returns the Unit's hatred list. 
+ Synopsis 
+ hatredList = Creature:GetHatredList()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hatredList 
+ table 
+ Table of Units in the hatred list.
+
+GetHomePosition
+Returns position the Creature returns to when evading from combat or respawning. 
+ Synopsis 
+ x, y, z, o = Creature:GetHomePosition()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ o 
+ ushort 
+ Values between 0 - 4095
+
+GetHostile
+Returns the hostile flag on the creature. 
+ Synopsis 
+ hostile = Creature:GetHostile( )
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hostile 
+ bool
+
+IsInCreatureGroup
+Checks if the creature is in a specific creature group. 
+ Synopsis 
+ success = Creature:IsInCreatureGroup( groupId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ groupId 
+ int 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ Return if a creature is member of the specified group.
+
+ModifyHatredPct
+Modifies hatred in pct to the Unit from the victim 
+ Synopsis 
+ Creature:ModifyHatredPct( victim, percent )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ victim 
+ Unit 
+ 
+ 
+ 
+ 
+ percent 
+ double 
+ 
+ Below 100 to lower hatred, above 100 to increase 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+MoveFollow
+The Creature will follow the target unit. If the creature is aggressive, MoveFollow may be ignored if engaged with an enemy. 
+ Synopsis 
+ Creature:MoveFollow(followTarget, distance)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ followTarget 
+ Unit 
+ 
+ 
+ 
+ 
+ distance 
+ uint? 
+ 
+ If nil , uses the Creature's base radius 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+MoveHome
+The Creature will move to its set home location. 
+ Synopsis 
+ Creature:MoveHome()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+MoveTo
+The Creature will move to the coordinates. 
+ Synopsis 
+ Creature:MoveTo( x, y, z, genPath = true )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ uint 
+ 
+ 
+ 
+ 
+ genPath 
+ bool 
+ true 
+ If true, generates path. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+PlayAnimation
+The Creature will play the animation 
+ Synopsis 
+ Creature:PlayAnimation( animationId, animationScriptId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ animationId 
+ ushort 
+ 
+ 
+ 
+ 
+ animationScriptId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveHatred
+Removed hatred to Unit from the fighter 
+ Synopsis 
+ Creature:RemoveHatred( fighter )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ fighter 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Say
+The Creature will say the message using Monster Say 
+ Synopsis 
+ Creature:Say( message )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ message 
+ string 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetAbilitySet
+Sets the creatures ability set it is using. Using nil clears the ability set. 
+ Synopsis 
+ Creature:SetAbilitySet( abilitySetId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilitySetId 
+ int? 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetBrain
+Sets the creature's brain. 
+ Synopsis 
+ Creature:SetBrain( brainType )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ brainType 
+ CreatureBrain 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetName
+Sets the creature's name. 
+ Synopsis 
+ Creature:SetName( newName )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ newName 
+ string 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetEnrageDistance
+Enable enrage when the NPC is over this distance from its spawn point. Set to 0 to disable. 
+ Synopsis 
+ Creature:SetEnrageDistance( distance )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ distance 
+ uint 
+ 
+ Distance in units. 0 to disable 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetHomePosition
+Sets the position the Creature returns to when evading from combat or respawning. 
+ Synopsis 
+ Creature:SetHomePosition( x, y, z, o )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ o 
+ ushort 
+ 
+ Values between 0 - 4095 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetHostile
+Set the hostile flag on the creature. 
+ Synopsis 
+ Creature:SetHostile( hostile )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ hostile 
+ bool 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetWeaponStance
+Changes the stance type of the creature 
+ Synopsis 
+ Creature:SetWeaponStance( stance )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ stance 
+ WeaponStance 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+UnEquipItem
+Unequips the item in the given slot. 
+ Synopsis 
+ Creature:UnEquipItem( slotId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ slotId 
+ ushort 
+ 
+ Slots 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Enums
+
+BonusTypes
+GameData.BonusTypes 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ EBONUS_NONE 
+ 0 
+ 
+ 
+ EBONUS_STRENGTH 
+ 1 
+ 
+ 
+ EBONUS_AGILITY 
+ 2 
+ 
+ 
+ EBONUS_WILLPOWER 
+ 3 
+ 
+ 
+ EBONUS_TOUGHNESS 
+ 4 
+ 
+ 
+ EBONUS_WOUNDS 
+ 5 
+ 
+ 
+ EBONUS_INITIATIVE 
+ 6 
+ 
+ 
+ EBONUS_WEAPONSKILL 
+ 7 
+ 
+ 
+ EBONUS_BALLISTICSKILL 
+ 8 
+ 
+ 
+ EBONUS_INTELLIGENCE 
+ 9 
+ 
+ 
+ EBONUS_BLOCKSKILL 
+ 10 
+ 
+ 
+ EBONUS_PARRYSKILL 
+ 11 
+ 
+ 
+ EBONUS_EVADESKILL 
+ 12 
+ 
+ 
+ EBONUS_DISRUPTSKILL 
+ 13 
+ 
+ 
+ EBONUS_SPIRIT_RESIST 
+ 14 
+ 
+ 
+ EBONUS_ELEMENTAL_RESIST 
+ 15 
+ 
+ 
+ EBONUS_CORPOREAL_RESIST 
+ 16 
+ 
+ 
+ EBONUS_INC_DAMAGE 
+ 22 
+ 
+ 
+ EBONUS_OUT_DAMAGE 
+ 24 
+ 
+ 
+ EBONUS_ARMOR 
+ 26 
+ 
+ 
+ EBONUS_VELOCITY 
+ 27 
+ 
+ 
+ EBONUS_BLOCK 
+ 28 
+ 
+ 
+ EBONUS_PARRY 
+ 29 
+ 
+ 
+ EBONUS_EVADE 
+ 30 
+ 
+ 
+ EBONUS_DISRUPT 
+ 31 
+ 
+ 
+ EBONUS_AP_REGEN 
+ 32 
+ 
+ 
+ EBONUS_MORALE_REGEN 
+ 33 
+ 
+ 
+ EBONUS_COOLDOWN 
+ 34 
+ 
+ 
+ EBONUS_BUILD_TIME 
+ 35 
+ 
+ 
+ EBONUS_CRITICAL_DAMAGE 
+ 36 
+ 
+ 
+ EBONUS_RANGE 
+ 37 
+ 
+ 
+ EBONUS_AUTO_ATTACK_SPEED 
+ 38 
+ 
+ 
+ EBONUS_RADIUS 
+ 39 
+ 
+ 
+ EBONUS_AUTO_ATTACK_DAMAGE 
+ 40 
+ 
+ 
+ EBONUS_AP_COST 
+ 41 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE 
+ 42 
+ 
+ 
+ EBONUS_CRITICAL_DAMAGE_TAKEN 
+ 43 
+ 
+ 
+ EBONUS_EFFECT_RESIST 
+ 44 
+ 
+ 
+ EBONUS_EFFECT_BUFF 
+ 45 
+ 
+ 
+ EBONUS_MIN_RANGE 
+ 46 
+ 
+ 
+ EBONUS_DAMAGE_ABSORB 
+ 47 
+ 
+ 
+ EBONUS_SETBACK_CHANCE 
+ 48 
+ 
+ 
+ EBONUS_SETBACK_VALUE 
+ 49 
+ 
+ 
+ EBONUS_XP_WORTH 
+ 50 
+ 
+ 
+ EBONUS_RENOWN_WORTH 
+ 51 
+ 
+ 
+ EBONUS_INFLUENCE_WORTH 
+ 52 
+ 
+ 
+ EBONUS_MONETARY_WORTH 
+ 53 
+ 
+ 
+ EBONUS_AGGRO_RADIUS 
+ 54 
+ 
+ 
+ EBONUS_TARGET_DURATION 
+ 55 
+ 
+ 
+ EBONUS_SPEC 
+ 56 
+ 
+ 
+ EBONUS_GOLD_LOOTED 
+ 57 
+ 
+ 
+ EBONUS_XP_RECEIVED 
+ 58 
+ 
+ 
+ EBONUS_TRADE_SKILL_BUTCHERING 
+ 59 
+ 
+ 
+ EBONUS_TRADE_SKILL_SCAVENGING 
+ 60 
+ 
+ 
+ EBONUS_TRADE_SKILL_CULTIVATION 
+ 61 
+ 
+ 
+ EBONUS_TRADE_SKILL_APOTHECARY 
+ 62 
+ 
+ 
+ EBONUS_TRADE_SKILL_TALISMAN 
+ 63 
+ 
+ 
+ EBONUS_TRADE_SKILL_SALVAGING 
+ 64 
+ 
+ 
+ EBONUS_STEALTH 
+ 65 
+ 
+ 
+ EBONUS_STEALTH_DETECTION 
+ 66 
+ 
+ 
+ EBONUS_HATE_CAUSED 
+ 67 
+ 
+ 
+ EBONUS_HATE_RECEIVED 
+ 68 
+ 
+ 
+ EBONUS_OFFHAND_CHANCE 
+ 69 
+ 
+ 
+ EBONUS_OFFHAND_DAMAGE 
+ 70 
+ 
+ 
+ EBONUS_RENOWN_RECEIVED 
+ 71 
+ 
+ 
+ EBONUS_INFLUENCE_RECEIVED 
+ 72 
+ 
+ 
+ EBONUS_DISMOUNT_CHANCE 
+ 73 
+ 
+ 
+ EBONUS_GRAVITY 
+ 74 
+ 
+ 
+ EBONUS_LEVITATION_HEIGHT 
+ 75 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE_MELEE 
+ 76 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE_RANGED 
+ 77 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE_MAGIC 
+ 78 
+ 
+ 
+ EBONUS_HEALTH_REGEN 
+ 79 
+ 
+ 
+ EBONUS_DAMAGE_MELEE 
+ 80 
+ 
+ 
+ EBONUS_DAMAGE_RANGED 
+ 81 
+ 
+ 
+ EBONUS_DAMAGE_MAGIC 
+ 82 
+ 
+ 
+ EBONUS_ARMOR_PENETRATION_REDUCTION 
+ 83 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE_REDUCTION 
+ 84 
+ 
+ 
+ EBONUS_BLOCK_STRIKETHROUGH 
+ 85 
+ 
+ 
+ EBONUS_PARRY_STRIKETHROUGH 
+ 86 
+ 
+ 
+ EBONUS_EVADE_STRIKETHROUGH 
+ 87 
+ 
+ 
+ EBONUS_DISRUPT_STRIKETHROUGH 
+ 88 
+ 
+ 
+ EBONUS_CRITICAL_HIT_RATE_HEALING 
+ 89 
+ 
+ 
+ EBONUS_MAX_ACTION_POINTS 
+ 90 
+ 
+ 
+ EBONUS_SPEC_1 
+ 91 
+ 
+ 
+ EBONUS_SPEC_2 
+ 92 
+ 
+ 
+ EBONUS_SPEC_3 
+ 93 
+ 
+ 
+ EBONUS_HEALING_POWER 
+ 94 
+ 
+ 
+ EBONUS_INTERACT_TIME 
+ 95 
+ 
+ 
+ EBONUS_FORTITUDE 
+ 96 
+ 
+ 
+ EBONUS_OUTGOING_HEAL 
+ 100 
+ 
+ 
+ EBONUS_INCOMING_HEAL 
+ 103 
+ 
+ 
+ EBONUS_ARMOR_PENETRATION 
+ 107 
+ 
+ 
+ EBONUS_CRITICAL_HEAL 
+ 113 
+ 
+ 
+ EBONUS_LOOT_CHANCE 
+ 114 
+ 
+ 
+ EBONUS_CASTER_DURATION 
+ 115
+
+CareerLine
+GameData.CareerLine 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ IRON_BREAKER 
+ 1 
+ 
+ 
+ SLAYER 
+ 2 
+ 
+ 
+ RUNE_PRIEST 
+ 3 
+ 
+ 
+ ENGINEER 
+ 4 
+ 
+ 
+ BLACK_ORC 
+ 5 
+ 
+ 
+ CHOPPA 
+ 6 
+ 
+ 
+ SHAMAN 
+ 7 
+ 
+ 
+ SQUIG_HERDER 
+ 8 
+ 
+ 
+ WITCH_HUNTER 
+ 9 
+ 
+ 
+ KNIGHT 
+ 10 
+ 
+ 
+ BRIGHT_WIZARD 
+ 11 
+ 
+ 
+ WARRIOR_PRIEST 
+ 12 
+ 
+ 
+ CHOSEN 
+ 13 
+ 
+ 
+ MARAUDER 
+ 14 
+ 
+ 
+ ZEALOT 
+ 15 
+ 
+ 
+ MAGUS 
+ 16 
+ 
+ 
+ SWORDMASTER 
+ 17 
+ 
+ 
+ SHADOW_WARRIOR 
+ 18 
+ 
+ 
+ WHITE_LION 
+ 19 
+ 
+ 
+ ARCHMAGE 
+ 20 
+ 
+ 
+ BLACKGUARD 
+ 21 
+ 
+ 
+ WITCH_ELF 
+ 22 
+ 
+ 
+ DISCIPLE 
+ 23 
+ 
+ 
+ SORCERER 
+ 24
+
+ChatLogFilters
+SystemData.ChatLogFilters 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ SAY 
+ 0 
+ 
+ 
+ TELL_RECEIVE 
+ 1 
+ 
+ 
+ TELL_SEND 
+ 2 
+ 
+ 
+ CSR_TELL_RECEIVE 
+ 3 
+ 
+ 
+ GROUP 
+ 4 
+ 
+ 
+ CHANNEL_BASE 
+ 6 
+ 
+ 
+ MONSTER_SAY 
+ 7 
+ 
+ 
+ GUILD 
+ 8 
+ 
+ 
+ GUILD_OFFICER 
+ 9 
+ 
+ 
+ EMOTE 
+ 10 
+ 
+ 
+ SHOUT 
+ 11 
+ 
+ 
+ ALLIANCE 
+ 12 
+ 
+ 
+ ALLIANCE_OFFICER 
+ 13 
+ 
+ 
+ BATTLEGROUP 
+ 14 
+ 
+ 
+ SCENARIO 
+ 15 
+ 
+ 
+ SCENARIO_GROUPS 
+ 16 
+ 
+ 
+ RVR 
+ 17 
+ 
+ 
+ DEBUG 
+ 18 
+ 
+ 
+ RVR_KILLS_ORDER 
+ 19 
+ 
+ 
+ RVR_KILLS_DESTRUCTION 
+ 20 
+ 
+ 
+ CITY_ANNOUNCE 
+ 21 
+ 
+ 
+ KILLS_DEATH_YOURS 
+ 22 
+ 
+ 
+ KILLS_DEATH_OTHER 
+ 23 
+ 
+ 
+ ZONE_AREA 
+ 24 
+ 
+ 
+ QUEST 
+ 25 
+ 
+ 
+ USER_ERROR 
+ 26 
+ 
+ 
+ MISC 
+ 27 
+ 
+ 
+ MONSTER_EMOTE 
+ 29 
+ 
+ 
+ LOOT 
+ 30 
+ 
+ 
+ LOOT_ROLL 
+ 31 
+ 
+ 
+ TRADE 
+ 32 
+ 
+ 
+ LOOT_COIN 
+ 33 
+ 
+ 
+ CRAFTING 
+ 34 
+ 
+ 
+ HELP_MESSAGE 
+ 35 
+ 
+ 
+ REALMWAR_TIER_1 
+ 36 
+ 
+ 
+ REALMWAR_TIER_2 
+ 37 
+ 
+ 
+ REALMWAR_TIER_3 
+ 38 
+ 
+ 
+ REALMWAR_TIER_4 
+ 39 
+ 
+ 
+ CHANNEL_1 
+ 57 
+ 
+ 
+ CHANNEL_2 
+ 58 
+ 
+ 
+ CHANNEL_3 
+ 59 
+ 
+ 
+ CHANNEL_4 
+ 60 
+ 
+ 
+ CHANNEL_5 
+ 61 
+ 
+ 
+ CHANNEL_6 
+ 62 
+ 
+ 
+ CHANNEL_7 
+ 63 
+ 
+ 
+ CHANNEL_8 
+ 64 
+ 
+ 
+ CHANNEL_9 
+ 65 
+ 
+ 
+ C_WHITE 
+ 256 
+ 
+ 
+ C_ABILITY_ERROR 
+ 257 
+ 
+ 
+ C_ABILITY_ERROR_XS 
+ 258 
+ 
+ 
+ C_WHITE_1 
+ 259 
+ 
+ 
+ C_ORANGE_L 
+ 260 
+ 
+ 
+ C_WHITE_2 
+ 261 
+ 
+ 
+ C_WHITE_3 
+ 262 
+ 
+ 
+ C_WHITE_L 
+ 263 
+ 
+ 
+ C_ABILITY_ERROR_HIGH_PRIORITY 
+ 266 
+ 
+ 
+ C_XP_CENTRE_S 
+ 267 
+ 
+ 
+ C_RENOWN_CENTRE_S 
+ 268 
+ 
+ 
+ C_XP_CENTRE_XL 
+ 269 
+ 
+ 
+ C_RENOWN_CENTRE_XL 
+ 270 
+ 
+ 
+ C_WHITE_L_HIGH_PRIORITY 
+ 271 
+ 
+ 
+ C_RED_LARGE 
+ 272 
+ 
+ 
+ C_ORDER_RVR_MESSAGE 
+ 277 
+ 
+ 
+ C_DESTRUCTION_RVR_MESSAGE 
+ 278 
+ 
+ 
+ C_ABILITY_ERROR_2 
+ 279 
+ 
+ 
+ C_ABILITY_ERROR_SMALL 
+ 280 
+ 
+ 
+ C_BATTLEFIELD_OBJECTIVE 
+ 281 
+ 
+ 
+ C_WARHAMMER_FONT_CENTRE_XXL 
+ 285 
+ 
+ 
+ C_GUILD_LEVEL_UP 
+ 286 
+ 
+ 
+ C_ORDER_TEXT_XXL 
+ 288 
+ 
+ 
+ C_DESTRUCTION_TEXT_XXL 
+ 289 
+ 
+ 
+ C_WHITE_TEXT_XXL 
+ 290 
+ 
+ 
+ COMBAT_DEFAULT 
+ 1000 
+ 
+ 
+ YOUR_DMG_FROM_PC 
+ 1001 
+ 
+ 
+ YOUR_HITS 
+ 1002 
+ 
+ 
+ YOUR_HEALS 
+ 1003 
+ 
+ 
+ PET_DMG 
+ 1004 
+ 
+ 
+ PET_HITS 
+ 1005 
+ 
+ 
+ OTHER_HITS 
+ 1006 
+ 
+ 
+ EXP 
+ 1007 
+ 
+ 
+ RENOWN 
+ 1008 
+ 
+ 
+ INFL 
+ 1009 
+ 
+ 
+ TOK 
+ 1010 
+ 
+ 
+ ABILITY_ERROR 
+ 1011 
+ 
+ 
+ YOUR_DMG_FROM_NPC 
+ 1012
+
+CreatureBrain
+CreatureBrain 
+ 
+ 
+ 
+ Name 
+ Value 
+ Description 
+ 
+ 
+ 
+ 
+ DUMMY 
+ 0 
+ Creature cannot enter combat. 
+ 
+ 
+ PASSIVE 
+ 1 
+ Creature can enter combat but does not react to damage. 
+ 
+ 
+ DEFENSIVE 
+ 2 
+ Does not aggro unless damaged. 
+ 
+ 
+ AGGRESSIVE 
+ 3 
+ Seeks out new targets within aggro range. 
+ 
+ 
+ ALWAYS_AGGRESSIVE 
+ 4 
+ Always seeks out new targets within aggro range, even if no players are nearby.
+
+DormantFlags
+DormantFlags 
+ 
+ 
+ 
+ Name 
+ Value 
+ Description 
+ 
+ 
+ 
+ 
+ CannotBeKilled 
+ 1 
+ Object cannot be killed 
+ 
+ 
+ CannotBeAttacked 
+ 2 
+ Object cannot be attacked 
+ 
+ 
+ CannotBeTargeted 
+ 4 
+ Object cannot be targeted 
+ 
+ 
+ NameHidden 
+ 8 
+ Object does not show its name 
+ 
+ 
+ DoesNotMove 
+ 16 
+ Object does not move 
+ 
+ 
+ DoesNotAnimate 
+ 32 
+ Object does not animate 
+ 
+ 
+ CannotAttack 
+ 64 
+ Object cannot attack 
+ 
+ 
+ Invisible 
+ 128 
+ Object is invisible (]invis) 
+ 
+ 
+ Non 
+ 256 
+ Object is non (]non) 
+ 
+ 
+ CannotBeInteractedWith 
+ 512 
+ Object cannot be interacted with (suppresses icons as well) 
+ 
+ 
+ CannotBeAttackedByPlayers 
+ 1024 
+ Monsters cannot be attacked by other players, but can be attacked by other monsters 
+ 
+ 
+ WillNotAttack 
+ 2048 
+ Monsters (and Guards) will not attack, but the DORM monster can be attacked by players 
+ 
+ 
+ WillNotAggro 
+ 4096 
+ Monsters (and Guards) will not aggro, however if the DORM monster provokes them they will retaliate 
+ 
+ 
+ NoTurnOnInteract 
+ 8192 
+ Monsters/NPCs will not turn on interact. 
+ 
+ 
+ NoInteractionSounds 
+ 16384 
+ Object produces no interaction sounds. 
+ 
+ 
+ WillNotLookAtOtherObjects 
+ 32768 
+ Monsters/NPCs will not look at other objects. 
+ 
+ 
+ Unk17 
+ 65536 
+ 
+ 
+ 
+ Unk18 
+ 131072 
+ 
+ 
+ 
+ DoesNotTurn 
+ 262144 
+ Creature will not turn towards target
+
+EquipSlot
+EquipSlot 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ None 
+ 0 
+ 
+ 
+ Event 
+ 9 
+ 
+ 
+ MainHand 
+ 10 
+ 
+ 
+ OffHand 
+ 11 
+ 
+ 
+ RangedWeapon 
+ 12 
+ 
+ 
+ EitherHand 
+ 13 
+ 
+ 
+ Standard 
+ 14 
+ 
+ 
+ Trophy1 
+ 15 
+ 
+ 
+ Trophy2 
+ 16 
+ 
+ 
+ Trophy3 
+ 17 
+ 
+ 
+ Trophy4 
+ 18 
+ 
+ 
+ Trophy5 
+ 19 
+ 
+ 
+ Body 
+ 20 
+ 
+ 
+ Gloves 
+ 21 
+ 
+ 
+ Boots 
+ 22 
+ 
+ 
+ Helm 
+ 23 
+ 
+ 
+ Shoulder 
+ 24 
+ 
+ 
+ Pocket1 
+ 25 
+ 
+ 
+ Pocket2 
+ 26 
+ 
+ 
+ Back 
+ 27 
+ 
+ 
+ Belt 
+ 28 
+ 
+ 
+ Jewellery1 
+ 31 
+ 
+ 
+ Jewellery2 
+ 32 
+ 
+ 
+ Jewellery3 
+ 33 
+ 
+ 
+ Jewellery4 
+ 34
+
+Races
+GameData.Races 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ NONE 
+ 0 
+ 
+ 
+ DWARF 
+ 1 
+ 
+ 
+ ORC 
+ 2 
+ 
+ 
+ GOBLIN 
+ 3 
+ 
+ 
+ HIGH_ELF 
+ 4 
+ 
+ 
+ DARK_ELF 
+ 5 
+ 
+ 
+ EMPIRE 
+ 6 
+ 
+ 
+ CHAOS 
+ 7
+
+Realm
+GameData.Realm 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ NEUTRAL 
+ 0 
+ 
+ 
+ ORDER 
+ 1 
+ 
+ 
+ DESTRUCTION 
+ 2
+
+WeaponStance
+WeaponStance 
+ 
+ 
+ 
+ Name 
+ Value 
+ 
+ 
+ 
+ 
+ MELEE 
+ 0 
+ 
+ 
+ RANGED 
+ 1 
+ 
+ 
+ SHEATHED 
+ 2 
+ 
+ 
+ STANDARD 
+ 4
+
+GameObject
+Inherits all methods from: WorldObject, Unit
+
+GetEntry
+Returns the entry/protoId of the GameObject. 
+ Synopsis 
+ entry = GameObject:GetEntry()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ entry 
+ uint
+
+GetRespawnTime
+Gets the respawn for the GameObject. 
+ Synopsis 
+ delay = GameObject:GetRespawnTime()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ delay 
+ int 
+ Cooldown time in seconds to respawn or despawn the object. 0 means never.
+
+GetVfxState
+Get current VFX state of the GameObject. 
+ Synopsis 
+ vfxState = GameObject:GetVfxState()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ vfxState 
+ byte
+
+IsInteractable
+Return if GameObject can be interacted with. 
+ Synopsis 
+ interactable = GameObject:IsInteractable()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ interactable 
+ bool
+
+SetRespawnTime
+Sets the respawn or despawn time for the gameobject. 
+ Synopsis 
+ GameObject:SetRespawnTime( delay )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ delay 
+ int 
+ 
+ Cooldown time in seconds to respawn or despawn the object. 0 means never. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetVfxState
+Set the VFX state of the GameObject. 
+ Synopsis 
+ GameObject:SetVfxState( newState )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ newState 
+ byte 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Global
+
+GetCreatureByOID
+Finds and Returns Creature by oid if found 
+ Synopsis 
+ creature = GetCreatureByOID( oid )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ oid 
+ ushort 
+ 
+ Oid of the Creature, you can get it with WorldObject:GetOID. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ creature 
+ Creature 
+ nil if not found
+
+GetCurrTime
+Returns the server's current time. 
+ Synopsis 
+ currTime = GetCurrTime()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ time 
+ long 
+ The current time, in milliseconds.
+
+GetGameObjectByOID
+Finds and Returns GameObject by oid if found 
+ Synopsis 
+ gameObject = GetGameObjectByOID( oid )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ oid 
+ ushort 
+ 
+ Oid of the GameObject, you can get it with WorldObject:GetOID. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ gameObject 
+ GameObject 
+ nil if not found
+
+GetGameTime
+Returns game time in seconds 
+ Synopsis 
+ time = GetGameTime()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ time 
+ long 
+ The number of seconds of server uptime
+
+GetPlayerByCharacterIdInRegion
+Attempts to get a player object by id in the region 
+ Synopsis 
+ player = GetPlayerByCharacterIdInRegion(characterId)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ characterId 
+ uint 
+ characterId of the player to attempt to grab 
+ 
+ 
+ 
+ Returns 
+ If a player with the id is in the region they will be returned otherwise null.
+
+GetPlayerByOID
+Finds and Returns Player by oid if found 
+ Synopsis 
+ player = GetPlayerByOID( oid )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ oid 
+ ushort 
+ 
+ Oid of the Player, you can get it with WorldObject:GetOID. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ nil if not found
+
+GetRandomPlayerInRvR
+Gets a random player of a realm from the battlefront 
+ Synopsis 
+ player = GetRandomPlayerInRvR(realm)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ realm 
+ Realm 
+ Current points for Order faction 
+ 
+ 
+ 
+ Returns 
+ Gets a random player of the specified realm. If no such player is possible to get it will return null.
+
+GetRegionId
+Return the ID of the region the script is running in. This is the number in the RegionId column in the zone table, so not a unique identifier in instanced content. 
+ Synopsis 
+ regionId = GetRegionId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ regionId 
+ ushort
+
+GetRelativePoint
+Get point distance and heading from coordinates specified. 
+ Synopsis 
+ x, y, z = GetRelativePoint( x, y, z, distance, heading )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ distance 
+ double 
+ 
+ Distance in units 
+ 
+ 
+ heading 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ z 
+ ushort
+
+GetWorldObjectByOID
+Finds and Returns WorldObject by oid if found 
+ Synopsis 
+ worldObject = GetWorldObjectByOID( oid )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ oid 
+ ushort 
+ 
+ Oid of the WorldObject, you can get it with WorldObject:GetOID. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ worldObject 
+ WorldObject 
+ nil if not found
+
+HasZone
+Return if the specified zoneId exists in the region the script is running in. 
+ Synopsis 
+ success = HasZone( zoneId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ zoneId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool
+
+IsLiveEventActive
+Return if the specified live event is active. 
+ Synopsis 
+ success = IsLiveEventActive( eventId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ eventId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool
+
+PrintDebug
+Prints given parameter to the debug log. 
+ Synopsis 
+ PrintDebug( value )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ value 
+ any 
+ 
+ Value to print 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+PrintError
+Prints given parameter to the error log. 
+ Synopsis 
+ PrintError( value )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ value 
+ any 
+ 
+ Value to print 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+PrintInfo
+Prints given parameter to the information log. 
+ Synopsis 
+ PrintInfo( value )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ value 
+ any 
+ 
+ Value to print 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RegisterCreatureEvent
+Registers a Creature event handler. Events are under the CreatureEvent namespace, e.g. CreatureEvent.OnInteract . 
+ 
+ 
+ 
+ Event 
+ Parameters 
+ Note 
+ 
+ 
+ 
+ 
+ OnInteract 
+ Creature creature, Player player 
+ 
+ 
+ 
+ OnDie 
+ Creature creature 
+ 
+ 
+ 
+ OnEnterCombat 
+ Creature creature, Unit? attacker 
+ 
+ 
+ 
+ OnLeaveCombat 
+ Creature creature 
+ 
+ 
+ 
+ OnSpawn 
+ Creature creature 
+ Triggers before the creature is added to the world. 
+ 
+ 
+ OnReceiveEmote 
+ Creature creature, Player player, uint emoteId 
+ 
+ 
+ 
+ OnReceiveDamage 
+ Creature creature, Unit attacker, int damage 
+ 
+ 
+ 
+ OnEnterRange 
+ Creature creature, WorldObject worldObject 
+ 
+ 
+ 
+ OnLeaveRange 
+ Creature creature, WorldObject worldObject 
+ 
+ 
+ 
+ OnAbilityCastStart 
+ Creature creature, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnAbilityCastFinish 
+ Creature creature, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnAbilityCastFail 
+ Creature creature, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnBuffStart 
+ Creature creature, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnBuffEnd 
+ Creature creature, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnFinishedWaypoint 
+ Creature creature, Waypoint waypoint 
+ 
+ 
+ 
+ OnFinishedWaypoints 
+ Creature creature 
+ 
+ 
+ 
+ OnMove 
+ Creature creature 
+ 
+ 
+ 
+ OnStopMove 
+ Creature creature 
+ 
+ 
+ 
+ OnDespawn 
+ Creature creature 
+ 
+ 
+ 
+ OnKill 
+ Creature creature, Unit killer, Unit victim 
+ This is triggered on kill credit , so may trigger multiple times for the same creature on different group members. 
+ 
+ 
+ OnCellActivate 
+ Creature creature 
+ 
+ 
+ 
+ OnCellDeactivate 
+ Creature creature 
+ 
+ 
+ 
+ OnRevive 
+ Creature creature 
+ 
+ 
+ 
+ 
+ Synopsis 
+ RegisterCreatureEvent( creatureId, event, function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ creatureId 
+ uint 
+ 
+ Creature entry's Id 
+ 
+ 
+ event 
+ CreatureEvent 
+ 
+ Creature event, refer to table above. 
+ 
+ 
+ function 
+ function 
+ 
+ Function to register. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RegisterGameObjectEvent
+Registers a GameObject event handler. Events are under the GameObjectEvent namespace, e.g. GameObjectEvent.OnInteract . 
+ 
+ 
+ 
+ Event 
+ Parameters 
+ Note 
+ 
+ 
+ 
+ 
+ OnInteract 
+ GameObject gameObject, Player player 
+ Function return false to prevent interaction. 
+ 
+ 
+ OnInteractionComplete 
+ GameObject gameObject, Player player 
+ 
+ 
+ 
+ OnEnterRange 
+ GameObject gameObject, WorldObject worldObject 
+ 
+ 
+ 
+ OnLeaveRange 
+ GameObject gameObject, WorldObject worldObject 
+ 
+ 
+ 
+ OnSpawn 
+ GameObject gameObject 
+ Triggers before the object is added to the world. 
+ 
+ 
+ OnDie 
+ GameObject gameObject 
+ 
+ 
+ 
+ OnBuffStart 
+ GameObject gameObject, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnBuffEnd 
+ GameObject gameObject, AbilityCast abilityCast 
+ 
+ 
+ 
+ OnDespawn 
+ GameObject gameObject 
+ 
+ 
+ 
+ OnCellActivate 
+ GameObject gameObject 
+ 
+ 
+ 
+ OnCellDeactivate 
+ GameObject gameObject 
+ 
+ 
+ 
+ OnRevive 
+ GameObject gameObject 
+ 
+ 
+ 
+ 
+ Synopsis 
+ RegisterGameObjectEvent( gameObjectId, event, function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ gameObjectId 
+ uint 
+ 
+ Gameobject entry's Id 
+ 
+ 
+ event 
+ GameObjectEvent 
+ 
+ Gameobject event, refer to table above. 
+ 
+ 
+ function 
+ function 
+ 
+ Function to register. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RegisterPlayerEvent
+Registers a Player event handler. 
+ 
+ 
+ 
+ Event 
+ Parameters 
+ 
+ 
+ 
+ 
+ OnSpawn 
+ Player player 
+ 
+ 
+ OnDie 
+ Player player 
+ 
+ 
+ OnEnterCombat 
+ Player player, Unit? attacker 
+ 
+ 
+ OnLeaveCombat 
+ Player player 
+ 
+ 
+ OnReceiveDamage 
+ Player player, Unit attacker, int damage 
+ 
+ 
+ OnEnterRange 
+ Player player, WorldObject worldObject 
+ 
+ 
+ OnLeaveRange 
+ Player player, WorldObject worldObject 
+ 
+ 
+ OnAbilityCastStart 
+ Player player, AbilityCast abilityCast 
+ 
+ 
+ OnAbilityCastFinish 
+ Player player, AbilityCast abilityCast 
+ 
+ 
+ OnAbilityCastFail 
+ Player player, AbilityCast abilityCast 
+ 
+ 
+ OnBuffStart 
+ Player player, AbilityCast abilityCast 
+ 
+ 
+ OnBuffEnd 
+ Player player, AbilityCast abilityCast 
+ 
+ 
+ OnDespawn 
+ Player player 
+ 
+ 
+ OnKill 
+ Player player, Unit killer, Unit victim 
+ 
+ 
+ OnPurchaseItem 
+ Player player, uint itemId, ushort count 
+ 
+ 
+ OnUseItem 
+ Player player, uint itemId 
+ 
+ 
+ OnQuestStart 
+ Player player, ushort questId 
+ 
+ 
+ OnQuestAbandon 
+ Player player, ushort questId 
+ 
+ 
+ OnQuestFinish 
+ Player player, ushort questId 
+ 
+ 
+ OnRevive 
+ Player player 
+ 
+ 
+ 
+ Synopsis 
+ RegisterPlayerEvent( event, function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ event 
+ PlayerEvent 
+ 
+ Player event, refer to table above. 
+ 
+ 
+ function 
+ function 
+ 
+ Function to register. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RegisterServerCommandEvent
+Registers a ServerCommand event handler. 
+ 
+ 
+ 
+ Event 
+ Parameters 
+ 
+ 
+ 
+ 
+ ServerCommandTrigger.Start 
+ Unit caster, Unit target, Table values 
+ 
+ 
+ ServerCommandTrigger.Tick 
+ Unit caster, Unit target, Table values 
+ 
+ 
+ 
+ Synopsis 
+ RegisterServerCommandEvent( serverCommand, scriptId, event, function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ serverCommand 
+ int 
+ 
+ First value on the component 
+ 
+ 
+ scriptId 
+ int 
+ 
+ Second value on the component 
+ 
+ 
+ event 
+ ServerCommandTrigger 
+ 
+ ServerCommand event, refer to table above. 
+ 
+ 
+ function 
+ function 
+ 
+ Function to register. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Player
+Inherits all methods from: WorldObject, Unit
+
+AddActionCounter
+Increments an action counter on the player by the specified amount. 
+ Synopsis 
+ Player:AddActionCounter( actionCounterId, value)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ actionCounterId 
+ ushort 
+ 
+ 
+ 
+ 
+ value 
+ uint 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+AddItem
+Adds the given amount of the specified item id to the player. 
+ Synopsis 
+ success = Player:AddItem( itemId, count = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ itemId 
+ uint 
+ 
+ 
+ 
+ 
+ count 
+ ushort 
+ 1 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ False if item couldn't be added, bags full etc
+
+AddMoney
+Adds the amount of copper specified to the Player 
+ Synopsis 
+ Player:AddMoney( uint copperAmount )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ copperAmount 
+ uint 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+AddPackage
+Add a package to the player. Used for training mastery, purchasing renown, abilities etc. 
+ Synopsis 
+ Player:AddPackage( tier, category, packageId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ tier 
+ byte 
+ 
+ 
+ 
+ 
+ category 
+ byte 
+ 
+ 
+ 
+ 
+ packageId 
+ int 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+AddQuest
+Tries to add the given quest entry for the Player. 
+ Synopsis 
+ success = Player:AddQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ False if quest couldn't be added
+
+AddTomeUnlock
+Adds a tome unlock to the player. 
+ Synopsis 
+ Player:AddTomeUnlock( tomeUnlockEntry )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ tomeUnlockEntry 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing
+
+CanCompleteQuest
+Returns true if the Player has taken the given quest and has finished all quest objectives, false otherwise. See also HasQuest and HasReceivedQuestReward 
+ Synopsis 
+ canCompleteQuest = Player:CanCompleteQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ Entry of the quest. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ true 
+ bool 
+ 
+ 
+ 
+ false 
+ bool
+
+Catapult
+Catapult a Player to the location specified 
+ Synopsis 
+ Player:Catapult( x, y, z, flightTime, arcHeight, caster? )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ flightTime 
+ byte 
+ 
+ 
+ 
+ 
+ arcHeight 
+ ushort 
+ 
+ 
+ 
+ 
+ caster 
+ Unit 
+ 
+ Should be set if possible, if unset the player may not be considered moving by some requirements 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+FailQuest
+Abandons the given Quest entry for the Player and sends a message that the quest failed. 
+ See also RemoveActiveQuest . 
+ Synopsis 
+ Player:FailQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+GetActionCounter
+Gets an action counter on the player. 
+ Synopsis 
+ Player:GetActionCounter( actionCounterId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ actionCounterId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ amount 
+ ulong
+
+GetCareer
+Returns the Player's CareerLine ID. 
+ Synopsis 
+ career = Player:GetCareer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ career 
+ CareerLine 
+ Values from 1 to 24
+
+GetCharacterId
+Gets the character ID of the player 
+ Synopsis 
+ id = Player:GetCharacterId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ id 
+ uint 
+ characterId of a player
+
+GetEquippedItemBySlot
+Returns the item id in the specified slot. 
+ Synopsis 
+ itemId = Player:GetEquippedItemBySlot(equipSlot)
+ 
+ Arguments 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ equipSlot 
+ EquipSlot 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ itemId 
+ uint 
+ Returns 0 if there's no item in that slot
+
+GetGender
+Returns the Player's gender. 
+ Synopsis 
+ gender = Player:GetGender()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ gender 
+ Gender 
+ 
+ 
+ 
+ 
+ Gender 
+ 
+ 
+ 
+ Name 
+ Value 
+ Note 
+ 
+ 
+ 
+ 
+ Gender.Male 
+ 0 
+ 
+ 
+ 
+ Gender.Female 
+ 1
+
+GetMasteryCount
+Return number of mastery points in a tree. 
+ Synopsis 
+ count = Player:GetMasteryCount( int tree )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ tree 
+ int 
+ 
+ 1 - 3 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ count 
+ byte 
+ Number of mastery points in the tree
+
+GetMoney
+Returns the Players amount of money in copper 
+ Synopsis 
+ Player:GetMoney()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ copperAmount 
+ uint
+
+GetPartySize
+Return how many players are in the party with the player 
+ Synopsis 
+ partySize = Player:GetPartySize()
+ 
+ Arguments 
+ None 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ partySize 
+ int 
+ will return 0 if there is no party
+
+GetQuestObjectiveStatus
+Returns the status of the Players Quest Objective specified by entry ID. 
+ Synopsis 
+ questObjectiveStatus = Player:GetQuestObjectiveStatus( questId, questObjectiveId )
+ 
+ QuestObjectiveStatus 
+ 
+ 
+ 
+ Value 
+ Note 
+ 
+ 
+ 
+ 
+ QuestObjectiveStatus.UNAVAILABLE 
+ Player is not on the quest 
+ 
+ 
+ QuestObjectiveStatus.INCOMPLETE 
+ Quest objective not completed 
+ 
+ 
+ QuestObjectiveStatus.COMPLETE 
+ Quest objective completed 
+ 
+ 
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ questObjectiveId 
+ ushort 
+ 
+ The index of the objective, from 1 and up 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ questObjectiveStatus 
+ QuestObjectiveStatus 
+ See table above
+
+GetQuestStatus
+Returns the status of the Players Quest specified by entry ID. 
+ Synopsis 
+ questStatus = Player:GetQuestStatus( questId )
+ 
+ QuestStatus 
+ 
+ 
+ 
+ Value 
+ Note 
+ 
+ 
+ 
+ 
+ QuestStatus.AVAILABLE 
+ Quest can be accepted 
+ 
+ 
+ QuestStatus.UNAVAILABLE 
+ Quest cannot be accepted 
+ 
+ 
+ QuestStatus.INCOMPLETE 
+ Started, but not all objectives completed 
+ 
+ 
+ QuestStatus.COMPLETE 
+ All objectives completed, but not handed in 
+ 
+ 
+ QuestStatus.REWARDED 
+ Done and rewards granted 
+ 
+ 
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ questStatus 
+ QuestStatus 
+ See table above
+
+GetRace
+Returns the Player's race ID. 
+ Synopsis 
+ race = Player:GetRace()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ race 
+ Races
+
+GetRenown
+Returns the Player's renown points since last renown rank. 
+ Synopsis 
+ renown = Player:GetRenown()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ renown 
+ uint
+
+GetRenownRank
+Returns the Player's current renown rank 
+ Synopsis 
+ renownRank = Player:GetRenownRank()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ renownRank 
+ byte
+
+GetXP
+Returns the Player's experience points 
+ Synopsis 
+ xp = Player:GetXP()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ xp 
+ uint 
+ Amount of XP earned since last level up
+
+GetXPRestBonus
+Returns rested experience bonus. 
+ Synopsis 
+ xpBonus = Player:GetXPRestBonus( xp )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ xp 
+ uint 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ xpBonus 
+ uint
+
+GiveXP
+Gives the Player experience. 
+ Synopsis 
+ Player:GiveXP( xp, victim = nil )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ xp 
+ uint 
+ 
+ 
+ 
+ 
+ victim 
+ Unit 
+ nil 
+ Optional 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+HasHealSpec
+Returns true if the Player has a Heal Specialization, false otherwise. 
+ Synopsis 
+ hasHealSpec = Player:HasHealSpec()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasHealSpec 
+ bool
+
+HasItem
+Returns 'true' if the Player has the given amount of item entry specified, 'false' otherwise. 
+ Synopsis 
+ hasItem = Player:HasItem( itemId, count = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ itemId 
+ uint 
+ 
+ Entry of the item. 
+ 
+ 
+ count 
+ ushort 
+ 1 
+ Amount of items the player needs should have. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasItem 
+ bool 
+ See method description.
+
+HasMeleeSpec
+Returns true if the Player has a Melee Specialization, false otherwise. 
+ Synopsis 
+ hasMeleeSpec = Player:HasMeleeSpec()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasMeleeSpec 
+ bool
+
+HasQuest
+Returns true if the Player has taken or completed the given quest, false otherwise. See also CanCompleteQuest and HasReceivedQuestReward . 
+ Synopsis 
+ hasQuest = Player:HasQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ Entry of the quest. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ true 
+ bool 
+ Player has taken or completed the quest 
+ 
+ 
+ false 
+ bool 
+ Player has not taken or completed the quest
+
+HasRangedSpec
+Returns true if the Player has a Ranged Specialization, false otherwise. 
+ Synopsis 
+ hasRangedSpec = Player:HasRangedSpec()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasRangedSpec 
+ bool
+
+HasReceivedQuestReward
+Returns true if the Player has taken the given quest, has finished all quest objectives, and claimed the quest reward, false otherwise. See also HasQuest and CanCompleteQuest . 
+ Synopsis 
+ hasReceivedQuestReward = Player:HasReceivedQuestReward( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ Entry of the quest. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ true 
+ bool 
+ 
+ 
+ 
+ false 
+ bool
+
+HasTankSpec
+Returns true if the Player has a Tank Specialization, false otherwise. 
+ Synopsis 
+ hasTankSpec = Player:HasTankSpec()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasTankSpec 
+ bool
+
+HasTomeUnlock
+Checks if the player has the specified tome unlock. 
+ Synopsis 
+ Player:HasTomeUnlock( actionCounterId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ tomeUnlockEntry 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ hasTomeUnlock 
+ bool
+
+IsAFK
+Returns true if the Player is 'Away From Keyboard' flagged, false otherwise. 
+ Synopsis 
+ isAFK = Player:IsAFK()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isAFK 
+ bool
+
+IsGM
+Returns true if the Player is a Game Master, false otherwise. 
+ Note: This is only true when GM tag is activated! 
+ Synopsis 
+ isGM = Player:IsGM()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isGM 
+ bool
+
+IsInRvR
+Checks if the player in an RvR lake 
+ Synopsis 
+ success = Player:IsInRvR()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ true if the player is in an RvR lake, otherwise false
+
+IsInSameGroupWith
+Returns 'true' if the Player is currently in the same Group as another Player by object, 'false' otherwise. 
+ Synopsis 
+ isInSameGroupWith = Player:IsInSameGroupWith( player )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInSameGroupWith 
+ bool
+
+IsPartyLeader
+Returns if the player is party or warband leader 
+ Synopsis 
+ isLeader = Player:IsPartyLeader()
+ 
+ Arguments 
+ None 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isLeader 
+ bool 
+ True if the player is leader of a party or warband
+
+IsPvPFlagged
+Returns true if the Player flagged for PvP. 
+ Synopsis 
+ isPvP = Player:IsPvPFlagged()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isPvP 
+ bool
+
+KillPlayer
+Kills the Player 
+ Synopsis 
+ Player:KillPlayer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+RemoveActiveQuest
+Abandons the given Quest entry for the Player, but does not sends a message that the quest failed, just that it was abandoned. 
+ See also FailQuest . 
+ Synopsis 
+ Player:RemoveActiveQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveItem
+Removes the given amount of the specified itemId from the player. 
+ Synopsis 
+ success = Player:RemoveItem( itemId, count = 1)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ itemId 
+ uint 
+ 
+ 
+ 
+ 
+ count 
+ ushort 
+ 1 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ False if item couldn't be removed, not found on player etc
+
+RemoveMoney
+Removes the amount of copper specified from the Player 
+ Synopsis 
+ Player:RemoveMoney( uint copperAmount )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ copperAmount 
+ uint 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveQuest
+Removes the given quest entry from the Player. Makes it possible to take the quest again. 
+ See also RemoveActiveQuest and FailQuest . 
+ Synopsis 
+ Player:RemoveQuest( questId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Respecialize
+Respecialize a package category. 
+ Synopsis 
+ Player:Respecialize( category, force = true )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ category 
+ byte 
+ 
+ 
+ 
+ 
+ force 
+ bool 
+ true 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+ResurrectPlayer
+Resurrects a Player. Should only be used when IsDead(). 
+ Synopsis 
+ Player:ResurrectPlayer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+SendLocalizeString
+Sends a chat message on the specified chat log filter to the Player 
+ Synopsis 
+ Player:SendLocalizeString(
+ string message,
+ ChatLogFilters filter = ChatLogFilters.SAY,
+ LocalizedText localizeEntry = LocalizedText.CHAT_TAG_DEFAULT)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ message 
+ string 
+ 
+ 
+ 
+ 
+ filter 
+ ChatLogFilters 
+ ChatLogFilters.SAY 
+ 
+ 
+ 
+ localizeEntry 
+ LocalizedText 
+ LocalizedText.CHAT_TAG_DEFAULT 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetPvP
+Sets the Player's PvP on or off. 
+ Synopsis 
+ Player:SetPvP( apply )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ apply 
+ boolean 
+ 
+ True if set on, false if off. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Teleport
+Teleports a Player to the location specified 
+ Synopsis 
+ Player:Teleport( zoneId, x, y, z, o )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ zoneId 
+ ushort 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ o 
+ ushort 
+ 
+ Valid numbers: integers from 0 to 4,095. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+TriggerLiveEventObjective
+Increment a live event objective on the player. The live event objective type must be "Custom" (type 34) and the Objective Id matching the value passed to this function. 
+ Synopsis 
+ success = Player:TriggerLiveEventObjective( objectiveId, count = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ objectiveId 
+ uint 
+ 
+ 
+ 
+ 
+ count 
+ ushort 
+ 1 
+ The amount of task credit to give 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ False if the live event is not active or progress was otherwise unable to be given. Seemingly bugged and will always return false, so best ignored for now.
+
+TriggerQuestObjective
+Increment a quest objective on the player. 
+ Synopsis 
+ success = Player:TriggerQuestObjective( questId, questObjectiveId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ questId 
+ ushort 
+ 
+ 
+ 
+ 
+ questObjectiveId 
+ ushort 
+ 
+ The index of the objective, from 1 and up 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ False if the player did not have quest active or the objective is already completed
+
+RvR Events
+Used to trigger custom scripted events during the RvR campaign — like King of the Hill, supply events, or zone-specific skirmishes. 
+ 
+ How It Works 
+ To create a new RvR event, you need: 
+ 
+ A Creature entry that acts as the event controller (invisible or visible) 
+ A Lua script tied to that unit 
+ An entry in the battlefront_events database table 
+ 
+ The event will automatically be triggered based on how it's configured in the table. 
+ 
+ Required Lua Functions 
+ Your Creature script should include: 
+ 
+ 
+ 
+ Function 
+ Purpose 
+ 
+ 
+ 
+ 
+ Creature:WinOMeterSend(orderPoints, destroPoints) 
+ Sends live score updates to players near the event 
+ 
+ 
+ Creature:RemovePlayerFromEvent(player) 
+ Removes a player from the event if they leave the area, die, etc. Cleans up their UI 
+ 
+ 
+ Creature:EndRvREvent() 
+ Ends the event and removes it from the active campaign 
+ 
+ 
+ 
+ Your script should also: 
+ 
+ Track event score/state 
+ Handle reward distribution when the event ends 
+ 
+ 
+ battlefront_events Table Structure 
+ This table defines when, where, and how the RvR event spawns. 
+ 
+ 
+ 
+ Field 
+ Type 
+ Default 
+ Description 
+ 
+ 
+ 
+ 
+ Id 
+ uint(10) 
+ 
+ Unique event ID 
+ 
+ 
+ Name 
+ longtext 
+ 
+ Optional event name 
+ 
+ 
+ ZoneId 
+ smallint(5) 
+ NULL 
+ Zone ID to spawn in. Leave NULL for all zones 
+ 
+ 
+ X , Y , Z 
+ uint 
+ NULL 
+ Coordinates to spawn at (if targeting a specific location) 
+ 
+ 
+ CreatureId 
+ smallint(5) 
+ 
+ Creature to spawn (the scripted controller) 
+ 
+ 
+ Heading 
+ smallint(5) 
+ NULL 
+ Optional orientation 
+ 
+ 
+ IgnoreZone 
+ longtext 
+ '[]' 
+ List of zone IDs to skip (e.g. [106, 206] ) 
+ 
+ 
+ MapIcon 
+ smallint(5) 
+ 0 
+ Optional map icon ID 
+ 
+ 
+ SuppressAnnouncement 
+ tinyint(1) 
+ 0 
+ Set to 1 to disable global event messages 
+ 
+ 
+ SingleRealm 
+ tinyint(1) 
+ 0 
+ If set to 1 , the map icon is only visible to one realm (used for AAO events) 
+ 
+ 
+ 
+ 
+ Notes 
+ 
+ To trigger an event in all zones at BOs , leave ZoneId , X , Y , Z , and Heading as NULL . 
+ MapIcon uses predefined icon IDs from the client. 
+ Use SingleRealm = 1 for AAO-specific events where only the underdog realm sees the marker.
+
+TestAction
+This chapter contains the testing functions available in test scripts. These are not available in regular scripts.
+
+Action
+Perform an action 
+ Synopsis 
+ testAction = TestAction:Action( function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ function 
+ Function( TestAction) 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+AddToGroup
+Add player to a group with another player. 
+ Synopsis 
+ testAction = TestAction:AddToGroup( leader, member )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ leader 
+ Player 
+ 
+ 
+ 
+ 
+ member 
+ Player 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+All
+Wait for all test actions defined inside the function to complete before proceeding. 
+ Synopsis 
+ testAction = TestAction:All( function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ function 
+ Function( TestAction test ) 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+Assert
+Assert that a condition is true. 
+ Synopsis 
+ testAction = TestAction:Assert( name, function )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string 
+ 
+ Name of the test 
+ 
+ 
+ function 
+ Function( TestAction ) 
+ 
+ Return true on success, false on failure. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+AssertHasBuff
+Assert that the unit has a buff with the specified ability id. 
+ Synopsis 
+ testAction = TestAction:AssertHasBuff( name, unit, abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string 
+ 
+ Name of the test 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+AssertNotHasBuff
+Assert that the unit does not have a buff with the specified ability id. 
+ Synopsis 
+ testAction = TestAction:AssertNotHasBuff( name, unit, abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string 
+ 
+ Name of the test 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+CastAbility
+Cast the specified ability. 
+ Synopsis 
+ testAction = TestAction:CastAbility( unit, abilityId, allowNonAbilitySet, returnError )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ allowNonAbilitySet 
+ bool 
+ false 
+ If true it will force cast abilities that the caster does not have in its ability set 
+ 
+ 
+ returnError 
+ bool 
+ true 
+ Return errors from the casting 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+CastAbilityPosition
+Cast the specified ability on the position. 
+ Synopsis 
+ testAction = TestAction:CastAbilityPosition( unit, abilityId, x, y, z, allowNonAbilitySet, returnError )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ allowNonAbilitySet 
+ bool 
+ false 
+ If true it will force cast abilities that the caster does not have in its ability set 
+ 
+ 
+ returnError 
+ bool 
+ true 
+ Return errors from the casting 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+Expect
+Add an event expectation. 
+ This needs to be added before the action that triggers the expected event. 
+ Synopsis 
+ testAction = TestAction:Expect( eventType, name, unit, test = nil, timeout = 3000, count = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ eventType 
+ string 
+ 
+ Name of event to expect 
+ 
+ 
+ name 
+ string 
+ 
+ Name of test 
+ 
+ 
+ unit 
+ Unit 
+ 
+ The target that should trigger the event 
+ 
+ 
+ test 
+ Function( Event ) 
+ nil 
+ Optional function to test properties on the event 
+ 
+ 
+ timeout 
+ long 
+ 3000 
+ The maximum wait time 
+ 
+ 
+ count 
+ int 
+ 1 
+ Number of events expected to be triggered 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+ExpectNot
+Add an inverted event expectation. 
+ This needs to be added before the action that triggers the expected event. 
+ Synopsis 
+ testAction = TestAction:ExpectNot( eventType, name, unit, test = nil, timeout = 1500, count = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ eventType 
+ string 
+ 
+ Name of event to expect 
+ 
+ 
+ name 
+ string 
+ 
+ Name of test 
+ 
+ 
+ unit 
+ Unit 
+ 
+ The target that should trigger the event 
+ 
+ 
+ test 
+ Function( Event ) 
+ nil 
+ Optional function to test properties on the event 
+ 
+ 
+ timeout 
+ long 
+ 1500 
+ The maximum wait time 
+ 
+ 
+ count 
+ int 
+ 1 
+ Number of events expected to be triggered 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+SetEnemyTarget
+Set the enemy target of the Unit. 
+ Synopsis 
+ testAction = TestAction:SetEnemyTarget( unit, target )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+SetFriendlyTarget
+Set the friendly target of the Unit. 
+ Synopsis 
+ testAction = TestAction:SetFriendlyTarget( unit, target )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+Spawn
+Spawn a test player. 
+ Synopsis 
+ player = TestAction:Spawn( name, career, x, y, z, heading, level )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string 
+ 
+ 
+ 
+ 
+ career 
+ CareerLine 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ heading 
+ ushort 
+ 
+ 0- 4095 
+ 
+ 
+ level 
+ byte 
+ 40 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player
+
+SpawnCreature
+Spawn a test NPC. 
+ Synopsis 
+ creature = TestAction:SpawnCreature( protoId, x, y, z, heading, level )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ protoId 
+ uint 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ heading 
+ ushort 
+ 
+ 0- 4095 
+ 
+ 
+ level 
+ byte 
+ 40 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ creature 
+ Creature
+
+SpawnTarget
+Spawn a test player with no defenses and -200% chance to be critically hit. Suitable for using as a target in tests. 
+ Synopsis 
+ player = TestAction:SpawnTarget( name, career, x, y, z, heading, level )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string 
+ 
+ 
+ 
+ 
+ career 
+ CareerLine 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ heading 
+ ushort 
+ 
+ 0- 4095 
+ 
+ 
+ level 
+ byte 
+ 40 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player
+
+Then
+Make test actions after this in the chain run in sequence with the previous item in the chain instead of in parallell. 
+ Synopsis 
+ testAction = TestAction:Then()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+Wait
+Wait for the specified time. 
+ Synopsis 
+ testAction = TestAction:Wait( delay )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ delay 
+ long 
+ 
+ In milliseconds 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+WaitForCastAbility
+Cast the specified ability, and wait for the cast time and global cooldown to finish. 
+ Synopsis 
+ testAction = TestAction:WaitForCastAbility( unit, abilityId, allowNonAbilitySet, waitForGCD )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ allowNonAbilitySet 
+ bool 
+ false 
+ If true it will force cast abilities that the caster does not have in its ability set 
+ 
+ 
+ waitForGCD 
+ bool 
+ true 
+ Wait for global cooldown as well as the casting itself 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+WaitForCastAbilityPosition
+Cast the specified ability, and wait for the cast time and global cooldown to finish. 
+ Synopsis 
+ testAction = TestAction:WaitForCastAbilityPosition( unit, abilityId, x, y, z, allowNonAbilitySet, waitForGCD )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ allowNonAbilitySet 
+ bool 
+ false 
+ If true it will force cast abilities that the caster does not have in its ability set 
+ 
+ 
+ waitForGCD 
+ bool 
+ true 
+ Wait for global cooldown as well as the casting itself 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+WaitForGCD
+Wait for the global cooldown to expire on the unit. 
+ Synopsis 
+ testAction = TestAction:WaitForGCD( unit )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ testAction 
+ TestAction
+
+Types
+Types used in the documentation: 
+ 
+ 
+ 
+ Type 
+ Description 
+ 
+ 
+ 
+ 
+ byte 
+ Integers 0 to 255   
+ 
+ 
+ ushort 
+ Integers 0 to 65,535 
+ 
+ 
+ uint 
+ Integers 0 to 4,294,967,295 
+ 
+ 
+ int 
+ Integers -2,147,483,648 to 2,147,483,647 
+ 
+ 
+ long 
+ Integers -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 
+ 
+ 
+ double 
+ ±5.0 × 10^−324 to ±1.7 × 10^308 
+ 
+ 
+ string 
+ Text strings 
+ 
+ 
+ 
+ GameData 
+ CareerLine 
+ 
+ 
+ 
+ Value 
+ 
+ 
+ 
+ 
+ GameData.CareerLine.IRON_BREAKER 
+ 
+ 
+ GameData.CareerLine.SLAYER 
+ 
+ 
+ GameData.CareerLine.RUNE_PRIEST 
+ 
+ 
+ GameData.CareerLine.ENGINEER 
+ 
+ 
+ GameData.CareerLine.BLACK_ORC 
+ 
+ 
+ GameData.CareerLine.CHOPPA 
+ 
+ 
+ GameData.CareerLine.SHAMAN 
+ 
+ 
+ GameData.CareerLine.SQUIG_HERDER 
+ 
+ 
+ GameData.CareerLine.WITCH_HUNTER 
+ 
+ 
+ GameData.CareerLine.KNIGHT 
+ 
+ 
+ GameData.CareerLine.BRIGHT_WIZARD 
+ 
+ 
+ GameData.CareerLine.WARRIOR_PRIEST 
+ 
+ 
+ GameData.CareerLine.CHOSEN 
+ 
+ 
+ GameData.CareerLine.WARRIOR 
+ 
+ 
+ GameData.CareerLine.ZEALOT 
+ 
+ 
+ GameData.CareerLine.MAGUS 
+ 
+ 
+ GameData.CareerLine.SWORDMASTER 
+ 
+ 
+ GameData.CareerLine.SHADOW_WARRIOR 
+ 
+ 
+ GameData.CareerLine.WHITELION 
+ 
+ 
+ GameData.CareerLine.ARCHMAGE 
+ 
+ 
+ GameData.CareerLine.BLACKGUARD 
+ 
+ 
+ GameData.CareerLine.WITCHELF 
+ 
+ 
+ GameData.CareerLine.DISCIPLE 
+ 
+ 
+ GameData.CareerLine.SORCERER 
+ 
+ 
+ 
+ Races 
+ 
+ 
+ 
+ Value 
+ 
+ 
+ 
+ 
+ GameData.Races.NONE 
+ 
+ 
+ GameData.Races.DWARF 
+ 
+ 
+ GameData.Races.ORC 
+ 
+ 
+ GameData.Races.GOBLIN 
+ 
+ 
+ GameData.Races.HIGH_ELF 
+ 
+ 
+ GameData.Races.DARK_ELF 
+ 
+ 
+ GameData.Races.EMPIRE 
+ 
+ 
+ GameData.Races.CHAOS 
+ 
+ 
+ 
+ Realm 
+ 
+ 
+ 
+ Value 
+ 
+ 
+ 
+ 
+ GameData.Realm.NEUTRAL 
+ 
+ 
+ GameData.Realm.ORDER 
+ 
+ 
+ GameData.Realm.DESTRUCTION
+
+Unit
+Inherits all methods from: WorldObject
+
+AddAbility
+Directly adds the Ability of the given abiltiy id on the given target from the Unit, bypassing the ability casting system entirely. This ignores any casting requirements (cast time, cooldown / GCD, line of sight, range, etc). and does not set the ability on cooldown or similar. Since the ability is directly added to the target Unit, any projectiles, VFX, etc. associated with the cast will not be visible, however component VFX should still work. 
+ Synopsis 
+ ability = Unit:AddAbility( abilityId, target? )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ target 
+ Unit? 
+ Self 
+ The cast target of the ability/buff 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ ability 
+ Ability 
+ nil if adding the ability failed
+
+AddObjectEffectState
+Adds the specified object effect to a unit 
+ Synopsis 
+ Unit:AddObjectEffectState( id )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ id 
+ ObjectEffectState 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+CancelCast
+Cancels any in-progress cast or channeled ability. Has no effect if no ability is currently being cast. 
+ Synopsis 
+ Unit:CancelCast()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+CastAbility
+Makes the Unit cast the ability on the target, similar to an ability cast by a player. Cast requirement checks can cause this to fail (see information below), check the return value to see if it was successful. Can be used to cast abilities outside of the Unit's AbilitySet, and any in-progress cast or channel will be cancelled. 
+ Casting Requirement Checks 
+ 
+ 
+ 
+ Requirement 
+ Note 
+ 
+ 
+ 
+ 
+ Ability Cooldown 
+ CastAbility will fail if the ability is on cooldown 
+ 
+ 
+ Global Cooldown 
+ CastAbility will fail if the unit is in GCD and the ability is not IgnoreGCD 
+ 
+ 
+ Casting Requirements 
+ CastAbility will fail if the current target does not meet cast requirements: Morale level for morale abilities, level requirements, usable in stealth, line of sight, weapon requirements, etc 
+ 
+ 
+ Target 
+ CastAbility will fail if the current target does not match the ability target type 
+ 
+ 
+ Ability Requirements 
+ CastAbility will fail if any of the ability requirements are not met 
+ 
+ 
+ Casting Requirements 2 
+ CastAbility will fail if the caster is out of AP, moving and not an instant or MoveCast ability, too close or out of range, out of cone of fire 
+ 
+ 
+ 
+ It is recommended to use CastAbility when the ability has VFX associated with it, or a projectile or similar. Using AddAbility bypasses the ability casting system entirely, so will ignore any cast time, projectile VFX, etc. 
+ Synopsis 
+ success = Unit:CastAbility( abilityId, target = nil)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ Id of ability to cast 
+ 
+ 
+ target 
+ Unit 
+ nil 
+ Can be self or another unit. Is left at nil the target is self. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool
+
+CastAbilityPosition
+Makes the Unit cast the ability to the given coordinates, used for area effect ability. 
+ Synopsis 
+ success = Unit:CastAbilityPosition( x, y, z, abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ success 
+ bool 
+ false if casting failed
+
+DealDamage
+Makes the Unit damage the target Unit 
+ enum DamageType
+{
+ Physical = 0,
+ Spiritual = 1,
+ Elemental = 2,
+ Corporeal = 3,
+};
+ 
+ Synopsis 
+ Unit:DealDamage( target, damage, damageType = DamageType.Physical, abilityId = 0 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ 
+ 
+ 
+ 
+ damage 
+ int 
+ 
+ 
+ 
+ 
+ damageType 
+ DamageType 
+ DamageType.Physical 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 0 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+DealHeal
+Makes the Unit heal the target Unit with given ability 
+ Synopsis 
+ Unit:DealHeal( target, abilityId, amount, critical = false )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ amount 
+ int 
+ 
+ 
+ 
+ 
+ count 
+ boolean 
+ false 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Dismount
+Dismounts the Unit. 
+ Synopsis 
+ Unit:Dismount()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+DispelAbilitiesByGroup
+Dispel abilities in the specified group from the Unit. Optionally a max number of stacks to dispel can be specified. 
+ Synopsis 
+ num = Unit:DispelAbilitiesByGroup( groupId, max = 2147483647 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ groupId 
+ ushort 
+ 
+ 
+ 
+ 
+ max 
+ ushort 
+ 2147483647 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ num 
+ int 
+ Number of stacks dispelled
+
+EndAbilities
+Removes abilities matching the given criteria from the Unit. If 0 or nil is passed, matches all values for that parameter. 
+ Synopsis 
+ Unit:EndAbilities( abilityId = 0, abilityGroup = 0, caster = nil, target = nil )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 0 
+ 
+ 
+ 
+ abilityGroup 
+ ushort 
+ 0 
+ 
+ 
+ 
+ caster 
+ Unit 
+ nil 
+ 
+ 
+ 
+ target 
+ Unit 
+ nil 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+GetAbilityStackCount
+Get number of stacks of abilities in the specified ability group. 
+ Synopsis 
+ count = Unit:GetAbilityStackCount( abilityGroupId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityGroupId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ count 
+ int 
+ Number of stacks of abilities in the ability group
+
+GetBaseStat
+Get the base stat value for the specified bonus type. Excludes stats from items and buffs. 
+ Synopsis 
+ value = Unit:GetBaseStat( bonusType )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ bonusType 
+ BonusTypes 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ value 
+ double
+
+GetCreditedPlayer
+Get the Player that is credited for combat actions taken by this Unit. If called on a Player it will return itself. If called on a Pet it returns the owning Player. On a Siege weapon it returns the Player operating it. 
+ If no player is credited it will return nil . 
+ Synopsis 
+ player = Unit:GetCreditedPlayer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player
+
+GetDisplayId
+Returns the Unit's current display ID. 
+ Synopsis 
+ displayId = Unit:GetDisplayId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ displayId 
+ ushort
+
+GetDormantFlags
+Get DormantFlags for the Unit. 
+ Synopsis 
+ flags = Unit:GetDormantFlags( )
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ flags 
+ DormantFlags
+
+GetHealth
+Returns the Unit's health amount. 
+ Synopsis 
+ healthAmount = Unit:GetHealth()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ healthAmount 
+ uint
+
+GetHealthPct
+Returns the Unit's health percent. 
+ Synopsis 
+ healthPct = Unit:GetHealthPct()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ healthPct 
+ uint
+
+GetLevel
+Returns the Unit's level. 
+ Synopsis 
+ level = Unit:GetLevel()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ level 
+ byte
+
+GetMaxHealth
+Returns the Unit's max health. 
+ Synopsis 
+ maxHealth = Unit:GetMaxHealth()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ maxHealth 
+ uint
+
+GetMorale
+Get the current amount of morale for the Unit. 
+ Synopsis 
+ morale = Unit:GetMorale()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ morale 
+ int 
+ 0 - 3600
+
+GetMoraleAbility
+Get the morale ability assigned in the specified slot. 
+ Synopsis 
+ abilityId = Unit:GetMoraleAbility( slot )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ slot 
+ int 
+ 
+ 1-4 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort
+
+GetMoraleLevel
+Get the current morale level for the Unit. 
+ Synopsis 
+ moraleLevel = Unit:GetMoraleLevel()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ moraleLevel 
+ byte 
+ 0 - 4
+
+GetMountId
+Returns the Unit's mount Id. Zero if not mounted using a mountId. 
+ Synopsis 
+ mountId = Unit:GetMountId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ mountId 
+ ushort
+
+GetMountObject
+Returns the Unit's mount object. If the unit is mounted on a creature. 
+ Synopsis 
+ mountObject = Unit:GetMountId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ mountObject 
+ WorldObject 
+ nil if not mounted on a creature
+
+GetNativeDisplayId
+Returns the Unit's native/original display ID. 
+ Synopsis 
+ displayId = Unit:GetNativeDisplayId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ displayId 
+ ushort
+
+GetRealm
+Returns the Unit's realm ID. 
+ Synopsis 
+ realm = Unit:GetRealm()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realm
+
+GetTarget
+Returns the hostile target Unit (if any) that the current Unit is targeting. May be different from GetAITarget. 
+ The target can be any of the following Object types: - Player - Creature - GameObject 
+ Synopsis 
+ enemyTarget = Unit:GetTarget()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ enemyTarget 
+ Unit
+
+HasAbility
+Returns true if the Unit has an Ability by specific ID, false otherwise. 
+ Synopsis 
+ hasAbility = Unit:HasAbility( abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasAbility 
+ bool
+
+HasAbilityCooldown
+Returns true if the Ability specified by ID is currently on cooldown for the Unit, false otherwise. 
+ Synopsis 
+ hasAbility = Unit:HasAbilityCooldown( abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasAbility 
+ bool
+
+HasLineOfSight
+Return if the WorldObject has line of sight to another WorldObject 
+ Synopsis 
+ hasLos = Unit:HasLineOfSight( other )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ other 
+ WorldObject 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasLos 
+ bool
+
+HealthAbovePct
+Returns true if the Unit's health is above or equal the given percentage. 
+ Synopsis 
+ isAbove = Unit:HealthAbovePct( healthpct )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ healthpct 
+ int 
+ 
+ Percentage in integer form. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isAbove 
+ bool
+
+HealthBelowPct
+Returns true if the Unit's health is below the given percentage. 
+ Synopsis 
+ isBelow = Unit:HealthBelowPct( healthpct )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ healthpct 
+ int 
+ 
+ Percentage in integer form. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isBelow 
+ bool
+
+IsCasting
+Returns true if the Unit is casting an ability 
+ Synopsis 
+ isCasting = Unit:IsCasting()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isCasting 
+ bool
+
+IsDead
+Returns true if the Unit is dead. 
+ Synopsis 
+ isDead = Unit:IsDead()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isDead 
+ bool
+
+IsFullHealth
+Returns true if the Unit has full health. 
+ Synopsis 
+ hasFullHealth = Unit:IsFullHealth()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ hasFullHealth 
+ bool
+
+IsInCombat
+Returns true if the Unit is in combat. 
+ Synopsis 
+ inCombat = Unit:IsInCombat()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ inCombat 
+ bool
+
+IsMounted
+Returns true if the Unit is mounted. 
+ Synopsis 
+ isMounted = Unit:IsMounted()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isMounted 
+ bool
+
+Kill
+Makes the Unit kill the target Unit 
+ Synopsis 
+ Unit:Kill( target )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ Unit 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Mount
+Mounts the Unit on the given mount ID, or on a different creature. Really only usable on Creatures or Players. 
+ Synopsis 
+ Unit:Mount( mountId, armor = 0 )
+Unit:Mount( mountObject )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ mountId 
+ ushort 
+ 
+ 
+ 
+ 
+ armor 
+ ushort 
+ 
+ 
+ 
+ 
+ mountObject 
+ WorldObject 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveAbility
+Removes all abilities of the given ability ID from the Unit. 
+ Synopsis 
+ Unit:RemoveAbility( abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveObjectEffectState
+Removes the specified object effect from a unit 
+ Synopsis 
+ Unit:RemoveObjectEffectState( id )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ id 
+ ObjectEffectState 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+ResetAllCooldowns
+Resets cooldowns on all abilities (including items). 
+ Synopsis 
+ Unit:ResetAllCooldowns()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+ResetSpellCooldown
+Removes the cooldown from an ability. 
+ Synopsis 
+ Unit:ResetSpellCooldown( abilityId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+Respawn
+Respawns a Creature or GameObject. Should only be used when IsDead(). 
+ Synopsis 
+ Unit:Respawn()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+RestoreDisplayId
+Restores the Units display ID to default 
+ Synopsis 
+ Unit:RestoreDisplayId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+Say
+The Unit will say the message 
+ Synopsis 
+ Unit:Say( message, chatFilter = ChatLogFilters.SAY)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ message 
+ string 
+ 
+ 
+ 
+ 
+ chatFilter 
+ ChatLogFilters 
+ ChatLogFilters.SAY 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SendChatMessageToPlayer
+Sends chat message to Player 
+ Synopsis 
+ Unit:SendChatMessageToPlayer( message, filter, player)
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ message 
+ string 
+ 
+ 
+ 
+ 
+ filter 
+ ChatLogFilters 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetBaseStat
+Set the base stat to the specified value. Excludes stats from items and buffs. 
+ Synopsis 
+ Unit:SetBaseStat( bonusType, value )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ bonusType 
+ BonusTypes 
+ 
+ 
+ 
+ 
+ value 
+ double 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetCantLeaveCombat
+Sets the CantLeaveCombat combat flag, so the Unit will not exit combat due to the combat timer (10 seconds of no combat). Typically used on dungeon bosses. 
+ Synopsis 
+ Unit:SetCantLeaveCombat( flag )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ flag 
+ bool 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetDisplayId
+Sets the Unit's modelID. 
+ Synopsis 
+ Unit:SetDisplayId( displayId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ displayId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetDormantFlag
+Change value of the specified DormantFlag. 
+ Synopsis 
+ Unit:SetDormantFlag( flag, value )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ flag 
+ DormantFlags 
+ 
+ 
+ 
+ 
+ value 
+ bool 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetHealth
+Sets the Unit's health. 
+ Synopsis 
+ Unit:SetHealth( health )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ health 
+ uint 
+ 
+ New health. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetMorale
+Set the amount of morale for the Unit. 
+ Synopsis 
+ Unit:SetMorale( amount )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ amount 
+ int 
+ 
+ 0 - 3600 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetMoraleAbility
+Set the morale ability assigned in the specified slot. 
+ Synopsis 
+ Unit:SetMoraleAbility( abilityId, slot )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ abilityId 
+ ushort 
+ 
+ 
+ 
+ 
+ slot 
+ slot 
+ 
+ 1 - 4 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetRealm
+Changes the realm of a unit 
+ Synopsis 
+ Unit:SetRealm( realm )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ realm 
+ Realm 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SpawnCreature
+Spawns the creature at specified location. 
+ enum SummonType
+{
+ TEMPSUMMON_TIMED_OR_DEAD_DESPAWN = 0, // despawns after a specified time OR when the creature disappears
+ TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN = 1, // despawns after a specified time OR when the creature dies
+ TEMPSUMMON_TIMED_DESPAWN = 2, // despawns after a specified time
+ TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT = 3, // despawns after a specified time after the creature is out of combat
+ TEMPSUMMON_CORPSE_DESPAWN = 4, // despawns instantly after death
+ TEMPSUMMON_DEAD_DESPAWN = 5, // despawns when the creature disappears
+ TEMPSUMMON_MANUAL_DESPAWN = 6, // despawns when UnSummon() is called
+ TEMPSUMMON_OUT_OF_COMBAT_DESPAWN = 7, // despawns when going out of combat
+};
+ 
+ Synopsis 
+ spawnedCreature = Unit:SpawnCreature(
+ protoId,
+ x,
+ y,
+ z,
+ o,
+ summonType = SummonType.TEMPSUMMON_MANUAL_DESPAWN,
+ despawnTimer = 0 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ protoId 
+ uint 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ o 
+ ushort 
+ 
+ 
+ 
+ 
+ summonType 
+ ushort 
+ SummonType.TEMPSUMMON_MANUAL_DESPAWN 
+ Defines how and when the creature despawns. 
+ 
+ 
+ despawnTimer 
+ int 
+ 0 
+ Despawn time in milliseconds. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ spawnedCreature 
+ Creature 
+ nil if spawning failed
+
+WorldObject
+
+Data
+Returns a runtime-persistent cache tied to the WorldObject. This data will remain for as long as the WorldObject exists, or until a server restart. Any data set on a non-player Unit will be cleared when the Unit respawns. 
+ A reload of the Lua state will NOT clear this cache. 
+ This cache can be added to and read from with the following sub-methods. 
+ -- Sets the key-value pair in the cache
+WorldObject:Data():Set("key", val)
+
+-- Returns the value from the cache using the key
+local val = WorldObject:Data():Get("key")
+
+-- Removes the key-value pair from the cache
+WorldObject:Data():Set("key", nil)
+
+-- Returns all the key-value pairs as a Lua table indexed by the keys
+local table = WorldObject:Data():AsTable()
+
+-- Sets the phase value
+WorldObject:Data():SetPhase(int)
+
+-- Returns the phase value
+local val = WorldObject:Data():GetPhase()
+ 
+ Synopsis 
+ WorldObject:Data()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Data cache.
+
+Destroy
+Destroys the WorldObject. 
+ Destroyed objects are immediately deallocated and removed from the region and should not be accessed or referenced after destruction (e.g. do not store an OID that references it or try to use any other WorldObject functions on it). Any buffs / debuffs that were cast by a destroyed object will be removed as there is no longer a valid caster. 
+ Synopsis 
+ WorldObject:Destroy()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+GetAngle
+Returns the angle between this WorldObject and another WorldObject or a point. 
+ The angle is the angle between two points and orientation will be ignored. 
+ Synopsis 
+ angle = WorldObject:GetAngle( other )
+angle = WorldObject:GetAngle( x, y )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ other 
+ WorldObject 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ angle 
+ ushort 
+ 0 - 4095
+
+GetCreaturesInRange
+Returns a table of Creature objects in sight of the WorldObject or within the given range and/or with a specific entry ID 
+ Synopsis 
+ creaturesInRange = WorldObject:GetCreaturesInRange( range = 4800, entryId = 0, hostile = 0, dead = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range, 0-4800. Default range is visibility range. 
+ 
+ 
+ entryId 
+ uint 
+ 0 
+ Optionally set entry ID of creatures to find. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ dead 
+ uint 
+ 1 
+ 0 both, 1 alive, 2 dead. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ creaturesInRange 
+ table 
+ Table of Creatures
+
+GetDistance
+Returns the distance from this WorldObject to another WorldObject, or from this WorldObject to a point in 3d space. 
+ The function takes into account the given object sizes. See also WorldObject:GetExactDistance, WorldObject:GetDistance2d 
+ Synopsis 
+ dist = WorldObject:GetDistance( obj )
+dist = WorldObject:GetDistance( x, y, z )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ obj 
+ WorldObject 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ The X-coordinate of the point. 
+ 
+ 
+ y 
+ uint 
+ 
+ The Y-coordinate of the point. 
+ 
+ 
+ z 
+ ushort 
+ 
+ The Z-coordinate of the point. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ dist 
+ double 
+ The distance in units.
+
+GetDistance2d
+Returns the distance from this WorldObject to another WorldObject, or from this WorldObject to a point in 2d space. 
+ The function takes into account the given object sizes. See also WorldObject:GetDistance, WorldObject:GetExactDistance2d 
+ Synopsis 
+ dist = WorldObject:GetDistance2d( obj )
+dist = WorldObject:GetDistance2d( x, y )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ obj 
+ WorldObject 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ The X-coordinate of the point. 
+ 
+ 
+ y 
+ uint 
+ 
+ The Y-coordinate of the point. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ dist 
+ double 
+ The distance in units.
+
+GetExactDistance
+Returns the distance from this WorldObject to another WorldObject, or from this WorldObject to a point in 3d space. 
+ The function does not take into account the given object sizes, which means only the object coordinates are compared. See also WorldObject:GetDistance, WorldObject:GetDistance2d 
+ Synopsis 
+ dist = WorldObject:GetExactDistance( obj )
+dist = WorldObject:GetExactDistance( x, y, z )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ obj 
+ WorldObject 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ The X-coordinate of the point. 
+ 
+ 
+ y 
+ uint 
+ 
+ The Y-coordinate of the point. 
+ 
+ 
+ z 
+ ushort 
+ 
+ The Z-coordinate of the point. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ dist 
+ double 
+ The distance in units.
+
+GetExactDistance2d
+Returns the distance from this WorldObject to another WorldObject, or from this WorldObject to a point in 2d space. 
+ The function does not take into account the given object sizes, which means only the object coordinates are compared. See also WorldObject:GetDistance, WorldObject:GetDistance2d 
+ Synopsis 
+ dist = WorldObject:GetDistance( obj )
+dist = WorldObject:GetDistance( x, y )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ obj 
+ WorldObject 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ The X-coordinate of the point. 
+ 
+ 
+ y 
+ uint 
+ 
+ The Y-coordinate of the point. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ dist 
+ double 
+ The distance in units.
+
+GetGameObjectsInRange
+Returns a table of GameObject objects in sight of the WorldObject or within the given range and/or with a specific entry ID 
+ Synopsis 
+ gameObjectsInRange = WorldObject:GetGameObjectsInRange( range = 4800, entryId = 0, hostile = 0 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range, 0-4800. Default range is visibility range. 
+ 
+ 
+ entryId 
+ uint 
+ 0 
+ Optionally set entry ID of game objects to find. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ gameObjectsInRange 
+ table 
+ Table of GameObjects.
+
+GetGUID
+Alias of GetOID , for compatibility with Eluna API. 
+ The returned ID is unique per Region, but not globally unique. 
+ Synopsis 
+ guid = Object:GetGUID()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ guid 
+ ushort
+
+GetName
+Returns the name of the WorldObject 
+ Synopsis 
+ name = WorldObject:GetName()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ name 
+ string
+
+GetNearestCreature
+Returns the nearest Creature object in sight of the WorldObject or within the given range and/or with a specific entry ID 
+ Synopsis 
+ nearestCreature = WorldObject:GetNearestCreature( range = 4800, entryId = 0, hostile = 0, dead = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range. Default range is visibility range. 
+ 
+ 
+ creatureEntryId 
+ uint 
+ 0 
+ Optionally set entry ID of creature to find. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ dead 
+ uint 
+ 1 
+ 0 both, 1 alive, 2 dead. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ nearestCreature 
+ Creature 
+ nil if no matching Creature found
+
+GetNearestGameObject
+Returns the nearest GameObject object in sight of the WorldObject or within the given range and/or with a specific entry ID 
+ Synopsis 
+ nearestGameObject = WorldObject:GetNearestGameObject( range = 4800, entryId = 0, hostile = 0 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range. Default range is visibility range. 
+ 
+ 
+ entryId 
+ uint 
+ 0 
+ Optionally set entry ID of game object to find. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ nearestGameObject 
+ GameObject 
+ nil if no matching GameObject found
+
+GetNearestPlayer
+Returns the nearest Player object in sight of the WorldObject or within the given range 
+ Synopsis 
+ nearestPlayer = WorldObject:GetNearestPlayer( range = 4800, hostile = 0, dead = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range. Default range is visibility range. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ dead 
+ uint 
+ 1 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ nearestPlayer 
+ Player 
+ nil if no matching Player found
+
+GetO
+Returns the current orientation of the WorldObject 
+ Synopsis 
+ orientation = WorldObject:GetO()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ orientation 
+ ushort 
+ 0 - 4095
+
+GetOID
+Returns the OID of the WorldObject. 
+ OID is an unique identifier for the object within the region. 
+ Synopsis 
+ oid = WorldObject:GetOID()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ oid 
+ ushort
+
+GetPlayersInRange
+Returns a table of Player objects in sight of the WorldObject or within the given range 
+ Synopsis 
+ playersInRange = WorldObject:GetPlayersInRange( range = 4800, hostile = 0, dead = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ range 
+ uint 
+ 4800 
+ Optionally set range, 0-4800. Default range is visibility range. 
+ 
+ 
+ hostile 
+ uint 
+ 0 
+ 0 both, 1 hostile, 2 friendly. 
+ 
+ 
+ dead 
+ uint 
+ 1 
+ 0 both, 1 alive, 2 dead. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ playersInRange 
+ table 
+ Table of Players
+
+GetRelativePoint
+Returns the x, y and z of a point dist away from the WorldObject. 
+ Synopsis 
+ x, y, z = WorldObject:GetRelativePoint( distance, heading )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ distance 
+ double 
+ 
+ Specifies the distance of the point from the WorldObject in units. 
+ 
+ 
+ heading 
+ int 
+ 
+ Specifies the angle of the point relative to the orientation / facing of the WorldObject. 0 is in same direction as the WorldObject is facing, +2048 oar -2048 is the opposite direction. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ z 
+ ushort
+
+GetX
+Returns the current X coordinate of the WorldObject 
+ Synopsis 
+ x = WorldObject:GetX()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint
+
+GetY
+Returns the current Y coordinate of the WorldObject 
+ Synopsis 
+ y = WorldObject:GetY()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ y 
+ uint
+
+GetZ
+Returns the current Z coordinate of the WorldObject 
+ Synopsis 
+ z = WorldObject:GetZ()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ z 
+ ushort
+
+GetZoneId
+Returns the current zone ID of the WorldObject 
+ Synopsis 
+ zoneId = WorldObject:GetZoneId()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ mapId 
+ ushort
+
+IsCellActive
+Returns true if the cell containing this object has a player nearby. 
+ See also OnCellActivate / OnCellDeactivate events in RegisterCreatureEvent / RegisterGameObjectEvent . 
+ Synopsis 
+ isActive = WorldObject:IsCellActive()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isActive 
+ bool
+
+IsCreature
+Return if the WorldObject is a Creature 
+ Synopsis 
+ isCreature = WorldObject:IsCreature()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isCreature 
+ bool
+
+IsGameObject
+Return if the WorldObject is a GameObject 
+ Synopsis 
+ isGameObject = WorldObject:IsGameObject()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isGameObject 
+ bool
+
+IsInBack
+Returns true if the target is in the given arc behind the WorldObject 
+ Synopsis 
+ isInBack = WorldObject:IsInBack( target, arc = 180 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ WorldObject 
+ 
+ 
+ 
+ 
+ arc 
+ double 
+ 180 
+ In degrees 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInBack 
+ bool
+
+IsInFront
+Returns true if the target is in the given arc in front of the WorldObject 
+ Synopsis 
+ isInBack = WorldObject:IsInFront( target, arc = 180 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ WorldObject 
+ 
+ 
+ 
+ 
+ arc 
+ double 
+ 180 
+ In degrees 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInBack 
+ bool
+
+IsInWorld
+Returns true if the Object has been added to its Map, otherwise false. 
+ Synopsis 
+ inWorld = Object:IsInWorld()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ inWorld 
+ bool
+
+IsInZone
+Returns true if the WorldObjects are in the same zone 
+ Synopsis 
+ isInZone = WorldObject:IsInZone( worldobject )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ worldobject 
+ WorldObject 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInZone 
+ bool
+
+IsPlayer
+Return if the WorldObject is a Player 
+ Synopsis 
+ isPlayer = WorldObject:IsPlayer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isPlayer 
+ bool
+
+IsUnit
+Return if the WorldObject is a Unit 
+ Synopsis 
+ isUnit = WorldObject:IsUnit()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isUnit 
+ bool
+
+IsWithinDist
+Returns true if the target is in the given distance of the WorldObject 
+ Notice that the distance is measured from the edge of the WorldObjects. 
+ Synopsis 
+ isInDistance = WorldObject:IsWithinDist( target, distance, is3D = true )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ WorldObject 
+ 
+ 
+ 
+ 
+ distance 
+ double 
+ 
+ Distance measured in units. 
+ 
+ 
+ is3D 
+ bool 
+ true 
+ If false, only x,y coordinates used for checking. 
+ 
+ 
+ 
+ Returns 
+ Nothing. 
+ or 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInDistance 
+ bool
+
+IsWithinDist2d
+Returns true if the point is in the given distance of the WorldObject 
+ The distance is measured only in x,y coordinates. Notice that the distance is measured from the edge of the WorldObject. 
+ Synopsis 
+ isInDistance = WorldObject:IsWithinDist2d( x, y, distance )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ distance 
+ double 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInDistance 
+ bool
+
+IsWithinDist3d
+Returns true if the point is in the given distance of the WorldObject 
+ Notice that the distance is measured from the edge of the WorldObject. 
+ Synopsis 
+ isInDistance = WorldObject:IsWithinDist3d( x, y, z, distance )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ distance 
+ double 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ isInDistance 
+ bool
+
+PerformEmote
+Makes the Unit perform the given emote. 
+ Synopsis 
+ WorldObject:PerformEmote( emoteId, target1 = nil, target2 = nil )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ emoteId 
+ ushort 
+ 
+ 
+ 
+ 
+ target1 
+ WorldObject 
+ nil 
+ Optional emote target 
+ 
+ 
+ target2 
+ WorldObject 
+ nil 
+ Optional secondary target for the emote 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+PlayEffect
+Make the WorldObject play the specified effect list (VFX). 
+ Synopsis 
+ WorldObject:PlayEffect( effectId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ effectId 
+ ushort 
+ 
+ ID of an Effect List 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+PlaySound
+Make the WorldObject play the specified sound. 
+ Synopsis 
+ WorldObject:PlaySound( soundId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ soundId 
+ ushort 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RegisterEvent
+Registers a timed event to the WorldObject When the passed function is called, the parameters (eventId, delay, repeats, worldobject) are passed to it. Repeats will decrease on each call if the event does not repeat indefinitely 
+ Note that for Creature and GameObject the timed event timer ticks only if the creature is in sight of someone For all WorldObjects the timed events are removed when the object is destoryed. This means that for example a Player's events are removed on logout. 
+ local function Timed(eventid, delay, repeats, worldobject)
+ print(worldobject:GetName())
+end
+worldobject:RegisterEvent(Timed, 1000, 5) -- do it after 1 second 5 times
+worldobject:RegisterEvent(Timed, 10000, 0) -- do it after 10 seconds forever
+ 
+ Synopsis 
+ eventId = WorldObject:RegisterEvent( function, delay, repeats = 1 )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ function 
+ function 
+ 
+ Function to trigger when the time has passed. 
+ 
+ 
+ delay 
+ long 
+ 
+ Set time in milliseconds for the event to trigger. 
+ 
+ 
+ repeats 
+ int 
+ 1 
+ How many times for the event to repeat, 0 is infinite. 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ eventId 
+ int 
+ Unique ID for the timed event used to cancel it
+
+RemoveEventById
+Removes the timed event from a WorldObject by the specified event ID 
+ Synopsis 
+ WorldObject:RemoveEventById( eventId )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ eventId 
+ int 
+ 
+ Event Id to remove. 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+RemoveEvents
+Removes all timed events from a WorldObject. 
+ Note that this removes all times events from all scripts on the WorldObject. In most cases it is preferrable to remove events using the eventId . 
+ Synopsis 
+ WorldObject:RemoveEvents()
+ 
+ Arguments 
+ None. 
+ Returns 
+ Nothing.
+
+SetFacing
+Sets the WorldObject's facing/orientation. 
+ Synopsis 
+ WorldObject:SetFacing( orientation )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ orientation 
+ ushort 
+ 
+ 0 - 4095 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SetFacingToObject
+Sets the WorldObject to face the given WorldObject's direction. 
+ Synopsis 
+ WorldObject:SetFacingToObject( target )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ target 
+ WorldObject 
+ 
+ 
+ 
+ 
+ 
+ Returns 
+ Nothing.
+
+SpawnGameObject
+Spawns a GameObject at specified location. 
+ Synopsis 
+ gameObject = WorldObject:SpawnGameObject( entry, x, y, z, o )
+ 
+ Arguments 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ gameObjectProtoId 
+ uint 
+ 
+ 
+ 
+ 
+ x 
+ uint 
+ 
+ 
+ 
+ 
+ y 
+ uint 
+ 
+ 
+ 
+ 
+ z 
+ ushort 
+ 
+ 
+ 
+ 
+ o 
+ ushort 
+ 
+ 0 - 4095 
+ 
+ 
+ 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ gameObject 
+ GameObject 
+ nil if spawning failed
+
+StartCoroutine
+Adds coroutine execution support to creatures, game objects, and scripts, allowing Lua functions to be paused and resumed over multiple frames or after timed delays. 
+ Synopsis 
+ creature:StartCoroutine( function, ...)
+ 
+ Arguments 
+ StartCoroutine 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ functionRef 
+ function 
+ 
+ Function to run as a coroutine. Must accept the object as first arg. 
+ 
+ 
+ ... 
+ any 
+ 
+ Additional arguments passed to the coroutine function. 
+ 
+ 
+ 
+ The coroutine function must accept the correct number of arguments being passed to it (the object itself and any additional ones). If this is not correct, it will fail silently. 
+ coroutine.yield 
+ 
+ 
+ 
+ Parameter 
+ Type 
+ Default 
+ Note 
+ 
+ 
+ 
+ 
+ delayMs 
+ integer or nil 
+ nil 
+ If given, suspends coroutine execution for the specified number of milliseconds. If omitted, resumes on the next frame. 
+ 
+ 
+ 
+ Returns 
+ StartCoroutine 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ handle 
+ coroutine 
+ Coroutine handle that can be used internally for tracking. 
+ 
+ 
+ 
+ coroutine.yield 
+ Nothing. 
+ Notes 
+ 
+ Coroutines allow multi-step scripted behaviour without blocking the game loop. 
+ If delayMs is provided to coroutine.yield , the coroutine resumes after that many milliseconds. 
+ If delayMs is omitted, the coroutine resumes on the next frame. 
+ If the owning object is destroyed or despawned, the coroutine stops automatically. 
+ Multiple coroutines can run on the same object simultaneously. 
+ 
+ Example 
+ local function GuardDialogue(creature, player)
+ creature:SetWeaponStance(WeaponStance.MELEE)
+
+ coroutine.yield(1000) -- wait 1 second
+
+ creature:Say("Stand back! Or I'll have you arrested!")
+
+ coroutine.yield(5000) -- wait 5 seconds
+
+ creature:SetWeaponStance(WeaponStance.SHEATHED)
+
+ coroutine.yield(2000) -- wait 2 seconds
+
+ creature:Say("That's right " .. player:GetName() .. "you little git!")
+
+ coroutine.yield(5000)
+ creature:Say("Frame")
+ coroutine.yield() -- next frame
+ creature:Say("Frame")
+ coroutine.yield()
+ creature:Say("Frame")
+end
+
+local function OnInteract(creature, player)
+ creature:StartCoroutine(GuardDialogue, player)
+end
+
+RegisterCreatureScript(898, CreatureScript.OnInteract, OnInteract)
+
+ToCreature
+Attempts to convert the WorldObject to a Creature. 
+ If the WorldObject is not a Creature, returns nil . 
+ Synopsis 
+ creature = WorldObject:ToCreature()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ creature 
+ Creature 
+ The WorldObject as a Creature, or nil .
+
+ToGameObject
+Attempts to convert the WorldObject to a GameObject. 
+ If the WorldObject is not a GameObject, returns nil . 
+ Synopsis 
+ gameObject = WorldObject:ToGameObject()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ gameObject 
+ GameObject 
+ The WorldObject as a GameObject, or nil .
+
+ToPlayer
+Attempts to convert the WorldObject to a Player. 
+ If the WorldObject is not a Player, returns nil . 
+ Synopsis 
+ player = WorldObject:ToPlayer()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ player 
+ Player 
+ The WorldObject as a Player, or nil .
+
+ToUnit
+Attempts to convert the WorldObject to a Unit. 
+ If the WorldObject is not a Unit, returns nil . 
+ Synopsis 
+ unit = WorldObject:ToUnit()
+ 
+ Arguments 
+ None. 
+ Returns 
+ 
+ 
+ 
+ Value 
+ Type 
+ Note 
+ 
+ 
+ 
+ 
+ unit 
+ Unit 
+ The WorldObject as a Unit, or nil .

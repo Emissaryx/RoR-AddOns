@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Windows>
+
+		<HorizontalResizeImage name="BagBarTexture" texture="EA_HUD_01"  textureScale="1.5" hidden="true">
+			<Size>
+				<AbsPoint x="0" y="6" />
+			</Size>
+			 <Sizes left="0" middle="84" right="0" />
+			<TexSlices>
+				<Left id="" />
+				<Middle id="XP-Bar-BG-BONUS" />
+				<Right id="" />
+				</TexSlices>
+		</HorizontalResizeImage>
+
+		<HorizontalResizeImage name="$parentStatusBar" inherits="BagBarTexture">
+			<Size>
+				<AbsPoint x="0" y="6" />
+			</Size>
+		</HorizontalResizeImage>
+
+		<Window name="WarBoard_Coin" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" >
+			<Size>
+				<AbsPoint x="150" y="30" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="WarBoard_Coin.OnClick" />
+				<EventHandler event="OnMouseOver" function="WarBoard_Coin.OnMouseOver" />
+			</EventHandlers>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="ModBackgroundTemplate" />
+
+				<FullResizeImage name="$parentBarBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+					<Size>
+						<AbsPoint x="130" y="6" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="10" y="-1" />
+						</Anchor>
+					</Anchors>
+				</FullResizeImage>
+
+				<FullResizeImage name="$parentBagsFull" inherits="EA_FullResizeImage_TintableSolidBackground">
+					<Size>
+						<AbsPoint x="132" y="8" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="9" y="0" />
+						</Anchor>
+					</Anchors>
+				</FullResizeImage>
+
+				<StatusBar name="$parentBagBar" foreground="$parentStatusBar" popable="false" layer="background" skipinput="true" interpolate="true">
+					<Size>
+						<AbsPoint x="130" y="6" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="10" y="-1" />
+						</Anchor>
+					</Anchors>
+				</StatusBar>
+
+				<Window name="$parentImageFrame" inherits="EA_Window_Default" >
+					<Anchors>
+						<Anchor point="topleft" relativeTo="" relativePoint="topleft" />
+						<Anchor point="topright" relativeTo="" relativePoint="topright" />
+					</Anchors>
+
+					<Windows>
+						<DynamicImage name="EA_Templates_GoldCoin" texture="assorted_hud_pieces" handleinput="false" layer="background">
+							<Size>
+								<AbsPoint x="19" y="19" />
+							</Size>
+							<TexCoords x="197" y="82" />
+							<Anchors>
+								<Anchor point="top" relativeTo="" relativePoint="top" >
+									<AbsPoint x="-40" y="2" />
+								</Anchor>
+							</Anchors>
+						</DynamicImage>
+
+						<DynamicImage name="EA_Templates_SilverCoin" texture="assorted_hud_pieces" handleinput="false" layer="background">
+							<Size>
+								<AbsPoint x="19" y="19" />
+							</Size>
+							<TexCoords x="217" y="82" />
+							<Anchors>
+								<Anchor point="top" relativeTo="" relativePoint="top" >
+									<AbsPoint x="20" y="2" />
+								</Anchor>
+							</Anchors>
+						</DynamicImage>
+
+						<DynamicImage name="EA_Templates_BrassCoin" texture="assorted_hud_pieces" handleinput="false" layer="background">
+							<Size>
+								<AbsPoint x="19" y="19" />
+							</Size>
+							<TexCoords x="237" y="82" />
+							<Anchors>
+								<Anchor point="top" relativeTo="" relativePoint="top" >
+									<AbsPoint x="60" y="2" />
+								</Anchor>
+							</Anchors>
+						</DynamicImage>
+					</Windows>
+				</Window>
+
+<Label name="$parentGold" font="font_clear_small_bold" skipinput="true" textalign="center" clip="false">
+  <Size>
+    <AbsPoint x="80" y="20" />
+  </Size>
+  <Anchors>
+    <!-- anchor under the gold coin -->
+    <Anchor point="bottom" relativeTo="EA_Templates_GoldCoin" relativePoint="bottom">
+      <AbsPoint x="0" y="7" />
+    </Anchor>
+  </Anchors>
+</Label>
+
+<Label name="$parentSilver" font="font_clear_small_bold" skipinput="true" textalign="center" clip="false">
+  <Size>
+    <AbsPoint x="50" y="20" />
+  </Size>
+  <Anchors>
+    <!-- anchor under the silver coin -->
+    <Anchor point="bottom" relativeTo="EA_Templates_SilverCoin" relativePoint="bottom">
+      <AbsPoint x="0" y="7" />
+    </Anchor>
+  </Anchors>
+</Label>
+
+<Label name="$parentBrass" font="font_clear_small_bold" skipinput="true" textalign="center" clip="false">
+  <Size>
+    <AbsPoint x="50" y="20" />
+  </Size>
+  <Anchors>
+    <!-- anchor under the brass coin -->
+    <Anchor point="bottom" relativeTo="EA_Templates_BrassCoin" relativePoint="bottom">
+      <AbsPoint x="0" y="7" />
+    </Anchor>
+  </Anchors>
+</Label>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

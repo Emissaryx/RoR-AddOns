@@ -1,0 +1,417 @@
+<? version="1.0" encoding="UTF-8"?>
+    <!--
+    This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see
+    <http://www.gnu.org/licenses/>.
+    -->
+    <Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Windows>
+            <!-- Default Button Definition -->
+            <Button name="AuraWindowButton" inherits="EA_Button_DefaultResizeable" >
+                <Size>
+                    <AbsPoint x="160" y="39" />
+                </Size>
+            </Button>
+            
+            <!-- Default Background Image Definition -->
+            <FullResizeImage name="AuraWindowBackground" inherits="EA_FullResizeImage_DefaultFrame" handleinput="false" layer="background">
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                        <AbsPoint x="0" y="0" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                        <AbsPoint x="0" y="0" />
+                    </Anchor>
+                </Anchors>
+            </FullResizeImage>
+            
+            <Button name="AuraTabButtonTemplate" inherits="EA_Button_Tab">
+            	<Size>
+                	<AbsPoint x="75" y="35" />
+            	</Size>
+	        </Button>
+	        
+            
+            <Label name="Aura_Default_Label" font="font_default_text" maxchars="64" textalign="left" autoresize="true" autoresizewidth="true">
+                <Size>
+                    <AbsPoint x="25" y="0" />
+                </Size>
+                <Color r="255" g="255" b="255" a="255" />
+            </Label>
+            
+            <Label name="Aura_Default_Label_SmallFont" font="font_chat_text" maxchars="64" textalign="left" autoresize="true" autoresizewidth="true">
+                <Size>
+                    <AbsPoint x="25" y="0" />
+                </Size>
+                <Color r="255" g="255" b="255" a="255" />
+            </Label>
+            
+            <Window name="AuraFrame" layer="background" handleinput="false" savesettings="false">
+                <Size>
+                    <AbsPoint x="128" y="128"/>
+                </Size>
+                <Windows>
+                    <DynamicImage name="$parentImageSquare" layer="background" handleinput="false" filtering="true">
+                    	<Size>
+		                    <AbsPoint x="64" y="64"/>
+		                </Size>
+                        <Anchors>
+                            <Anchor point="center" relativePoint="center">
+	                            <AbsPoint x="0" y="0" />
+	                        </Anchor>
+                        </Anchors>
+                        <TexDims x="64" y="64" />
+                    </DynamicImage>
+                    <CircleImage name="$parentImageCircle" layer="background" handleinput="false" filtering="true">
+                    	<Size>
+		                    <AbsPoint x="64" y="64"/>
+		                </Size>
+	                    <Anchors>
+	                        <Anchor point="center" relativePoint="center">
+	                            <AbsPoint x="0" y="0" />
+	                        </Anchor>
+	                    </Anchors>
+	                    <TexDims x="64" y="64" />
+                	</CircleImage>
+            		<Label name="$parentImageText" inherits="Aura_Default_Label" maxchars="128" textalign="center">
+                        <Anchors>
+	                        <Anchor point="center" relativePoint="center">
+	                            <AbsPoint x="0" y="0" />
+	                        </Anchor>
+	                    </Anchors>
+                    </Label>
+                </Windows>
+            </Window>
+            
+            <Window name="AuraTimerFrame" layer="background" handleinput="false" savesettings="false">
+                <Size>
+                    <AbsPoint x="64" y="64"/>
+                </Size>
+                <Windows>
+                	<Label name="$parentTime" font="font_default_text" maxchars="64" textalign="center" autoresize="true">
+		                <Size>
+		                    <AbsPoint x="64" y="0" />
+		                </Size>
+		                <Anchors>
+                            <Anchor point="center" relativePoint="center">
+	                            <AbsPoint x="0" y="0" />
+	                        </Anchor>
+                        </Anchors>
+		                <Color r="255" g="255" b="255" a="255" />
+		            </Label>
+                </Windows>
+            </Window>
+            
+            <Window name="AuraScreenFlashFrame" layer="background" handleinput="false" savesettings="false">
+                <Anchors>
+					<Anchor point="topleft" relativePoint="topleft" />
+					<Anchor point="bottomright" relativePoint="bottomright" />
+				</Anchors>
+                <Windows>
+                	<DynamicImage name="$parentImage" texture="EA_ScreenFlash" layer="overlay" handleinput="false" popable="false"  alpha="1.0">
+			            <Size>
+							<AbsPoint x="70" y="100" />
+						</Size>
+						<Anchors>
+							<Anchor point="topleft" relativePoint="topleft" />
+							<Anchor point="bottomright" relativePoint="bottomright" />
+						</Anchors>
+						<TexCoords x="0" y="0" />
+						<TexDims x="256" y="256" />
+					</DynamicImage>
+                </Windows>
+            </Window>
+            
+            <!-- Sort Button Template -->
+            <Button name="AuraSortingHeaderTemplate" inherits="EA_Button_DefaultListSort">
+                <Size>
+                    <AbsPoint x="100" y="30" />
+                </Size>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="EA_Window_Backpack.ChangeSorting" />
+                </EventHandlers>
+            </Button>
+            
+            <!--
+				NORMAL COMBO BOX
+			-->
+            <Button name="Aura_ComboBox_DefaultResizableComboBoxSelected" backgroundtexture="shared_01" handleinput="false" highlighttexture="shared_01" font="font_chat_text" textalign="left"
+                overlaytexture="shared_01" overlayhighlighttexture="shared_01">
+                <Size>
+                    <AbsPoint x="175" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <Normal def="EA_HorizontalResizeImage_DefaultComboBox"  />
+                    <NormalHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Pressed def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <PressedHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Disabled def="EA_HorizontalResizeImage_DefaultComboBox" />
+                </ResizeImages>
+                <OverlaySize x="27" y="28" />
+                <OverlayOffset x="148" y="0" />
+                <OverlayTexCoords>
+                    <Normal x="0" y="28" />
+                    <NormalHighlit x="27" y="28" />
+                    <Pressed x="0" y="56" />
+                    <PressedHighlit x="0" y="56" />
+                    <Disabled x="27" y="56" />
+                </OverlayTexCoords>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <Button name="Aura_Button_DefaultMenuButton" font="font_chat_text" textalign="left" >
+                <Size>
+                    <AbsPoint x="170" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <NormalHighlit def="EA_FullResizeImage_RedTransparent" />
+                </ResizeImages>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <ComboBox name="Aura_ComboBox_DefaultResizable" selectedbutton="Aura_ComboBox_DefaultResizableComboBoxSelected"
+                menubackground="EA_Window_ComboBoxMenuBackground" menuitembutton="Aura_Button_DefaultMenuButton"
+                scrollbar="EA_ScrollBar_DefaultVerticalChain" maxvisibleitems="10" >
+                <Size>
+                    <AbsPoint x="175" y="28" />
+                </Size>
+                <MenuButtonOffset x="5" y="5" />
+            </ComboBox>
+            
+            <!-- 
+				LARGE SIZE COMBO BOX
+			-->
+            <Button name="Aura_ComboBox_DefaultResizableComboBoxSelectedLarge" backgroundtexture="shared_01" handleinput="false" highlighttexture="shared_01" font="font_chat_text" textalign="left"
+                overlaytexture="shared_01" overlayhighlighttexture="shared_01">
+                <Size>
+                    <AbsPoint x="250" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <Normal def="EA_HorizontalResizeImage_DefaultComboBox"  />
+                    <NormalHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Pressed def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <PressedHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Disabled def="EA_HorizontalResizeImage_DefaultComboBox" />
+                </ResizeImages>
+                <OverlaySize x="27" y="28" />
+                <OverlayOffset x="223" y="0" />
+                <OverlayTexCoords>
+                    <Normal x="0" y="28" />
+                    <NormalHighlit x="27" y="28" />
+                    <Pressed x="0" y="56" />
+                    <PressedHighlit x="0" y="56" />
+                    <Disabled x="27" y="56" />
+                </OverlayTexCoords>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <Button name="Aura_Button_DefaultMenuButtonLarge" font="font_chat_text"  textalign="left" >
+                <Size>
+                    <AbsPoint x="250" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <NormalHighlit def="EA_FullResizeImage_RedTransparent" />
+                </ResizeImages>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <ComboBox name="Aura_ComboBox_DefaultResizableLarge" selectedbutton="Aura_ComboBox_DefaultResizableComboBoxSelectedLarge"
+                menubackground="EA_Window_ComboBoxMenuBackground" menuitembutton="Aura_Button_DefaultMenuButtonLarge"
+                scrollbar="EA_ScrollBar_DefaultVerticalChain" maxvisibleitems="10" >
+                <Size>
+                    <AbsPoint x="250" y="28" />
+                </Size>
+                <MenuButtonOffset x="5" y="5" />
+            </ComboBox>
+            
+            <!-- 
+				SMALL SIZED COMBO BOX
+			-->
+            <Button name="Aura_Button_DefaultResizableTinyComboBoxSelected" backgroundtexture="shared_01" handleinput="false" highlighttexture="shared_01" font="font_chat_text" textalign="left" overlaytexture="shared_01" overlayhighlighttexture="shared_01">
+                <Size>
+                    <AbsPoint x="75" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <Normal def="EA_HorizontalResizeImage_DefaultComboBox"  />
+                    <NormalHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Pressed def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <PressedHighlit def="EA_HorizontalResizeImage_DefaultComboBox" />
+                    <Disabled def="EA_HorizontalResizeImage_DefaultComboBox" />
+                </ResizeImages>
+                <OverlaySize x="27" y="28" />
+                <OverlayOffset x="48" y="0" />
+                <OverlayTexCoords>
+                    <Normal x="0" y="28" />
+                    <NormalHighlit x="27" y="28" />
+                    <Pressed x="0" y="56" />
+                    <PressedHighlit x="0" y="56" />
+                    <Disabled x="27" y="56" />
+                </OverlayTexCoords>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <Button name="Aura_Button_DefaultMenuButtonTiny" font="font_chat_text"  textalign="left" >
+                <Size>
+                    <AbsPoint x="70" y="28" />
+                </Size>
+                <TextColors>
+                    <Normal r="255" g="255" b="255" a="255" />
+                    <NormalHighlit r="250" g="213" b="63" a="255" />
+                    <Pressed r="250" g="213" b="63" a="255" />
+                    <PressedHighlit r="250" g="213" b="63" a="255" />
+                    <Disabled r="92" g="92" b="92" a="255" />
+                </TextColors>
+                <ResizeImages>
+                    <NormalHighlit def="EA_FullResizeImage_RedTransparent" />
+                </ResizeImages>
+                <TextOffset x="5" y="5" />
+            </Button>
+            <ComboBox name="Aura_ComboBox_DefaultResizableTiny" selectedbutton="Aura_Button_DefaultResizableTinyComboBoxSelected"
+                menubackground="EA_Window_ComboBoxMenuBackground" menuitembutton="Aura_Button_DefaultMenuButtonTiny"
+                scrollbar="EA_ScrollBar_DefaultVerticalChain" maxvisibleitems="10" >
+                <Size>
+                    <AbsPoint x="75" y="28" />
+                </Size>
+                <MenuButtonOffset x="5" y="5" />
+            </ComboBox>
+            
+            <!-- SMALLER SLIDER BAR -->
+            <SliderBar name="Aura_Default_SliderBar" background="EA_BrownHorizontalRule" tickmark="Aura_Default_SliderTick" sliderbutton="Aura_Default_SliderButton" numticks="5" >
+                <Size>
+                    <AbsPoint x="200" y="17" />
+                </Size>
+            </SliderBar>
+            <DynamicImage name="Aura_Default_SliderTick" texture="shared_01">
+                <Size>
+                    <AbsPoint x="4" y="10" />
+                </Size>
+                <TexCoords x="133" y="163" />
+            </DynamicImage>
+            <DynamicImage name="Aura_Default_SliderTick2" texture="shared_01">
+                <Size>
+                    <AbsPoint x="4" y="10" />
+                </Size>
+                <TexCoords x="88" y="51" />
+            </DynamicImage>
+            <Button name="Aura_Default_SliderButton" backgroundtexture="shared_01" highlighttexture="shared_01" >
+                <Size>
+                    <AbsPoint x="14" y="15" />
+                </Size>
+                <TexCoords>
+                    <Normal x="92" y="44" />
+                    <NormalHighlit x="105" y="44" />
+                    <Pressed x="120" y="44" />
+                    <PressedHighlit x="120" y="44" />
+                    <Disabled x="92" y="44" />
+                </TexCoords>
+            </Button>
+            
+            <!-- EDIT BOX WITH SMALL TEXT -->
+            <EditBox name="Aura_EditBox_DefaultFrame" font="font_chat_text" background="EA_FullResizeImage_TanBorder">
+                <TextOffset x="4" y="2" />
+            </EditBox>
+            
+            <!-- CHECK BOX WITH SMALL TEXT -->
+            <Window name="Aura_LabelCheckButton">
+                <Size>
+                    <AbsPoint x="280" y="32" />
+                </Size>
+                <EventHandlers>
+                    <EventHandler event="OnInitialize" function="EA_LabelCheckButton.Initialize" />
+                    <EventHandler event="OnLButtonUp" function="EA_LabelCheckButton.Toggle" />
+                </EventHandlers>
+                <Windows>
+                    <Button name="$parentButton" inherits="EA_Button_DefaultCheckBox" handleinput="false">
+                        <Anchors>
+                            <Anchor point="left" relativePoint="left">
+                                <AbsPoint x="0" y="0"/>
+                            </Anchor>
+                        </Anchors>
+                    </Button>
+                    <Label name="$parentLabel" inherits="Aura_CheckButtonLabel" handleinput="false">
+                        <Size>
+                            <AbsPoint x="255" y="16" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentButton">
+                                <AbsPoint x="5" y="3" />
+                            </Anchor>
+                        </Anchors>
+                        <Color r="255" g="255" b="255" a="255" />
+                    </Label>
+                </Windows>
+            </Window>
+            
+            <!-- CHECK BOX WITH SMALL TEXT (TEXT AREA LARGER) -->
+            <Window name="Aura_LargeLabelCheckButton">
+                <Size>
+                    <AbsPoint x="400" y="32" />
+                </Size>
+                <EventHandlers>
+                    <EventHandler event="OnInitialize" function="EA_LabelCheckButton.Initialize" />
+                    <EventHandler event="OnLButtonUp" function="EA_LabelCheckButton.Toggle" />
+                </EventHandlers>
+                <Windows>
+                    <Button name="$parentButton" inherits="EA_Button_DefaultCheckBox" handleinput="false">
+                        <Anchors>
+                            <Anchor point="left" relativePoint="left">
+                                <AbsPoint x="0" y="0"/>
+                            </Anchor>
+                        </Anchors>
+                    </Button>
+                    <Label name="$parentLabel" inherits="Aura_CheckButtonLabel" handleinput="false">
+                        <Size>
+                            <AbsPoint x="375" y="16" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentButton">
+                                <AbsPoint x="5" y="3" />
+                            </Anchor>
+                        </Anchors>
+                        <Color r="255" g="255" b="255" a="255" />
+                    </Label>
+                </Windows>
+            </Window>
+            <Label name="Aura_CheckButtonLabel" font="font_chat_text" autoresize="true" autoresizewidth="true" wordwrap="true" maxchars="64" textalign="left" handleinput="false" layer="background">
+                <Color r="255" g="255" b="255" a="255" />
+            </Label>
+        </Windows>
+    </Interface>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+<Windows>
+	<Window name="WarBoard_FPS" inherits="EA_Window_Default" movable="false" layer="secondary" >
+		<Size>
+			<AbsPoint x="180" y="30" />
+		</Size>
+		<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="WarBoard_FPS.OnOptionsButton" />
+		</EventHandlers>
+
+		<Windows>
+			<FullResizeImage name="$parentBackground" inherits="ModBackgroundTemplate" />
+			<Label name="$parentLabelFPS" font="font_default_text_small" skipinput="true" textalign="left">
+				<Size>
+					<AbsPoint x="90" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+						<AbsPoint x="5" y="8" />
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255" />
+			</Label>
+<!--font_clear_small_bold-->
+			<Label name="$parentLabelAvg" font="font_default_text_small" skipinput="true" textalign="left">
+				<Size>
+					<AbsPoint x="90" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLabelFPS">
+						<AbsPoint x="71" y="0" />
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255" />
+			</Label>
+
+		</Windows>
+	</Window>
+</Windows>
+</Interface>

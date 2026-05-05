@@ -1,0 +1,8 @@
+2011-11-16  Philosound  <Philosound>
+
+[d660a873a2d8] [1.14]
+* SwiftAssist.lua, SwiftAssist.mod:
+
+fixes a bug with macro creation
+
+

@@ -1,0 +1,206 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+
+		<!-- Horizontal template -->
+		<HorizontalResizeImage name="RVMOD_PlayerStatusHorizontalLineTintable" texture="EA_TintableImage" savesettings="false" handleinput="false">
+			<Size>
+				<AbsPoint x="50" y="6" />
+			</Size>
+			<Sizes left="0" middle="50" right="0" />
+			<TexCoords>
+				<Left x="0" y="0" />
+				<Middle x="0" y="0" />
+				<Right x="0" y="50" />
+			</TexCoords>
+			<TintColor r="255" g="255" b="255" />
+		</HorizontalResizeImage>
+
+		<Window name="RVMOD_PlayerStatusSettingsColorBoxTemplate" handleinput="true" autoresize="true">
+			<Size>
+				<AbsPoint x="66" y="34" />
+			</Size>
+			<Windows>
+				<HorizontalResizeImage name="$parentBorder" inherits="RVMOD_PlayerStatusHorizontalLineTintable">
+					<Size>
+						<AbsPoint x="66" y="34" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" relativeTo="$parent" />
+					</Anchors>
+					<TintColor r="50" g="50" b="50" />
+					<Windows>
+						<HorizontalResizeImage name="$parentForeground" inherits="RVMOD_PlayerStatusHorizontalLineTintable">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft">
+									<AbsPoint x="2" y="2" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright">
+									<AbsPoint x="-2" y="-2" />
+								</Anchor>
+							</Anchors>
+							<TintColor r="255" g="255" b="255" />
+						</HorizontalResizeImage>
+					</Windows>
+				</HorizontalResizeImage>
+			</Windows>
+		</Window>
+
+		<Window name="RVMOD_PlayerStatusSettings">
+			<Windows>
+				<Button name="$parentCheckBoxEnable" inherits="EA_Button_DefaultCheckBox" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft">
+							<AbsPoint x="10" y="20" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_PlayerStatus.SetEnable" />
+					</EventHandlers>
+				</Button>
+				<Label name="$parentLabelEnable" inherits="EA_Label_DefaultText" textalign="leftcenter" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="200" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxEnable">
+							<AbsPoint x="10" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+
+				<Label name="$parentHPBarColorCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="252" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxEnable">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Window name="$parentHPBarColor" inherits="RVMOD_PlayerStatusSettingsColorBoxTemplate" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentHPBarColorCaption">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_PlayerStatus.OnLButtonUpHPBarColor" />
+					</EventHandlers>
+				</Window>
+				<Label name="$parentAPBarColorCaption" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="252" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentHPBarColorCaption">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Window name="$parentAPBarColor" inherits="RVMOD_PlayerStatusSettingsColorBoxTemplate" handleinput="true" autoresize="true">
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentAPBarColorCaption">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_PlayerStatus.OnLButtonUpAPBarColor" />
+					</EventHandlers>
+				</Window>
+			</Windows>
+		</Window>
+
+		<VerticalResizeImage name="RVMOD_PlayerStatusVerticalBarTintableTemplate" texture="EA_TintableImage" savesettings="false" handleinput="false">
+			<Size>
+				<AbsPoint x="32" y="50" />
+			</Size>
+			<Sizes top="0" middle="50" bottom="0" />
+			<TexCoords>
+				<Top x="0" y="0" />
+				<Middle x="0" y="0" />
+				<Bottom x="0" y="50" />
+			</TexCoords>
+			<TintColor r="0" g="0" b="0" />
+		</VerticalResizeImage>
+		<Window name="RVMOD_PlayerStatusVerticalBarTemplate" handleinput="false" movable="false" show="true" savesettings="false" >
+			<Size>
+				<AbsPoint x="32" y="232" />
+			</Size>
+			<Windows>
+				<VerticalResizeImage name="$parentForeground" inherits="RVMOD_PlayerStatusVerticalBarTintableTemplate">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" />
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+					</Anchors>
+				</VerticalResizeImage>
+				<VerticalResizeImage name="$parentBackground" inherits="RVMOD_PlayerStatusVerticalBarTintableTemplate">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parent" />
+					</Anchors>
+				</VerticalResizeImage>
+			</Windows>
+		</Window>
+
+		<!-- health and action bars -->
+		<Window name="RVMOD_PlayerStatus" handleinput="false" movable="false" savesettings="true">
+			<Size>
+				<AbsPoint x="20" y="200" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="100" y="120" />
+				</Anchor>
+			</Anchors>
+			<Windows>
+				<Window name="$parentHealthBar" inherits="RVMOD_PlayerStatusVerticalBarTemplate">
+					<Size>
+						<AbsPoint x="12" y="200" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parent"/>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSizeUpdated" function="RVMOD_PlayerStatus.OnSizeUpdatedHealthBar" />
+					</EventHandlers>
+				</Window>
+				<Window name="$parentActionBar" inherits="RVMOD_PlayerStatusVerticalBarTemplate">
+					<Size>
+						<AbsPoint x="6" y="200" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomright" relativeTo="$parentHealthBar" >
+							<AbsPoint x="-2" y="0" />
+						</Anchor>
+						<Anchor point="topleft" relativePoint="topright" relativeTo="$parentHealthBar" >
+							<AbsPoint x="-2" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSizeUpdated" function="RVMOD_PlayerStatus.OnSizeUpdatedActionBar" />
+					</EventHandlers>
+				</Window>
+				<Label name="$parentHealthText" font="font_clear_small" handleinput="false" maxchars="5" textalign="right" layer="default">
+					<Size>
+						<AbsPoint x="100" y="16" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parent" >
+							<AbsPoint x="0" y="2" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Label name="$parentActionText" font="font_clear_small" handleinput="false" maxchars="5" textalign="right" layer="default">
+					<Size>
+						<AbsPoint x="100" y="16" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parentHealthText" />
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

@@ -1,0 +1,548 @@
+-- ========================================
+-- SCENARIO 2112 TALABEC DAM ESCORT
+-- ========================================
+
+-- =========================
+-- SCENARIO IDENTIFIERS
+-- =========================
+local ZONE_ID                  = 132
+local SCENARIO_ID              = 2112
+local CONTROLLER_ID            = 1605
+local CARRIER_ID               = 1606
+
+-- =========================
+-- TIMING
+-- =========================
+local SPAWN_DELAY_MS           = 60000           -- 60 seconds before carrier respawn
+local CHECK_INTERVAL_MS        = 400             -- carrier think tick rate
+local ADVANTAGE_COMMIT_MS      = 1500            -- sustained advantage required before carrier moves
+local CARRIER_MAX_LIFETIME_MS  = 900000          -- 15 minutes
+
+-- =========================
+-- PLAYER
+-- =========================
+local PLAYER_CHECK_RANGE       = 300          -- radius to count players near carrier
+local PLAYER_MAX_COUNT         = 6            -- max players counted per side
+local PLAYER_MIN_REQUIRED      = 1            -- TODO: minimum players needed to move carrier (change to 2 when ready)
+local PLAYER_SPEED_STEP        = 35           -- speed added per player advantage (e.g. 2 advantage = 70)
+
+-- =========================
+-- CARRIER MOVEMENT
+-- =========================
+local CARRIER_RETURN_SPEED     = 400          -- speed during uncontested return phase
+local SPEED_RAMP_STEP          = 15           -- max speed change per tick (smooths acceleration/deceleration)
+local POINT_REACHED_RANGE      = 50           -- distance to consider a waypoint reached
+local POINT_CAPTURE_RANGE      = 120          -- distance to lock onto a waypoint
+local POINT_FINISH_RANGE       = 25           -- distance to finalise a waypoint and advance
+
+-- =========================
+-- TESTING (remove when done)
+-- =========================
+local TEST_TUG_SPEED           = 1
+local TEST_TUG_SPEED_VALUE     = 300
+
+-- =========================
+-- ENUMS
+-- =========================
+local SIDE_NONE                = 0
+local SIDE_ORDER               = 1
+local SIDE_DESTRO              = 2
+
+-- =========================
+-- SPAWN POINT
+-- =========================
+local CARRIER_SPAWN            = { x = 489871, y = 360133, z = 5524, o = 3059 }
+
+local MINE_GO_ID               = 592
+local MINE_EXPLOSION_EFFECT_ID = 335
+local MINE_PLANT_DELAY_MS      = 5000           -- 5 seconds before explosion
+local CARRIER_RESPAWN_DELAY_MS = 15000          -- 15 seconds before next carrier spawns
+local MAIN_HAND_SLOT           = 10             -- main hand slot ID
+
+-- =========================
+-- PATHS
+-- =========================
+local ORDER_PATH               = {
+  { x = 489294, y = 360060, z = 5491, points = 0 },
+  { x = 488260, y = 360190, z = 5439, points = 0 },
+  { x = 486832, y = 360350, z = 5430, points = 0 },
+  { x = 485790, y = 360461, z = 5385, points = 0 },
+  { x = 485347, y = 360765, z = 5435, points = 0 },
+  { x = 484874, y = 361452, z = 5494, points = 0 },
+  { x = 484138, y = 361646, z = 5573, points = 0 },
+  { x = 483343, y = 362289, z = 5834, points = 0 },
+  { x = 482603, y = 363071, z = 6013, points = 0 },
+  { x = 482338, y = 363921, z = 6247, points = 0 },
+  { x = 482346, y = 364853, z = 6341, points = 0 },
+  { x = 483414, y = 366028, z = 6323, points = 0 },
+}
+
+local DESTRO_PATH              = {
+  { x = 491244, y = 359985, z = 5456, points = 0 },
+  { x = 492733, y = 359959, z = 5469, points = 0 },
+  { x = 493620, y = 359644, z = 5566, points = 0 },
+  { x = 494259, y = 359165, z = 5684, points = 0 },
+  { x = 494893, y = 358916, z = 5789, points = 0 },
+  { x = 495685, y = 358996, z = 5899, points = 0 },
+  { x = 496353, y = 357864, z = 5976, points = 0 },
+  { x = 496259, y = 356917, z = 6212, points = 0 },
+  { x = 496120, y = 355956, z = 5999, points = 0 },
+  { x = 495615, y = 355401, z = 6086, points = 0 },
+  { x = 495585, y = 355021, z = 6120, points = 0 },
+  { x = 495715, y = 354568, z = 6135, points = 0 },
+}
+
+-- =========================
+-- MINE POSITIONS
+-- =========================
+local ORDER_MINE               = { x = 483537, y = 366156, z = 6327, o = 2459 }
+local DESTRO_MINE              = { x = 495761, y = 354446, z = 6148, o = 440 }
+
+-- =========================
+-- LUA STDLIB LOCALS
+-- =========================
+local math_abs                 = math.abs
+local math_min                 = math.min
+
+-- =========================
+-- **HELPERS**
+-- =========================
+local function CarrierEndSequence(creature, side)
+  if not creature or creature:IsDead() then return end
+
+  -- Stop the carrier at the mine location
+  RoR.SetSpeed(creature, 0)
+  creature:MoveTo(creature:GetX(), creature:GetY(), creature:GetZ(), false)
+
+  -- Remove main hand weapon
+  creature:UnEquipItem(MAIN_HAND_SLOT)
+
+  -- Spawn the mine game object
+  local minePoint = (side == SIDE_ORDER) and ORDER_MINE or DESTRO_MINE
+  local mineGo = creature:SpawnGameObject(MINE_GO_ID, minePoint.x, minePoint.y, minePoint.z, minePoint.o)
+
+  coroutine.yield(MINE_PLANT_DELAY_MS)
+  if not creature or creature:IsDead() then return end
+  -- Play explosion effect on the game object and destroy it
+  if mineGo then
+    mineGo:PlayEffect(MINE_EXPLOSION_EFFECT_ID)
+    coroutine.yield(500)     -- brief pause so effect plays before destroy
+    mineGo:DespawnOrUnsummon(0)
+  end
+
+  -- Despawn the carrier
+  creature:DespawnOrUnsummon(0)
+end
+
+local function StopCarrier(creature)
+  if not creature or creature:IsDead() then return end
+
+  if creature:GetState("IS_STOPPED") == 1 then return end
+  creature:SetState("IS_STOPPED", 1)
+  creature:Data():Set("WAYPOINT_LOCKED", false)
+
+  creature:MoveTo(creature:GetX(), creature:GetY(), creature:GetZ(), false)
+
+  creature:SetState("LAST_MOVE_SIDE", -1)
+  creature:SetState("LAST_MOVE_INDEX", -1)
+end
+
+local function HasPassedPoint(creature, point)
+  if not creature or not point then return false end
+
+  if creature:GetDistance2d(point.x, point.y) <= POINT_REACHED_RANGE then
+    return true
+  end
+
+  local prevX = creature:Data():Get("PREV_X")
+  local prevY = creature:Data():Get("PREV_Y")
+
+  if not prevX or not prevY then return false end
+
+  local currX, currY = creature:GetX(), creature:GetY()
+
+  local v1x = point.x - prevX
+  local v1y = point.y - prevY
+
+  local v2x = point.x - currX
+  local v2y = point.y - currY
+
+  local dot = v1x * v2x + v1y * v2y
+
+  return dot <= 0
+end
+
+local function GetPath(side)
+  if side == SIDE_ORDER then
+    return ORDER_PATH
+  elseif side == SIDE_DESTRO then
+    return DESTRO_PATH
+  end
+  return nil
+end
+
+local function GetPathLength(side)
+  local path = GetPath(side)
+  return path and #path or 0
+end
+
+local function GetPoint(side, index)
+  if index == 0 then
+    return CARRIER_SPAWN
+  end
+  local path = GetPath(side)
+  if not path then return nil end
+  return path[index]
+end
+
+local function SpawnCarrier(controller)
+  if not controller then return nil end
+  return controller:SpawnCreature(CARRIER_ID, CARRIER_SPAWN.x, CARRIER_SPAWN.y, CARRIER_SPAWN.z, CARRIER_SPAWN.o,
+    SummonType.TEMPSUMMON_TIMED_DESPAWN, CARRIER_MAX_LIFETIME_MS)
+end
+
+local function CountPlayersNearCarrier(creature)
+  -- hostile=0 (both), dead=1 (alive only)
+  local players = creature:GetPlayersInRange(PLAYER_CHECK_RANGE, 0, 1)
+
+  local order   = 0
+  local destro  = 0
+
+  for i = 1, #(players or {}) do
+    local player = players[i]
+    if player then
+      local realm = player:GetRealm()
+      if realm == GameData.Realm.ORDER then
+        order = order + 1
+      elseif realm == GameData.Realm.DESTRUCTION then
+        destro = destro + 1
+      end
+    end
+  end
+
+  order  = math_min(order, PLAYER_MAX_COUNT)
+  destro = math_min(destro, PLAYER_MAX_COUNT)
+
+  return order, destro
+end
+
+local function SetCarrierTarget(creature, side, index)
+  if not creature or creature:IsDead() then return end
+
+  local point = GetPoint(side, index)
+  if not point then return end
+
+  local cx, cy, cz = creature:GetX(), creature:GetY(), creature:GetZ()
+
+  local dx = point.x - cx
+  local dy = point.y - cy
+  local dz = point.z - cz
+  local dist = math.sqrt(dx * dx + dy * dy)
+
+  if dist < 1 then return end
+
+  local step = 40
+  if TEST_TUG_SPEED == 1 then
+    step = TEST_TUG_SPEED_VALUE
+  end
+
+  if dist < step then
+    step = dist
+  end
+
+  local nx = cx + (dx / dist) * step
+  local ny = cy + (dy / dist) * step
+  local nz = cz + (dz / dist) * step
+
+  creature:SetState("LAST_MOVE_SIDE", side)
+  creature:SetState("LAST_MOVE_INDEX", index)
+
+  creature:MoveTo(nx, ny, nz, false)
+end
+
+local function ResetCarrierState(creature)
+  if not creature or creature:IsDead() then return end
+
+  creature:SetState("ACTIVE_SIDE", SIDE_NONE)
+  creature:SetState("PATH_INDEX", 0)
+  creature:SetState("LAST_ADVANTAGE_SIDE", SIDE_NONE)
+  creature:SetState("LAST_MOVE_SIDE", -1)
+  creature:SetState("LAST_MOVE_INDEX", -1)
+  creature:SetState("IS_STOPPED", 0)
+  creature:Data():Set("SCORED_WAYPOINTS", {})
+
+  creature:Data():Set("WAYPOINT_LOCKED", false)
+  creature:Data():Set("CURRENT_SPEED", 0)
+  creature:Data():Set("PENDING_SIDE", SIDE_NONE)
+  creature:Data():Set("PENDING_TIME", 0)
+  creature:Data():Set("PREV_X", nil)
+  creature:Data():Set("PREV_Y", nil)
+
+  RoR.SetSpeed(creature, 0)
+end
+
+-- =========================
+-- **MOVEMENT LOGIC**
+-- =========================
+local function AdvanceTowardSide(creature, selectedSide)
+  if not creature or creature:IsDead() or selectedSide == SIDE_NONE then return end
+
+  local activeSide = creature:GetState("ACTIVE_SIDE") or SIDE_NONE
+  local pathIndex  = creature:GetState("PATH_INDEX") or 0
+  local pathLength = GetPathLength(selectedSide)
+  local locked     = creature:Data():Get("WAYPOINT_LOCKED") or false
+
+  -- No active side yet — begin moving toward selected side
+  if activeSide == SIDE_NONE then
+    creature:SetState("ACTIVE_SIDE", selectedSide)
+    creature:SetState("PATH_INDEX", 1)
+    creature:Data():Set("WAYPOINT_LOCKED", false)
+    SetCarrierTarget(creature, selectedSide, 1)
+    return
+  end
+
+  -- Pushing forward along the active side
+  if activeSide == selectedSide then
+    local point = GetPoint(activeSide, pathIndex)
+    if not point then return end
+
+    local distance = creature:GetDistance2d(point.x, point.y)
+
+    if not locked and distance <= POINT_CAPTURE_RANGE then
+      creature:Data():Set("WAYPOINT_LOCKED", true)
+      locked = true
+    end
+
+    if locked and distance <= POINT_FINISH_RANGE then
+      creature:Data():Set("WAYPOINT_LOCKED", false)
+
+      -- Award points for this waypoint if not already scored this reset
+      if point.points and point.points > 0 then
+        local scored = creature:Data():Get("SCORED_WAYPOINTS") or {}
+        local key    = activeSide .. "_" .. pathIndex
+
+        if not scored[key] then
+          scored[key] = true
+          creature:Data():Set("SCORED_WAYPOINTS", scored)
+          -- TODO: scenario:AddScore(activeSide == SIDE_ORDER and GameData.Realm.ORDER or GameData.Realm.DESTRUCTION, point.points)
+        end
+      end
+
+      -- End of path — trigger mine end sequence
+      if pathIndex >= pathLength then
+        creature:StartCoroutine(CarrierEndSequence, activeSide)
+        return
+      end
+
+      -- Advance to next waypoint
+      pathIndex = pathIndex + 1
+      creature:SetState("PATH_INDEX", pathIndex)
+      SetCarrierTarget(creature, activeSide, pathIndex)
+      return
+    end
+
+    SetCarrierTarget(creature, activeSide, pathIndex)
+    return
+  end
+
+  -- Opposite side won control; push the carrier back toward spawn
+  if pathIndex > 0 then
+    local targetIndex = pathIndex - 1
+    local point = GetPoint(activeSide, targetIndex)
+    if not point then return end
+
+    local distance = creature:GetDistance2d(point.x, point.y)
+
+    if not locked and distance <= POINT_CAPTURE_RANGE then
+      creature:Data():Set("WAYPOINT_LOCKED", true)
+      locked = true
+    end
+
+    if locked and distance <= POINT_FINISH_RANGE then
+      creature:Data():Set("WAYPOINT_LOCKED", false)
+
+      pathIndex = targetIndex
+      creature:SetState("PATH_INDEX", pathIndex)
+
+      if pathIndex == 0 then
+        creature:SetState("ACTIVE_SIDE", SIDE_NONE)
+        SetCarrierTarget(creature, SIDE_NONE, 0)
+        return
+      end
+
+      SetCarrierTarget(creature, activeSide, pathIndex)
+      return
+    end
+
+    SetCarrierTarget(creature, activeSide, targetIndex)
+    return
+  end
+
+  -- Back at spawn, switch to new side
+  if creature:GetDistance2d(CARRIER_SPAWN.x, CARRIER_SPAWN.y) <= POINT_FINISH_RANGE then
+    creature:SetState("ACTIVE_SIDE", selectedSide)
+    creature:SetState("PATH_INDEX", 1)
+    creature:Data():Set("WAYPOINT_LOCKED", false)
+    SetCarrierTarget(creature, selectedSide, 1)
+  else
+    SetCarrierTarget(creature, SIDE_NONE, 0)
+  end
+end
+
+-- =========================
+-- **TICK FUNCTIONS**
+-- =========================
+local function ControllerSpawnCarrier(eventId, delay, repeats, worldObject)
+  local creature = worldObject:ToCreature()
+  if not creature or creature:IsDead() then return end
+
+  local existingOid = creature:Data():Get("CARRIER_INSTANCE_OID")
+  local existing = existingOid and GetCreatureByOID(existingOid)
+  if existing and not existing:IsDead() then
+    return
+  end
+
+  local carrier = SpawnCarrier(creature)
+  if not carrier then
+    creature:Say("[Talabec] Carrier spawn FAILED")
+    return
+  end
+
+  creature:Data():Set("CARRIER_INSTANCE_OID", carrier:GetOID())
+  carrier:Data():Set("CONTROLLER_OID", creature:GetOID())
+  creature:Data():Set("HAS_SPAWNED_ONCE", true)
+end
+
+local function CarrierThink(eventId, delay, repeats, worldObject)
+  local creature = worldObject:ToCreature()
+  if not creature or creature:IsDead() then return end
+
+  -- Tug phase
+  local order, destro = CountPlayersNearCarrier(creature)
+
+  -- Neither side has minimum required players
+  if order < PLAYER_MIN_REQUIRED and destro < PLAYER_MIN_REQUIRED then
+    creature:Data():Set("PENDING_SIDE", SIDE_NONE)
+    creature:Data():Set("PENDING_TIME", 0)
+    creature:Data():Set("CURRENT_SPEED", 0)
+    RoR.SetSpeed(creature, 0)
+    StopCarrier(creature)
+    return
+  end
+
+  local diff = order - destro
+
+  -- Tied — stop and reset pending
+  if diff == 0 then
+    creature:Data():Set("PENDING_SIDE", SIDE_NONE)
+    creature:Data():Set("PENDING_TIME", 0)
+    creature:Data():Set("CURRENT_SPEED", 0)
+    RoR.SetSpeed(creature, 0)
+    StopCarrier(creature)
+    return
+  end
+
+  local selectedSide = diff > 0 and SIDE_ORDER or SIDE_DESTRO
+
+  local pendingSide = creature:Data():Get("PENDING_SIDE")
+  local pendingTime = creature:Data():Get("PENDING_TIME") or 0
+
+  if pendingSide == selectedSide then
+    pendingTime = pendingTime + CHECK_INTERVAL_MS
+  else
+    -- Advantage flipped — reset timer, hold current state
+    pendingSide = selectedSide
+    pendingTime = 0
+  end
+
+  creature:Data():Set("PENDING_SIDE", pendingSide)
+  creature:Data():Set("PENDING_TIME", pendingTime)
+
+  -- Wait for advantage to be held continuously before committing
+  if pendingTime < ADVANTAGE_COMMIT_MS then
+    return
+  end
+
+  -- Advantage confirmed — calculate target speed
+  creature:SetState("LAST_ADVANTAGE_SIDE", selectedSide)
+  creature:SetState("IS_STOPPED", 0)
+
+  local targetSpeed
+  if TEST_TUG_SPEED == 1 then
+    targetSpeed = TEST_TUG_SPEED_VALUE
+  else
+    targetSpeed = PLAYER_SPEED_STEP * math_abs(diff)
+    if targetSpeed > CARRIER_RETURN_SPEED then
+      targetSpeed = CARRIER_RETURN_SPEED
+    end
+  end
+
+  -- Smooth speed ramping — no sudden jumps up or down
+  local currentSpeed = creature:Data():Get("CURRENT_SPEED") or 0
+  if currentSpeed < targetSpeed then
+    currentSpeed = math_min(currentSpeed + SPEED_RAMP_STEP, targetSpeed)
+  elseif currentSpeed > targetSpeed then
+    currentSpeed = math.max(currentSpeed - SPEED_RAMP_STEP, targetSpeed)
+  end
+  creature:Data():Set("CURRENT_SPEED", currentSpeed)
+
+  RoR.SetSpeed(creature, currentSpeed)
+
+  -- Store position for HasPassedPoint dot product check next tick
+  creature:Data():Set("PREV_X", creature:GetX())
+  creature:Data():Set("PREV_Y", creature:GetY())
+
+  AdvanceTowardSide(creature, selectedSide)
+end
+
+-- =========================
+-- **EVENT HANDLERS**
+-- =========================
+local function ControllerOnSpawn(creature)
+  if not creature or creature:IsDead() then return end
+
+  creature:RemoveEvents()
+  creature:Data():Set("HAS_SPAWNED_ONCE", false)
+
+  local existingOid = creature:Data():Get("CARRIER_INSTANCE_OID")
+  local existing = existingOid and GetCreatureByOID(existingOid)
+  if existing and not existing:IsDead() then
+    return
+  end
+
+  creature:RegisterEvent(ControllerSpawnCarrier, SPAWN_DELAY_MS, 1)
+end
+
+local function CarrierOnSpawn(creature)
+  if not creature or creature:IsDead() then return end
+
+  creature:SetBrain(CreatureBrain.DUMMY)
+  creature:RemoveEvents()
+  ResetCarrierState(creature)
+  creature:RegisterEvent(CarrierThink, CHECK_INTERVAL_MS, 0)
+end
+
+local function CarrierOnDie(creature)
+  if not creature then return end
+
+  local controllerOid = creature:Data():Get("CONTROLLER_OID")
+  local controller = GetCreatureByOID(controllerOid)
+
+  if controller and not controller:IsDead() then
+    controller:Data():Set("CARRIER_INSTANCE_OID", nil)
+    controller:RemoveEvents()
+
+    -- Use short respawn delay after first spawn, long delay only on initial spawn
+    local respawnDelay = controller:Data():Get("HAS_SPAWNED_ONCE") and CARRIER_RESPAWN_DELAY_MS or SPAWN_DELAY_MS
+    controller:RegisterEvent(ControllerSpawnCarrier, respawnDelay, 1)
+  end
+end
+
+-- =========================
+-- **REGISTRATION**
+-- =========================
+if HasZone(ZONE_ID) then
+  RegisterCreatureEvent(CONTROLLER_ID, CreatureEvent.OnSpawn, ControllerOnSpawn)
+  RegisterCreatureEvent(CARRIER_ID, CreatureEvent.OnSpawn, CarrierOnSpawn)
+  RegisterCreatureEvent(CARRIER_ID, CreatureEvent.OnDie, CarrierOnDie)
+end

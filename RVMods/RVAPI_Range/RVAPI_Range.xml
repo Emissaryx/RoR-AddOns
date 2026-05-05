@@ -1,0 +1,93 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+
+		<SliderBar name="RVAPI_RangeSliderTemplate" inherits="EA_Default_SliderBar" autoresize="true" handlinput="true">
+			<Windows>
+				<Label name="$parentMinLabel" inherits="EA_Settings_ItemTitle">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentMaxLabel" inherits="EA_Settings_ItemTitle" textalign="right">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentMidLabel" inherits="EA_Settings_ItemTitle" textalign="center">
+					<Size>
+						<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parent" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+			</Windows>
+		</SliderBar>
+
+		<Window name="RVAPI_RangeSettingsWindow">
+			<Windows>
+				<Button name="$parentCheckBoxMapDistancesEnabled" inherits="EA_Button_DefaultCheckBox" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="40" y="40" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVAPI_Range.OnCheckBoxMapDistancesEnabled" />
+					</EventHandlers>
+				</Button>
+				<Label name="$parentLabelMapDistancesEnabled" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="600" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxMapDistancesEnabled">
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+
+				<SliderBar name="$parentSliderBarMapDelay" inherits="RVAPI_RangeSliderTemplate" handleinput="true" numticks="11">
+					<Size>
+						<AbsPoint x="574" y="33" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckBoxMapDistancesEnabled">
+							<AbsPoint x="0" y="15" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSlide" function="RVAPI_Range.OnSlideMapDelay" />
+					</EventHandlers>
+				</SliderBar>
+
+				<Label name="$parentLabelImportantInformation" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" >
+					<Size>
+						<AbsPoint x="600" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSliderBarMapDelay">
+							<AbsPoint x="0" y="45" />
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

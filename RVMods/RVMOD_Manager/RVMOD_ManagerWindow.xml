@@ -1,0 +1,279 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Windows>
+
+		<Window name="RVMOD_ManagerWindow" handleinput="true" layer="default" movable="true" savesettings="false">
+			<Size>
+				<AbsPoint x="1000" y="831" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="">
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+			</Anchors>
+			<Windows>
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <Label name="$parentVersionText" font="font_clear_small" maxchars="128" textalign="bottomleft" layer="popup" warnOnTextCropped="false" ellipsisOnCrop="true">
+                    <Size>
+                        <AbsPoint x="320" y="30" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parentTitleBar">
+                            <AbsPoint x="80" y="-9" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" >
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpToggleButton" />
+					</EventHandlers>
+				</Button>
+				<DynamicImage name="$parentCornerImage" inherits="EA_Default_CornerImage" texture="RV_CornerIcon_Manager" layer="popup" />
+
+				<Label name="$parentFilterLabel" font="font_chat_text" autoresize="true" textalign="right" handleinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="16" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTab">
+							<AbsPoint x="100" y="6" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="204" b="102" />
+				</Label>
+				<DynamicImage name="$parentFilterAllIcon" texture="RVMOD_ManagerFilterAllIcon1Texture" layer="secondary">
+					<Size>
+						<AbsPoint x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentFilterLabel" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpFilterAll" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverFilterAll"/>
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parentFilterRVIcon" texture="RVMOD_ManagerFilterRVIcon1Texture" layer="secondary">
+					<Size>
+						<AbsPoint x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentFilterAllIcon" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpFilterRV" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverFilterRV"/>
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parentFilterEAIcon" texture="RVMOD_ManagerFilterEAIcon1Texture" layer="secondary">
+					<Size>
+						<AbsPoint x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentFilterRVIcon" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpFilterEA" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverFilterEA"/>
+					</EventHandlers>
+				</DynamicImage>
+
+				<Label name="$parentSortByLabel" font="font_chat_text" autoresize="true" textalign="right" handleinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="100" y="16" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentFilterEAIcon" />
+					</Anchors>
+					<Color r="255" g="204" b="102" />
+				</Label>
+				<ComboBox name="$parentSortBy" inherits="EA_ComboBox_DefaultResizableSmall" layer="secondary" >
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentSortByLabel" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSelChanged" function="RVMOD_Manager.OnSelChangedSortBy" />
+					</EventHandlers>
+				</ComboBox>
+				<DynamicImage name="$parentSortByIcon" texture="RVMOD_ManagerSortByIcon1Texture" layer="secondary">
+					<Size>
+						<AbsPoint x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentSortBy" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpSortBy" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverSortBy"/>
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parentMagnifierIcon" texture="RVMOD_ManagerMagnifierIconTexture" layer="secondary">
+					<Size>
+						<AbsPoint x="32" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentSortByIcon" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnLButtonUpMagnifier" />
+						<EventHandler event="OnMouseOver" function="RVMOD_Manager.OnMouseOverMagnifier"/>
+					</EventHandlers>
+				</DynamicImage>
+
+
+				<!-- TABS Begin -->
+				<Window name="$parentTab" >
+					<Size>
+						<AbsPoint x="500" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar"/>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentTitleBar"/>
+					</Anchors>
+					<Windows>
+						<Window name="$parentSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" handleinput="true" layer="popup" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="14" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo ="$parent">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+								<Anchor point="bottomleft" relativePoint="bottomright" relativeTo="$parentSettings">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+							</Anchors>
+						</Window>
+						<Button name="$parentSettings" inherits="EA_Button_Tab" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="left" relativePoint="right" relativeTo="$parentGeneral" />
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnClickTabSettings" />
+							</EventHandlers>
+						</Button>
+						<Button name="$parentGeneral" inherits="EA_Button_Tab" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="124" y="35" />
+							</Size>
+							<TextOffset x="0" y="0" />
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright">
+									<AbsPoint x="-25" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnClickTabGeneral" />
+							</EventHandlers>
+						</Button>
+						<Window name="$parentSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" layer="background" popable="false">
+							<Size>
+								<AbsPoint x="0" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomright" relativePoint="bottomleft" relativeTo="$parentGeneral">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+									<AbsPoint x="0" y="14" />
+								</Anchor>
+							</Anchors>
+						</Window>
+					</Windows>
+				</Window>
+				<!-- TABS End -->
+
+				<!-- Content Begin -->
+				<Window name="$parentContent" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTab">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="-8" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+						<ScrollWindow name="$parentListBox" scrollbar="RVMOD_ManagerWindowContentListBoxScrollbar" childscrollwindow="RVMOD_ManagerWindowContentListBoxScrollChild" lineheight="18">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" />
+								<Anchor point="bottomleft" relativePoint="bottomright">
+									<AbsPoint x="296" y="-47" />
+								</Anchor>
+							</Anchors>
+							<Windows>
+
+								<Window name="$parentScrollChild">
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+										<Anchor point="bottomright" relativePoint="bottomright" >
+											<AbsPoint x="-20" y="0" />
+										</Anchor>
+									</Anchors>
+									<Windows>
+
+									</Windows>
+								</Window>
+
+								<VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain" layer="popup">
+									<Size>
+										<AbsPoint x="20" y="400"/>
+									</Size>
+									<Anchors>
+										<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+											<AbsPoint x="0" y="0"/>
+										</Anchor>
+										<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+											<AbsPoint x="0" y="47" />
+										</Anchor>
+									</Anchors>
+								</VerticalScrollbar>
+
+							</Windows>
+						</ScrollWindow>
+
+						<Button name="$parentButtonReloadUI" inherits="EA_Button_DefaultResizeable" warnOnTextCropped="false" ellipsisOnCrop="true">
+							<Size>
+								<AbsPoint x="200" y="39" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottom" relativePoint="top" relativeTo="$parentListBox">
+									<AbsPoint x="0" y="4" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="RVMOD_Manager.OnClickReloadUI" />
+							</EventHandlers>
+						</Button>
+
+						<!-- Mod Settings Window -->
+						<Window name="$parentRVSettings">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentListBox" />
+								<Anchor point="bottomright" relativePoint="bottomright" />
+							</Anchors>
+						</Window>
+
+						<!-- Scrolling Mod Details Window -->
+						<ScrollWindow name="$parentRVGeneral" inherits="RVMOD_ManagerModInfoTemplate">
+							<Anchors>
+								<Anchor point="topright" relativePoint="topleft" relativeTo="$parentListBox" />
+								<Anchor point="bottomright" relativePoint="bottomright" />
+							</Anchors>
+						</ScrollWindow>
+					</Windows>
+				</Window>
+				<!-- Content End -->
+
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

@@ -1,0 +1,12 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Assets>
+		<Texture name="amethystSharedMediaFlat" 		file="SharedAssets/Flat.tga" />
+		<Texture name="amethystSharedMediaMinimalist" 	file="SharedAssets/Minimalist.tga" />
+		<Texture name="amethystSharedMediaSmoothv2" 	file="SharedAssets/Smoothv2.tga" />
+		<Texture name="AceBarFrame" 					file="SharedAssets/AceBarFrames.tga"/>
+		<Texture name="PureGraphite" 					file="SharedAssets/Graphite.tga"/>
+		<Texture name="PureDebuffHighlight" 			file="SharedAssets/debuffHighlight.tga"/>
+    	<!--<Texture name="PureBar" 					file="SharedAssets/AceBarFrames.tga"/>
+    	<Texture name="FoghladhaBar" 					file="SharedAssets/FoghladhaBar.tga"/>-->
+   </Assets>
+</Interface>

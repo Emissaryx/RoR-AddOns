@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Windows>
+
+    <!-- ===== Reusable rows ===== -->
+    <Window name="EZCraftXWindow.DropDown" layer="default">
+      <Size><AbsPoint x="500" y="65"/></Size>
+      <Windows>
+        <Label name="$parent.label" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="500" y="30"/></Size>
+          <Color r="255" g="255" b="255" a="255"/>
+        </Label>
+        <ComboBox name="$parent.DD" inherits="EA_ComboBox_DefaultResizable" layer="default">
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.label">
+              <AbsPoint x="0" y="5"/>
+            </Anchor>
+          </Anchors>
+          <EventHandlers>
+            <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_Dropdown"/>
+          </EventHandlers>
+        </ComboBox>
+      </Windows>
+    </Window>
+
+    <Window name="EZCraftXWindow.Text3Chars" layer="default">
+      <Size><AbsPoint x="500" y="60"/></Size>
+      <Windows>
+        <Label name="$parent.label" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="500" y="30"/></Size>
+          <Color r="255" g="255" b="255" a="255"/>
+        </Label>
+        <EditBox name="$parent.Text" inherits="EA_EditBox_DefaultFrame" maxchars="3" taborder="1">
+          <Size><AbsPoint x="50" y="30"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.label">
+              <AbsPoint x="0" y="5"/>
+            </Anchor>
+          </Anchors>
+          <EventHandlers>
+            <EventHandler event="OnUpdate" function="EZCraftX.OnUpdate"/>
+            <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_Text3Chars"/>
+          </EventHandlers>
+        </EditBox>
+      </Windows>
+    </Window>
+
+    <!-- ===== Crafting Result (preview) ===== -->
+    <Window name="EZCraftXWindow.CraftingResult" inherits="EA_Window_Default" savesettings="false" movable="false">
+      <Size><AbsPoint x="200" y="200"/></Size>
+      <Anchors>
+        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="TalismanMakingWindow">
+          <AbsPoint x="0" y="50"/>
+        </Anchor>
+      </Anchors>
+      <Windows>
+        <Button name="$parent.Close" inherits="EA_Button_DefaultWindowClose">
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_CraftingResult_Close"/>
+          </EventHandlers>
+        </Button>
+
+        <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="false">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="0" y="0"/></Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright"/>
+          </Anchors>
+        </Window>
+
+        <Label name="$parent.ResultCrit.label" font="font_chat_text_no_outline" textalign="center" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="350" y="20"/></Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="0" y="8"/></Anchor>
+          </Anchors>
+          <Color r="100" g="100" b="100" a="255"/>
+        </Label>
+
+        <Window name="$parent.Seperator" inherits="EA_Window_DefaultSeparator" handleinput="false">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="0" y="20"/></Anchor>
+            <Anchor point="topright" relativePoint="topright"/>
+          </Anchors>
+        </Window>
+
+        <Button name="$parentButtonRegular" inherits="EA_Button_Default" drawchildrenfirst="true">
+          <Size><AbsPoint x="100" y="25"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.Seperator">
+              <AbsPoint x="8" y="-10"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"/>
+                <Anchor point="bottomright" relativePoint="bottomright"/>
+              </Anchors>
+            </FullResizeImage>
+            <Label name="$parent.label" font="font_chat_text_no_outline" inherits="EA_Settings_ItemTitle" textalign="left">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="5" y="4"/></Anchor>
+                <Anchor point="bottomright" relativePoint="bottomright"><AbsPoint x="-5" y="-4"/></Anchor>
+              </Anchors>
+              <Color r="150" g="150" b="150" a="255"/>
+            </Label>
+          </Windows>
+          <EventHandlers>
+            <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_ButtonRegular"/>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_ButtonRegular"/>
+          </EventHandlers>
+        </Button>
+
+        <Button name="$parentButtonGood" inherits="EA_Button_Default" drawchildrenfirst="true">
+          <Size><AbsPoint x="100" y="25"/></Size>
+          <Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentButtonRegular">
+              <AbsPoint x="3" y="0"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"/>
+                <Anchor point="bottomright" relativePoint="bottomright"/>
+              </Anchors>
+            </FullResizeImage>
+            <Label name="$parent.label" font="font_chat_text_no_outline" inherits="EA_Settings_ItemTitle" textalign="left">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="5" y="4"/></Anchor>
+                <Anchor point="bottomright" relativePoint="bottomright"><AbsPoint x="-5" y="-4"/></Anchor>
+              </Anchors>
+              <Color r="150" g="150" b="150" a="255"/>
+            </Label>
+          </Windows>
+          <EventHandlers>
+            <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_ButtonGood"/>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_ButtonGood"/>
+          </EventHandlers>
+        </Button>
+
+        <Button name="$parentButtonAwesome" inherits="EA_Button_Default" drawchildrenfirst="true">
+          <Size><AbsPoint x="100" y="25"/></Size>
+          <Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentButtonGood">
+              <AbsPoint x="3" y="0"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"/>
+                <Anchor point="bottomright" relativePoint="bottomright"/>
+              </Anchors>
+            </FullResizeImage>
+            <Label name="$parent.label" font="font_chat_text_no_outline" inherits="EA_Settings_ItemTitle" textalign="left">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="5" y="4"/></Anchor>
+                <Anchor point="bottomright" relativePoint="bottomright"><AbsPoint x="-5" y="-4"/></Anchor>
+              </Anchors>
+              <Color r="150" g="150" b="150" a="255"/>
+            </Label>
+          </Windows>
+          <EventHandlers>
+            <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_ButtonAwesome"/>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_ButtonAwesome"/>
+          </EventHandlers>
+        </Button>
+
+        <Button name="$parentIconFrame" inherits="EA_Button_Default" texturescale="0.6" drawchildrenfirst="true" handleinput="false">
+          <Size><AbsPoint x="38" y="38"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.Seperator">
+              <AbsPoint x="20" y="20"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <DynamicImage name="$parentIcon" handleinput="false">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft"/>
+                <Anchor point="bottomright" relativePoint="bottomright"/>
+              </Anchors>
+              <TexDims x="64" y="64"/>
+            </DynamicImage>
+          </Windows>
+          <TexCoords>
+            <Normal texture="EA_SquareFrame" x="0" y="0"/>
+          </TexCoords>
+        </Button>
+
+        <Label name="$parent.ResultHeader.label" font="font_default_text_large" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="350" y="50"/></Size>
+          <Anchors>
+            <Anchor point="center" relativePoint="center" relativeTo="$parentIconFrame">
+              <AbsPoint x="205" y="0"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="255" a="255"/>
+        </Label>
+
+        <Label name="$parent.ResultType.label" font="font_chat_text_no_outline" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="350" y="20"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentIconFrame">
+              <AbsPoint x="0" y="5"/>
+            </Anchor>
+          </Anchors>
+          <Color r="125" g="125" b="125" a="255"/>
+        </Label>
+
+        <Label name="$parent.ResultStats.label" font="font_chat_text_no_outline" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="350" y="20"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.ResultType.label">
+              <AbsPoint x="0" y="15"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="0" a="255"/>
+        </Label>
+
+        <Label name="$parent.ResultLevel.label" font="font_chat_text_no_outline" textalign="left" inherits="EA_Settings_ItemTitle">
+          <Size><AbsPoint x="350" y="20"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.ResultStats.label">
+              <AbsPoint x="0" y="10"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="255" a="255"/>
+        </Label>
+      </Windows>
+    </Window>
+
+    <!-- ===== Main Options Window ===== -->
+    <Window name="EZCraftXWindow" inherits="EA_Window_Default" savesettings="false" movable="true">
+      <Size><AbsPoint x="600" y="420"/></Size>
+      <Anchors>
+        <Anchor point="center" relativePoint="center"><AbsPoint x="0" y="0"/></Anchor>
+      </Anchors>
+      <Windows>
+        <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="false">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="0" y="32"/></Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright"/>
+          </Anchors>
+        </Window>
+		
+		    <!-- Add this block -->
+    <Label name="$parentTitleText" font="font_clear_large_bold" textalign="center" handleinput="false">
+      <Size><AbsPoint x="600" y="26"/></Size>
+      <Anchors>
+        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+          <AbsPoint x="0" y="4"/>
+        </Anchor>
+        <Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+          <AbsPoint x="0" y="4"/>
+        </Anchor>
+      </Anchors>
+      <Color r="255" g="255" b="255" a="255"/>
+    </Label>
+    <!-- end -->
+
+        <!-- DO NOT define Title/TitleText here; EA_Window_Default already provides them. -->
+
+        <Button name="$parent.Close" inherits="EA_Button_DefaultWindowClose">
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_Close"/>
+          </EventHandlers>
+        </Button>
+
+        <!-- First row anchored to background frame -->
+        <Window name="$parent.sortLevel" inherits="EZCraftXWindow.DropDown">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentBackground">
+              <AbsPoint x="20" y="10"/>
+            </Anchor>
+          </Anchors>
+        </Window>
+
+        <Window name="$parent.sortItems" inherits="EZCraftXWindow.DropDown">
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.sortLevel">
+              <AbsPoint x="0" y="10"/>
+            </Anchor>
+          </Anchors>
+        </Window>
+
+        <Window name="$parent.maxItems" inherits="EZCraftXWindow.Text3Chars">
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.sortItems">
+              <AbsPoint x="0" y="10"/>
+            </Anchor>
+          </Anchors>
+        </Window>
+
+        <Window name="$parent.useCraftingResult" layer="default">
+          <Size><AbsPoint x="500" y="30"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.maxItems">
+              <AbsPoint x="0" y="10"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <Button name="$parent.Selector" inherits="EA_Button_DefaultCheckBox" handleinput="true">
+              <EventHandlers>
+                <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_useCraftingResult"/>
+                <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_useCraftingResult"/>
+              </EventHandlers>
+            </Button>
+            <Label name="$parent.label" textalign="left" inherits="EA_Settings_ItemTitle">
+              <Size><AbsPoint x="500" y="30"/></Size>
+              <Anchors>
+                <Anchor point="topright" relativePoint="topleft" relativeTo="$parent.Selector">
+                  <AbsPoint x="5" y="2"/>
+                </Anchor>
+              </Anchors>
+              <Color r="255" g="255" b="255" a="255"/>
+            </Label>
+          </Windows>
+        </Window>
+
+        <Window name="$parent.usePowerPreview" layer="default">
+          <Size><AbsPoint x="500" y="30"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent.useCraftingResult">
+              <AbsPoint x="0" y="10"/>
+            </Anchor>
+          </Anchors>
+          <Windows>
+            <Button name="$parent.Selector" inherits="EA_Button_DefaultCheckBox" handleinput="true">
+              <EventHandlers>
+                <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_usePowerPreview"/>
+                <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_usePowerPreview"/>
+              </EventHandlers>
+            </Button>
+            <Label name="$parent.label" textalign="left" inherits="EA_Settings_ItemTitle">
+              <Size><AbsPoint x="500" y="30"/></Size>
+              <Anchors>
+                <Anchor point="topright" relativePoint="topleft" relativeTo="$parent.Selector">
+                  <AbsPoint x="5" y="2"/>
+                </Anchor>
+              </Anchors>
+              <Color r="255" g="255" b="255" a="255"/>
+            </Label>
+          </Windows>
+        </Window>
+
+        <Window name="$parent.Seperator" inherits="EA_Window_DefaultSeparator" handleinput="false" movable="false">
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="bottomleft"><AbsPoint x="0" y="-60"/></Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright"><AbsPoint x="-1" y="-60"/></Anchor>
+          </Anchors>
+        </Window>
+
+        <Button name="$parent.Defaults" inherits="EA_Button_DefaultResizeable">
+          <Size><AbsPoint x="150" y="39"/></Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+              <AbsPoint x="20" y="-20"/>
+            </Anchor>
+          </Anchors>
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_Defaults"/>
+          </EventHandlers>
+        </Button>
+
+        <Button name="$parent.Cancel" inherits="EA_Button_DefaultResizeable">
+          <Size><AbsPoint x="150" y="39"/></Size>
+          <Anchors>
+            <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+              <AbsPoint x="-20" y="-20"/>
+            </Anchor>
+          </Anchors>
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_Cancel"/>
+          </EventHandlers>
+        </Button>
+
+        <Button name="$parent.Apply" inherits="EA_Button_DefaultResizeable">
+          <Size><AbsPoint x="150" y="39"/></Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topright" relativeTo="$parent.Cancel">
+              <AbsPoint x="-10" y="0"/>
+            </Anchor>
+          </Anchors>
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_Apply"/>
+          </EventHandlers>
+        </Button>
+      </Windows>
+    </Window>
+
+    <!-- ===== Shared assets / context menu item ===== -->
+    <FullResizeImage name="EZCraftX_FullResizeImage_RedTransparent" inherits="EA_FullResizeImage_TintableSolidBackground" alpha="0.1">
+      <TintColor r="50" g="50" b="50"/>
+    </FullResizeImage>
+
+    <Button name="EZCraftX_Button_DefaultMenuButton" font="font_default_text" textalign="left">
+      <Size><AbsPoint x="245" y="29"/></Size>
+      <TextColors>
+        <Normal r="255" g="255" b="255" a="255"/>
+        <NormalHighlit r="250" g="213" b="63" a="255"/>
+        <Pressed r="250" g="213" b="63" a="255"/>
+        <PressedHighlit r="250" g="213" b="63" a="255"/>
+        <Disabled r="92" g="92" b="92" a="255"/>
+      </TextColors>
+      <ResizeImages>
+        <NormalHighlit def="EZCraftX_FullResizeImage_RedTransparent"/>
+        <PressedHighlit def="EZCraftX_FullResizeImage_RedTransparent"/>
+      </ResizeImages>
+      <TextOffset x="5" y="5"/>
+    </Button>
+
+    <Button name="EZCraftX_ContextMenu_Item" inherits="EZCraftX_Button_DefaultMenuButton" textalign="left" autoresize="false">
+      <EventHandlers>
+        <EventHandler event="OnMouseOver" function="EZCraftX.OnMouseOver_ContextMenu_Item"/>
+        <EventHandler event="OnLButtonUp" function="EZCraftX.OnLButtonUp_ContextMenu_Item"/>
+      </EventHandlers>
+      <Size><AbsPoint x="390" y="24"/></Size>
+      <Windows>
+        <Label name="$parentCount" font="font_clear_medium" maxchars="5" textalign="right" handleinput="false">
+          <Size><AbsPoint x="50" y="28"/></Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft"><AbsPoint x="0" y="2"/></Anchor>
+          </Anchors>
+        </Label>
+        <Label name="$parentName" font="font_clear_medium" maxchars="100" textalign="left" handleinput="false" warnOnTextCropped="false">
+          <Size><AbsPoint x="330" y="28"/></Size>
+          <Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentCount">
+              <AbsPoint x="5" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Label>
+      </Windows>
+    </Button>
+
+  </Windows>
+</Interface>

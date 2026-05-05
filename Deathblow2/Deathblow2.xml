@@ -1,0 +1,3295 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+  <Scripts>
+    <Script file="Deathblow2.lua" />
+  </Scripts>
+  <Windows>
+				<Window name="NemesisTemplate" movable="true" sticky="false" >			
+			
+				 <Size>
+                <AbsPoint x="300" y="75" />
+				</Size>
+		                           <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="ReLink" />
+                            </EventHandlers>
+				<Windows>
+
+			<Window name="$parentWindowBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false" alpha="1">
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				</Anchors>
+			</Window>				
+			
+					<DynamicImage name="$parentVSimage"  texture="map_markers01" handleinput="false" slice="RvR-Hotspot" texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="40" y="40" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="$parent">
+                                    <AbsPoint x="0" y="16" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+			
+		
+							<Label name="$parentNemesisPlayer"font="font_default_text_large" autoresize="true" wordwrap="true"textalign="right" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false" >
+							<Size>
+							<AbsPoint x="200" y="69"/>
+							</Size>
+							<Color r="255" g="218" b="73" />  	
+							<Anchors>
+							<Anchor point="topleft" relativePoint="topright" relativeTo="$parent">
+							<AbsPoint x="135" y="15"/>
+							</Anchor>
+							</Anchors>
+							</Label>		
+
+							<Label name="$parentNemesisName"font="font_default_text_large" autoresize="true" wordwrap="true"textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false" >
+							<Size>
+							<AbsPoint x="200" y="69"/>
+							</Size>
+							<Color r="255" g="218" b="73" />  	
+							<Anchors>
+							<Anchor point="topright" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="-135" y="15"/>
+							</Anchor>
+							</Anchors>
+							</Label>	
+							
+							
+							<Label name="$parentNemesisKills"font="font_default_text_large" autoresize="true" wordwrap="true"textalign="right" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false" >
+							<Size>
+							<AbsPoint x="200" y="69"/>
+							</Size>
+							<Color r="255" g="218" b="73" />  	
+							<Anchors>
+							<Anchor point="topleft" relativePoint="topright" relativeTo="$parent">
+							<AbsPoint x="125" y="45"/>
+							</Anchor>
+							</Anchors>
+							</Label>		
+							
+							<Label name="$parentNemesisDeaths"font="font_default_text_large" autoresize="true" wordwrap="true"textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false" >
+							<Size>
+							<AbsPoint x="200" y="69"/>
+							</Size>
+							<Color r="255" g="218" b="73" />  	
+							<Anchors>
+							<Anchor point="topright" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="-125" y="45"/>
+							</Anchor>
+							</Anchors>
+							</Label>						
+	
+	
+	
+	
+	
+			<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="NemesisKill" />
+			</EventHandlers>
+							<Anchors>
+							<Anchor point="topright" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="-7" y="7"/>
+							</Anchor>
+							</Anchors>
+						</Button> 								
+		
+		
+		
+		</Windows>
+		</Window>
+		 
+
+
+ 
+	 
+	<!-- Main Button -->
+  <Window name="DeathblowMenuButton" inherits="EA_Window_HUDMenuButton" handleinput="true" layer="default" popable="true" movable="true" savesettings="true">
+	             <EventHandlers>
+     <!--           <EventHandler event="OnInitialize" function="Deathblow.MenuButtonSetup" /> -->
+				<EventHandler event="OnLButtonUp" function="DB_Show" />
+			<EventHandler event="OnMouseOver" function="Deathblow.ToolTipMenuButton" />  
+            </EventHandlers>
+			<Anchors>
+                        <Anchor point="center" relativePoint="center" relativeTo="" >
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+     
+					<Windows>
+                <DynamicImage name="$parentImage" inherits="EA_Image_HUDMenuButton" slice="Tome-Button-NEW-ENTRIES" />
+                <Button name="$parentButton" inherits="EA_Button_HUDMenuButton" >
+                   <Anchors>
+                        <Anchor point="center" relativePoint="center" relativeTo="DeathblowMenuButton">
+                            <AbsPoint x="0" y="0" />
+	              
+					   </Anchor>
+                    </Anchors>
+                    <TexSlices>
+                        <NormalHighlit id="Tome-Button-Highlighted" />
+                        <Pressed id="Tome-Button-Selected-NEW-ENTRIES" />
+                        <PressedHighlit id="Tome-Button-Highlighted" />
+                    </TexSlices>
+                </Button>            
+            </Windows>
+        </Window>
+  
+  
+    <!-- Main window -->
+    <Window name="DeathblowWin1Window" inherits="EA_Window_Default" handleinput="true" layer="default" popable="true" movable="true" savesettings="false">
+      <Size>
+        <AbsPoint x="530" y="630" />
+      </Size>
+
+	  
+	  
+	  
+      <!-- Single eventhandler statements. Events are linked to functions (in lua-script) by the calling element name. --> 
+      <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="DeathblowWin1.OnLButtonUp" />
+ <!--       <EventHandler event="OnRButtonUp" function="DeathblowWin1.OnRButtonUp" />  -->
+ <!--       <EventHandler event="OnShown" function="DeathblowWin1.OnShown" /> -->
+      </EventHandlers>
+      <Windows>
+	
+				<Button name="$parentConfigButton" layer="popup" backgroundtexture="EA_CornerIcon_Settings" id="30" textureScale="0.4" mirrorTexCoords="true">
+					<Size><AbsPoint x="45" y="45"/></Size>
+					<TexCoords>
+						<Normal x="0" y="0" />
+						<Pressed x="0" y="0" />
+					</TexCoords>
+					<TextColors>
+						<PressedHighlit r="255" g="85" b="0" a="255"/>
+						<NormalHighlit r="95" g="57" b="36" a="255"/>
+					</TextColors>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="0" y="-5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU"/>
+						<!--<EventHandler event="OnMouseOver" function="TomeWindow.DK_OnMouseoverBookmark" />-->
+					</EventHandlers>
+				</Button>
+		
+
+ 
+ <!--			<DynamicImage name="$parentskull"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="single-skull" texturescale="0.75" layer="popup">
+                            <Size>
+                                <AbsPoint x="21" y="25" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="top" relativePoint="top" relativeTo="$parentBackground">
+                                    <AbsPoint x="-183" y="-24" />
+                                </Anchor>
+                            </Anchors>
+            </DynamicImage>  -->
+		<Window name="SummaryWindow" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true" sticky="true" popable="false" movable="false" layer="overlay" savesettings="false">
+        <Size>
+		<AbsPoint x="530" y="515" />
+        </Size>
+        <Anchors>
+		<Anchor point="topleft" relativePoint="topleft" relativeTo="DeathblowWin1Window">
+		<AbsPoint x="0" y="75" />
+		</Anchor>
+        </Anchors>
+			<Windows>
+	
+
+	
+
+
+				<FullResizeImage name="SummaryWindowBackground" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="516" y="505" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="SummaryWindow">
+				<AbsPoint x="7" y="1" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="0" g="0" b="0" a="255"/>
+                </FullResizeImage>					
+
+				<FullResizeImage name="TintBG04" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="500" y="45" />
+				</Size>
+				<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+				<AbsPoint x="0" y="-50" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="20" g="20" b="20" a="175"/>
+                </FullResizeImage>
+
+		<FullResizeImage name="TintBG05" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="500" y="50" />
+				</Size>
+				<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+				<AbsPoint x="0" y="180" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="20" g="20" b="20" a="175"/>
+                </FullResizeImage>			
+
+
+
+
+			<DynamicImage name="$parentTitleImage" texture="EA_Tome" handleinput="false" layer="background" slice="TomeTitleImage" alpha="0.125"texturescale="1.18">
+		                    <Size>
+		                        <AbsPoint x="523" y="432"/>
+		                    </Size>
+		                    <Anchors>
+		                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+		                            <AbsPoint x="0" y="40"/>
+		                        </Anchor>
+		                    </Anchors>
+		                </DynamicImage>			
+				
+				
+			
+
+				
+				<!--
+					<DynamicImage name="$parentTitleImage" texture="EA_Tome" handleinput="false" layer="background" slice="TomeTitleImage" alpha="0.125"texturescale="1.18">
+		                    <Size>
+		                        <AbsPoint x="523" y="432"/>
+		                    </Size>
+		                    <Anchors>
+		                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+		                            <AbsPoint x="0" y="40"/>
+		                        </Anchor>
+		                    </Anchors>
+		                </DynamicImage>			
+			
+			
+					<DynamicImage name="$parentImage" texture="bestiary_species_image" texturescale="2" alpha="0.125">
+									<Size>						
+							<AbsPoint x="516" y="420"/>
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+											<AbsPoint x="7" y="-3"/>
+										</Anchor>
+									</Anchors>
+								</DynamicImage>
+			-->
+				<!-- Here be labes -->
+	
+								<Label name="DBSummarytitlenamevalue" inherits="TOKTitleMedium" textalign="center" >
+								    <Size>
+								        <AbsPoint x="530" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="SummaryWindow">
+											<AbsPoint x="0" y="5"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+	
+										<!-- Summary Total Title -->
+									<Label name="DBSummarySubtitlevalue" inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center" >
+								    <Size>
+								        <AbsPoint x="230" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="-132" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+									<!-- Summary Session Title -->
+	
+									<Label name="DBSummarySubtitlevalue2" inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center" >
+								    <Size>
+								        <AbsPoint x="230" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="132" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+							<!-- Summary Class Stats Title -->
+	
+							<Label name="DBSummarySubtitlevalue3" inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center" >
+								    <Size>
+								        <AbsPoint x="530" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="0" y="220"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+	
+	
+	
+								<Label name="DBSummarytitleenemiesvalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="50" y="55"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+		
+		                       <DynamicImage name="titleenemiesImage"  texture="map_markers01" handleinput="false" slice="RvR-Hotspot" texturescale="0.7">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitleenemiesvalue">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+		
+		
+						<Label name="DBSummarystatenemiesvalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleenemiesvalue">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+
+							<Label name="DBSummarytitleenemiesvalue2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="300" y="55"/>
+										</Anchor>
+									</Anchors>
+								</Label>						
+							
+						        <DynamicImage name="titleenemiesImage2"  texture="map_markers01" handleinput="false" slice="RvR-Hotspot" texturescale="0.7">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitleenemiesvalue2">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+							
+	
+								<Label name="DBSummarystatenemiesvalue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarystatenemiesvalue">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+	
+	
+	
+	
+								<Label name="DBSummarytitlekillsvalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="50" y="75"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+							
+							 <DynamicImage name="titlekillsImage"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="single-skull" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitlekillsvalue">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+						
+						
+								<Label name="DBSummarystatkillsvalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlekillsvalue">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+
+
+							
+											<Label name="DBSummarytitlekillsvalue2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="300" y="75"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+								
+						 <DynamicImage name="titlekillsImage2"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="single-skull" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitlekillsvalue2">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+								
+						
+								<Label name="DBSummarystatkillsvalue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarystatkillsvalue">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+
+					
+								
+							<Label name="DBSummarytitledeathsvalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="50" y="95"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+						<DynamicImage name="titledeathsImage"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="tombstone" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitledeathsvalue">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+						
+	
+	
+						<Label name="DBSummarystatdeathsvalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitledeathsvalue">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+											<Label name="DBSummarytitledeathsvalue2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="300" y="95"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+					
+				<DynamicImage name="titledeathsImage2"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="tombstone" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitledeathsvalue2">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+
+
+					
+				<Label name="DBSummarystatdeathsvalue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarystatdeathsvalue">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+	
+	
+
+	
+				<Label name="DBSummarytitlescorevalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="50" y="115"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+	
+					<DynamicImage name="titlescoreImage"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="crown" texturescale="0.6">
+                                 <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitlescorevalue">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+
+	
+	
+	
+				<Label name="DBSummarystatscorevalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlescorevalue">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+								
+							<Label name="DBSummarytitlescorevalue2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="300" y="115"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+								
+						<DynamicImage name="titlescoreImage2"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="crown" texturescale="0.6">
+                                 <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitlescorevalue2">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+								
+								
+										<Label name="DBSummarystatscorevalue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarystatscorevalue">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+								
+
+					
+				<Label name="DBSummarytitleratiovalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="50" y="135"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+	
+							<DynamicImage name="titleratioImage"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="multi-skulls"texturescale="0.6" >
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitleratiovalue">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+				<Label name="DBSummarystatratiovalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleratiovalue">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>				
+								
+								
+								<Label name="DBSummarytitleratiovalue2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="300" y="135"/>
+										</Anchor>
+									</Anchors>
+								</Label>									
+							
+									<DynamicImage name="titleratioImage2"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="multi-skulls"texturescale="0.6" >
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarytitleratiovalue2">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+							
+							
+							
+										<Label name="DBSummarystatratiovalue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarystatratiovalue">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+											
+								
+								
+							<Label name="DBSummarykillspreeTitle" inherits="TOKText" handleinput="true" textalign="left" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									
+							<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleratiovalue">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+
+						<DynamicImage name="killspreeImage"  texture = "EA_HUD_01" texturescale = "0.9" slice = "PartyMarker-Skull" handleinput="false"  >
+                            <Size>
+                                <AbsPoint x="28" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBSummarykillspreeTitle">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+							
+								
+								
+								<Label name="DBSummarykillspreeValue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarykillspreeTitle">
+											<AbsPoint x="10" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>					
+								
+	
+								
+								
+									<Label name="DBsessionkillspreeTitle" inherits="TOKText" handleinput="true" textalign="left" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									
+							<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleratiovalue2">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>						
+							
+									<DynamicImage name="killspreeImage2"  texture = "EA_HUD_01" texturescale = "0.9" slice = "PartyMarker-Skull" handleinput="false"  >
+                            <Size>
+                                <AbsPoint x="28" y="30" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBsessionkillspreeTitle">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+							
+							
+								<Label name="DBsessionkillspreeValue" inherits="TOKText" textalign="right" >
+										    <Size>
+								        <AbsPoint x="170" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBsessionkillspreeTitle">
+											<AbsPoint x="20" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+								
+								
+	
+								<Label name="DBSummarytitleLastDeathvalue" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="15" y="480"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+	
+					<Label name="DBSummarystatLastDeathvalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="475" />
+								    </Size>
+									
+								<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleLastDeathvalue">
+											<AbsPoint x="0" y="0"/>
+										</Anchor>
+									</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="Deathblow.LinkDeath"/>              
+								</EventHandlers>  								
+					</Label>	
+	
+	
+	
+				<Button name="DBSummarystatLastDeathButton" layer="popup" handleinput="true" font="font_clear_medium" maxchars="150" textalign="right" wordwrap="true" autoresize="false" >
+					<Size>
+						<AbsPoint x="375" y="26" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="DBSummarystatLastDeathvalue">
+							<AbsPoint x="70" y="0"/>
+						</Anchor>
+					</Anchors>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Deathblow.LinkDeath"/>
+					</EventHandlers>
+				</Button>
+	
+	
+	
+	
+							<Label name="DBSummarytitleLastKillvalue" inherits="TOKText" handleinput="true" textalign="left" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									
+							<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="15" y="460"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+	
+	
+				<Button name="DBSummarystatLastKillButton" layer="popup" handleinput="true" font="font_clear_medium" maxchars="150" textalign="right" wordwrap="true" autoresize="false" >
+					<Size>
+						<AbsPoint x="375" y="26" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="DBSummarystatLastKillvalue">
+							<AbsPoint x="70" y="0"/>
+						</Anchor>
+					</Anchors>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Deathblow.LinkKill"/>
+					</EventHandlers>
+				</Button>
+	
+	
+					<Label name="DBSummarystatLastKillvalue" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="475" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+					
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitleLastKillvalue">
+											<AbsPoint x="0" y="0"/>
+										</Anchor>
+									</Anchors>
+											<EventHandlers>
+								<EventHandler event="OnLButtonUp" function="Deathblow.LinkKill"/>              
+								</EventHandlers>  			
+								</Label>	
+	
+
+
+	
+							<Label name="TotalDamage" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="475" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+					
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="DeathblowWin1Window">
+											<AbsPoint x="25" y="25"/>
+										</Anchor>
+									</Anchors>
+							
+								</Label>	
+	
+		
+				
+	<!--		Career stuff				-->
+
+
+	
+						<Label name="DBSummaryListTitle1" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="15" y="255"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+					<Label name="DBSummaryListValue1" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+			
+			
+			<Label name="DBSummaryListTitle2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+
+								
+												<Label name="DBSummaryListValue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle2">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+								
+	<Label name="DBSummaryListTitle3" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="0" y="50"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+		
+						<Label name="DBSummaryListValue3" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle3">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+		
+		
+	<Label name="DBSummaryListTitle4" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="0" y="75"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+		
+				<Label name="DBSummaryListValue4" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle4">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>						
+
+
+
+			
+				<Label name="DBSummaryListTitle5" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="0" y="100"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+			
+				<Label name="DBSummaryListValue5" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle5">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+
+
+			
+							<Label name="DBSummaryListTitle6" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle1">
+											<AbsPoint x="0" y="125"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+			
+				<Label name="DBSummaryListValue6" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle6">
+											<AbsPoint x="85" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+			
+								<Label name="DBSummaryListTitle7" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummarytitlenamevalue">
+											<AbsPoint x="265" y="255"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+			
+					<Label name="DBSummaryListValue7" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle7">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+			
+			
+			
+				<Label name="DBSummaryListTitle8" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle7">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+			
+			
+				<Label name="DBSummaryListValue8" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle8">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+				<Label name="DBSummaryListTitle9" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle8">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+			
+			
+				<Label name="DBSummaryListValue9" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle9">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+				<Label name="DBSummaryListTitle10" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle9">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+			
+			
+			
+				<Label name="DBSummaryListValue10" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle10">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+			
+			
+		<Label name="DBSummaryListTitle11" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle10">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+	
+	
+	
+				<Label name="DBSummaryListValue11" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle11">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+	
+		<Label name="DBSummaryListTitle12" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="240" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle11">
+											<AbsPoint x="0" y="25"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+	
+	
+				<Label name="DBSummaryListValue12" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" y="60" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBSummaryListTitle12">
+											<AbsPoint x="100" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>			
+	
+	
+									<Label name="DBVersion"  inherits="TOKTextLarge" layer="popup" textalign="right"  >
+								    <Size>
+								        <AbsPoint x="130"y="60" />
+								    </Size>
+									<Color r="145" g="107" b="86"/>  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="ProfileWindow">
+											<AbsPoint x="350" y="520"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	<!-- SUMMARY TOTAl DAMAGE -->
+				
+
+	
+	
+					<Label name="SummaryTotalDamageTitle" font="font_clear_small" wordwrap="true" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="-147" y="-58"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+								<Label name="SummaryTotalDamageSeperator" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalDamageTitle">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+			<Label name="SummaryTotalDamageTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+								    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalDamageTitle">
+											<AbsPoint x="-5" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+		<Label name="SummaryTotalDamageFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+								    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalDamageTitle">
+											<AbsPoint x="5" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+		<!-- SUMMARY TOTAl MITIAGTION -->
+	
+					<Label name="SummaryTotalMitigateTitle" font="font_clear_small" wordwrap="true" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="147" y="-58"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+									<Label name="SummaryTotalMitigateSeperator" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalMitigateTitle">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="SummaryTotalMitigateFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalMitigateTitle">
+											<AbsPoint x="-5" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+		<Label name="SummaryTotalMitigateTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalMitigateTitle">
+											<AbsPoint x="5" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+		<!-- SUMMARY TOTAl CRIT -->
+	
+					<Label name="SummaryTotalCritTitle" font="font_clear_small" wordwrap="true" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="0" y="-58"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="SummaryTotalCritSeperator" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalCritTitle">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="SummaryTotalCritTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalCritTitle">
+											<AbsPoint x="-10" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+		<Label name="SummaryTotalCritFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalCritTitle">
+											<AbsPoint x="10" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+		<!-- SUMMARY TOTAL DODGE -->
+	
+								<Label name="SummaryTotalDodgeTitle" font="font_clear_small" wordwrap="true" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="left" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="76" y="170"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+					
+					
+					
+								
+							<DynamicImage name="SummaryTotalDodgeImage" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalDodgeTitle">
+                                    <AbsPoint x="0" y="8" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+					
+			<Label name="SummaryTotalDodgeTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalDodgeTitle">
+											<AbsPoint x="10" y="8"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+	
+		
+		<Label name="SummaryTotalDodgeFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalDodgeTitle">
+											<AbsPoint x="-10" y="8"/>
+										</Anchor>
+									</Anchors>
+							</Label>							
+	
+		<!-- SUMMARY TOTAL BLOCK -->
+	
+								<Label name="SummaryTotalBlockTitle" font="font_clear_small" wordwrap="true" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="SummaryTotalDodgeTitle">
+											<AbsPoint x="132" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+					
+					
+					
+								
+							<DynamicImage name="SummaryTotalBlockImage" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalBlockTitle">
+                                    <AbsPoint x="0" y="8" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+					
+			<Label name="SummaryTotalBlockTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalBlockTitle">
+											<AbsPoint x="10" y="8"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+	
+		
+		<Label name="SummaryTotalBlockFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalBlockTitle">
+											<AbsPoint x="-10" y="8"/>
+										</Anchor>
+									</Anchors>
+							</Label>
+							
+	<!-- SUMMARY TOTAL DISRUPTS -->
+	
+								<Label name="SummaryTotalDisruptTitle" font="font_clear_small" autoresize="true" wordwrap="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="SummaryTotalBlockTitle">
+											<AbsPoint x="127" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+					
+					
+					
+								
+							<DynamicImage name="SummaryTotalDisruptImage" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalDisruptTitle">
+                                    <AbsPoint x="0" y="8" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+					
+			<Label name="SummaryTotalDisruptTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalDisruptTitle">
+											<AbsPoint x="10" y="8"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+	
+		
+		<Label name="SummaryTotalDisruptFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalDisruptTitle">
+											<AbsPoint x="-10" y="8"/>
+										</Anchor>
+									</Anchors>
+							</Label>					
+	
+	
+		<!-- SUMMARY TOTAL PARRYS -->
+	
+								<Label name="SummaryTotalParryTitle" font="font_clear_small" autoresize="true" wordwrap="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="SummaryTotalDisruptTitle">
+											<AbsPoint x="127" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+					
+					
+					
+								
+							<DynamicImage name="SummaryTotalParryImage" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="bottom" relativePoint="center" relativeTo="SummaryTotalParryTitle">
+                                    <AbsPoint x="0" y="8" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+					
+			<Label name="SummaryTotalParryTo" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="left" relativeTo="SummaryTotalParryTitle">
+											<AbsPoint x="10" y="8"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+	
+		
+		<Label name="SummaryTotalParryFrom" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="60" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="bottom" relativePoint="right" relativeTo="SummaryTotalParryTitle">
+											<AbsPoint x="-10" y="8"/>
+										</Anchor>
+									</Anchors>
+							</Label>					
+	
+	
+			</Windows>
+	</Window>			
+			
+			
+			
+			
+			<Window name="ProfileWindow" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true" sticky="true" popable="false" movable="false" layer="overlay" savesettings="false">
+			<Size>
+			<AbsPoint x="530" y="515" />
+			</Size>
+			<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="DeathblowWin1Window">
+			<AbsPoint x="0" y="75" />
+			</Anchor>
+			</Anchors>
+			<Windows>
+	
+
+	
+
+
+				<FullResizeImage name="ProfileWindowBackground" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="516" y="508" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="ProfileWindow">
+				<AbsPoint x="7" y="1" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="0" g="0" b="0" a="255"/>
+                </FullResizeImage>					
+
+
+									<DynamicImage name="$parentImage" texture="bestiary_species_image" texturescale="2.02" alpha="0.125">
+									<Size>						
+							<AbsPoint x="516" y="513"/>
+									</Size>
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="">
+											<AbsPoint x="7" y="-3"/>
+										</Anchor>
+									</Anchors>
+								</DynamicImage>
+
+								<!-- ENEMY NAME -->
+			
+								<Label name="DBProfiletitlenamevalue" inherits="TOKTitleLarge" textalign="center" >
+								    <Size>
+								        <AbsPoint x="530" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="top" relativePoint="top" relativeTo="ProfileWindow">
+											<AbsPoint x="0" y="10"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	              
+								<!-- ENEMY Rank and Icon -->
+	
+							<Label name="DBProfileTitle1" inherits="TOKTitleSmall" autoresize="true" wordwrap="true" textalign="center" >
+								    <Size>
+								        <AbsPoint x="530" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBProfiletitlenamevalue">
+											<AbsPoint x="0" y="40"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+					
+	
+							<!-- ENEMY Stats -->
+	
+						<Label name="DBProfileTitle2" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="ProfileWindow">
+											<AbsPoint x="50" y="120"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<DynamicImage name="DBProfileTitleImage2"  texture="map_markers01" handleinput="false" slice="RvR-Hotspot" texturescale="0.7">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle2">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+	
+	
+	
+	
+			<Label name="DBProfileValue2" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle2">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+								
+					<Label name="DBProfileTitle3" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle2">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+							<DynamicImage name="DBProfileTitleImage3"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="single-skull" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle3">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+								
+	
+			<Label name="DBProfileValue3" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle3">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+					
+					
+					
+				<Label name="DBProfileTitle4" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle3">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+					<DynamicImage name="DBProfileTitleImage4"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="tombstone" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle4">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+	
+			<Label name="DBProfileValue4" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle4">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+					
+								<Label name="DBProfileTitle5" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle4">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+				<DynamicImage name="DBProfileTitleImage5"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="crown" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle5">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+			<Label name="DBProfileValue5" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle5">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+					
+					
+							<Label name="DBProfileTitle6" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle5">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+						<DynamicImage name="DBProfileTitleImage6"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="multi-skulls"texturescale="0.6" >
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle6">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+	
+			<Label name="DBProfileValue6" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle6">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+								
+				
+					<Label name="DBProfileTitle7" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle2">
+											<AbsPoint x="260" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+				<DynamicImage name="DBProfileTitleImage7"  texture="map_markers01" handleinput="false" slice="RvR-Hotspot" texturescale="0.7">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle7">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+	
+	
+			<Label name="DBProfileValue7" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle7">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+
+
+
+							<Label name="DBProfileTitle8" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle7">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+				<DynamicImage name="DBProfileTitleImage8"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="single-skull" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle8">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+	
+			<Label name="DBProfileValue8" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle8">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+				
+									<Label name="DBProfileTitle9" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle8">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<DynamicImage name="DBProfileTitleImage9"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="tombstone" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle9">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+			<Label name="DBProfileValue9" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle9">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+				
+							<Label name="DBProfileTitle10" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle9">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+		<DynamicImage name="DBProfileTitleImage10"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="crown" texturescale="0.6">
+                            <Size>
+                                <AbsPoint x="15" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle10">
+                                    <AbsPoint x="-6" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+			<Label name="DBProfileValue10" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle10">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+								
+					<Label name="DBProfileTitle11" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle10">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+						<DynamicImage name="DBProfileTitleImage11"  texture="EA_ScenarioSummary01_d5" handleinput="false" slice="multi-skulls"texturescale="0.6" >
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="left" relativePoint="right" relativeTo="DBProfileTitle11">
+                                    <AbsPoint x="-4" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+	
+	
+			<Label name="DBProfileValue11" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle11">
+											<AbsPoint x="25" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+				
+				
+									<!-- Profile Latest Kill text -->
+												
+							<Label name="DBProfileTitle16"  inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center"  >
+								    <Size>
+								        <AbsPoint x="280" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="-132" y="50"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+								<Label name="DBProfileValue16" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="230" />
+								    </Size>
+									<Color r="255" g="85" b="0" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="top" relativeTo="DBProfileTitle16">
+											<AbsPoint x="0" y="5"/>
+										</Anchor>
+									</Anchors>
+											
+							</Label>	
+								
+									<!-- Profile Latest Death text -->
+						<Label name="DBProfileTitle17"  inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center"  >
+								    <Size>
+								        <AbsPoint x="280" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="132" y="50"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="DBProfileValue17" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="350" />
+								    </Size>
+									<Color r="255" g="85" b="0" />  								
+								<Anchors>
+										<Anchor point="bottom" relativePoint="top" relativeTo="DBProfileTitle17">
+											<AbsPoint x="0" y="5"/>
+										</Anchor>
+									</Anchors>
+								</Label>	
+								
+								
+		
+							
+								
+								
+					
+					<Label name="DBProfileTitle12" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="ProfileWindow">
+											<AbsPoint x="15" y="465"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="DBProfileValue12" inherits="TOKText" textalign="right" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle12">
+											<AbsPoint x="155" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+				
+
+							<Label name="DBProfileTitle13" inherits="TOKText" textalign="left" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle12">
+											<AbsPoint x="0" y="20"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+							<Label name="DBProfileValue13" inherits="TOKText" textalign="right" >
+							<Size>
+							<AbsPoint x="250" />
+							</Size>
+							<Color r="255" g="218" b="73" />  								
+							<Anchors>
+							<Anchor point="topleft" relativePoint="topleft" relativeTo="DBProfileTitle13">
+							<AbsPoint x="155" y="0"/>
+							</Anchor>
+							</Anchors>
+							</Label>
+										
+							<!-- Profile Total text -->
+							<Label name="DBProfileTitle14"  inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center"  >
+							<Size> <AbsPoint x="150" /> </Size>
+							<Color r="255" g="218" b="73" />  								
+							<Anchors>
+							<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+							<AbsPoint x="-132" y="-150"/>
+							</Anchor>
+							</Anchors>
+							</Label>
+								
+							<!-- Profile Session text -->
+							<Label name="DBProfileTitle15"  inherits="TOKTextHuge" autoresize="true" wordwrap="true" textalign="center"  >
+							<Size>
+							<AbsPoint x="150" />
+							 </Size>
+							<Color r="255" g="218" b="73" />  								
+							<Anchors>
+							<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+							<AbsPoint x="132" y="-150"/>
+							</Anchor>
+							</Anchors>
+							</Label>
+								
+							<!-- Profile Big Icon -->
+							<Label name="DBProfileValue18" font="font_default_text_giant" textalign="right" >
+							<Size>
+							<AbsPoint x="100" y="100" />
+							</Size>
+							<Color r="255" g="218" b="73" />  								
+							<Anchors>
+							<Anchor point="bottomright" relativePoint="bottomright" relativeTo="ProfileWindow">
+							<AbsPoint x="-15" y="45"/>
+							</Anchor>
+							</Anchors>
+							</Label>
+								
+							<AnimatedImage name="Flash" inherits="EA_MoraleButtonAnimation" fps="13" layer="background" texture="anim_morale_glow" textureScale="1.1" handleinput="false">
+							<Size>
+							<AbsPoint x="130" y="130"/>
+							</Size>
+							<Anchors>
+							<Anchor relativePoint="bottom" point="bottom" relativeTo="DBProfileValue18">
+							<AbsPoint x="21" y="-18" />
+							</Anchor>
+							</Anchors>
+							</AnimatedImage>	
+								
+				
+							<Button name="NemesisButton" inherits="EA_Button_DefaultPlus" id="500">
+							<Anchors>
+							<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="-30" y="-8"/>
+							</Anchor>
+							</Anchors>
+							<EventHandlers>
+							<EventHandler event="OnLButtonUp" function="NemesisPopup" />
+							</EventHandlers>
+							</Button>	
+								
+								
+								
+							<!-- Profile Damage -->		
+<!--	
+	<DynamicImage name="DBProfileTitleImage19"    texture = "map_markers01" slice = "MurderballNeutral" handleinput="false" texturescale="0.8">
+                            <Size>
+                                <AbsPoint x="22" y="22" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle22">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>		
+-->
+				<FullResizeImage name="TintBG02" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="500" y="50" />
+				</Size>
+				<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+				<AbsPoint x="0" y="10" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="20" g="20" b="20" a="175"/>
+                </FullResizeImage>
+
+
+
+
+					<Label name="DBProfileTitle19" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="-127" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="DBProfileValue19" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+								    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" /> 							
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle19">
+											<AbsPoint x="-5" y="20"/>
+										</Anchor>
+									</Anchors>
+									
+							</Label>
+	
+	
+							<Label name="DBProfileTitle22" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="top" relativeTo="DBProfileTitle19">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+	
+							<Label name="DBProfileValue22" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+							    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+										<Color r="255" g="218" b="73" /> 								
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle19">
+											<AbsPoint x="5" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>
+
+	<!-- Profile Mitigation -->		
+					<Label name="DBProfileTitle20" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+								    <Size>
+								        <AbsPoint x="250" />
+								    </Size>
+										<Color r="255" g="218" b="73" /> 							
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle19">
+											<AbsPoint x="274" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+			<Label name="DBProfileTitle23" inherits="TOKText" textalign="center" >
+								    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="top" relativeTo="DBProfileTitle20">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+			<Label name="DBProfileValue20" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+									    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+										<Color r="255" g="218" b="73" /> 								
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle20">
+											<AbsPoint x="-5" y="20"/>
+										</Anchor>
+									</Anchors>
+						</Label>			
+
+						<Label name="DBProfileValue23" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						<Size> <AbsPoint x="100" /> </Size>
+						<Color r="255" g="218" b="73" /> 									
+						<Anchors> <Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle20"> <AbsPoint x="5" y="20"/> </Anchor> </Anchors>
+						</Label>
+	
+						
+						
+					<!-- Profile Crit -->		
+					<Label name="DBProfileTitle21" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="0" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+	
+		<Label name="DBProfileTitle24" inherits="TOKText" textalign="center" >
+							    <Size>
+								        <AbsPoint x="150" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="top" relativeTo="DBProfileTitle21">
+											<AbsPoint x="0" y="8"/>
+										</Anchor>
+									</Anchors>
+								</Label>
+	
+				
+	
+			<Label name="DBProfileValue21" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+									    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" />  							
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle21">
+											<AbsPoint x="-10" y="20"/>
+										</Anchor>
+									</Anchors>
+						</Label>												
+					
+
+					
+					
+				<Label name="DBProfileValue24" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+										<Color r="255" g="218" b="73" />   									
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle21">
+											<AbsPoint x="10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>									
+					
+					
+			
+	
+		
+					<!-- Profile Dodge -->		
+				
+		
+				<FullResizeImage name="TintBG03" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background">
+				<Size>
+				<AbsPoint x="500" y="50" />
+				</Size>
+				<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="ProfileWindow">
+				<AbsPoint x="0" y="170" />
+				</Anchor>
+				</Anchors>
+				<TintColor r="20" g="20" b="20" a="185"/>
+                </FullResizeImage>
+				
+				
+				
+				
+		
+								<Label name="DBProfileTitle25" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="left" relativePoint="center" relativeTo="ProfileWindow">
+											<AbsPoint x="66" y="160"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+					
+					
+					
+								
+							<DynamicImage name="DBProfileTitleImage25" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle25">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+							
+					
+			<Label name="DBProfileValue25" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle25">
+											<AbsPoint x="10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+	
+		
+		<Label name="DBProfileValue29" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle25">
+											<AbsPoint x="-10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>						
+		
+		
+		
+			<Label name="DBProfileValue27" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 								
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle27">
+											<AbsPoint x="10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+		
+		
+	
+		
+						<DynamicImage name="DBProfileTitleImage27"  handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle27">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+		
+			<Label name="DBProfileValue31" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle27">
+											<AbsPoint x="-10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>	
+		
+			<!-- Profile ???? -->	
+		
+		
+			<Label name="DBProfileTitle26" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle25">
+											<AbsPoint x="132" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+		
+	<Label name="DBProfileValue26" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 								
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle26">
+											<AbsPoint x="10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>						
+
+							<DynamicImage name="DBProfileTitleImage26" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle26">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+							
+<Label name="DBProfileValue30" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle26">
+											<AbsPoint x="-10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>						
+							
+							
+							
+							
+	<Label name="DBProfileTitle27" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							  	    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle26">
+											<AbsPoint x="132" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+		
+			<!-- Profile ???? -->				
+
+
+
+	<Label name="DBProfileTitle28" font="font_clear_small" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false"textalign="center" >
+							 	    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+									<Color r="255" g="218" b="73" />  								
+								<Anchors>
+										<Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle27">
+											<AbsPoint x="132" y="0"/>
+										</Anchor>
+									</Anchors>
+								</Label>		
+		
+				
+				
+					<DynamicImage name="DBProfileTitleImage28" handleinput="false"  texturescale="1.2">
+                            <Size>
+                                <AbsPoint x="20" y="20" />
+                            </Size>
+                            <Anchors>
+                                <Anchor point="center" relativePoint="center" relativeTo="DBProfileTitle28">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+							</DynamicImage>
+			
+					<Label name="DBProfileValue28" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="left" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 								
+								<Anchors>
+										<Anchor point="center" relativePoint="left" relativeTo="DBProfileTitle28">
+											<AbsPoint x="10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>					
+		
+		
+			<Label name="DBProfileValue32" font="font_clear_small_bold" autoresize="true" layer="default" popable="false" handleinput="false" warnOnTextCropped="false" textalign="right" >
+						    <Size>
+								        <AbsPoint x="100" />
+								    </Size>
+								<Color r="255" g="218" b="73" /> 									
+								<Anchors>
+										<Anchor point="center" relativePoint="right" relativeTo="DBProfileTitle28">
+											<AbsPoint x="-10" y="20"/>
+										</Anchor>
+									</Anchors>
+
+							</Label>	
+			
+			
+		
+					
+	
+			</Windows>
+	</Window>	
+			
+			
+			
+			
+			
+			
+        <!-- Titlebar, CloseButton, OptionsButton, ExtraStatsButton, Background(2) -->
+    <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" autoresize="false" textalign="right" />
+        <Button name="$parentCloseButton" inherits="EA_Button_DefaultWindowClose" />
+      
+    <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+  
+  
+  		  
+  
+				<Window name="$parentTabSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" handleinput="true" layer="popup">
+					<Size>
+						<AbsPoint x="13" y="20" />
+					</Size>
+            		<Anchors>
+                		<Anchor point="topleft" relativePoint="topright" relativeTo="$parentBackground">
+                    		<AbsPoint x="16" y="37" />
+                		</Anchor>
+					</Anchors>
+				</Window>
+  
+				<Window name="$parentTabSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" layer="popup" popable="false" alpha="0.85">
+            		<Size>
+						<AbsPoint x="13" y="20" />
+					</Size>
+            		<Anchors>
+                		<Anchor point="topright" relativePoint="topright" relativeTo="$parentBackground">
+                    		<AbsPoint x="-3" y="37" />
+                		</Anchor>
+					</Anchors>
+				</Window>
+  
+  
+ 
+	  <Window name="$parentBarBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+          <Size>
+            <AbsPoint x="530" y="50" />
+          </Size>
+			<Anchors>
+                       <Anchor point="bottom" relativePoint="top" relativeTo="$parentBackground">
+               <AbsPoint x="0" y="-55" />
+           </Anchor>
+           </Anchors>    
+		</Window>
+
+		  <!-- Sort Button Definition -->
+
+
+		<!-- Sort by Player Name Button-->
+		<Button name="$parentNameButton" inherits="EA_Button_ListSort" id="1" textalign="center" >
+		<Size>
+                     <AbsPoint x="180" y="30" />
+                 </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="bottomright" relativeTo="$parentBackground">
+				<AbsPoint x="260" y="75"/>
+			</Anchor>
+		</Anchors>
+		</Button>
+		
+		
+		<Button name="$parentKillsButton" inherits="EA_Button_ListSort" id="2" textalign="center">
+		<Size>
+          <AbsPoint x="50" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="180" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>
+	
+		<Button name="$parentDeathsButton" inherits="EA_Button_ListSort" id="3" textalign="center">
+		<Size>
+          <AbsPoint x="50" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="230" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>
+	
+
+		<Button name="$parentScoreButton" inherits="EA_Button_ListSort" id="4" textalign="center">
+		<Size>
+          <AbsPoint x="70" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="280" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>	
+	
+<Button name="$parentIconButton" inherits="EA_Button_ListSort" id="5" textalign="center">
+		<Size>
+          <AbsPoint x="35" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="-72" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>	
+<Button name="$parentRankButton" inherits="EA_Button_ListSort" id="6" textalign="center">
+		<Size>
+          <AbsPoint x="37" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="-37" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>		
+
+		<Button name="$parentRatioButton" inherits="EA_Button_ListSort" id="7" textalign="center">
+		<Size>
+          <AbsPoint x="92" y="30" />
+        </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentNameButton">
+				<AbsPoint x="350" y="0"/>
+			</Anchor>
+	
+		</Anchors>
+		</Button>	
+	
+	
+	     <!-- Tabs -->
+	
+	
+	
+			<Button name="$parentTotalTab" inherits="EA_Button_Tab" id="1" textalign="center" layer="popup">
+			  <EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>
+		<Size>
+                   <AbsPoint x="100" y="35" />
+                 </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+				<AbsPoint x="315" y="38"/>
+			</Anchor>		
+
+	
+		</Anchors>
+		</Button>
+
+			<Button name="$parentSummTab" inherits="EA_Button_Tab" id="4" textalign="center" layer="popup">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+		<Size>
+                     <AbsPoint x="100" y="35" />
+                 </Size>
+			<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+				<AbsPoint x="15" y="38"/>
+			</Anchor>
+		</Anchors>
+		</Button>				
+	
+	
+	
+
+		<Button name="$parentSessionTab" inherits="EA_Button_Tab" id="2" textalign="center" layer="popup">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+			<Size>
+                   <AbsPoint x="100" y="35" />
+                 </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+				<AbsPoint x="115" y="38"/>
+			</Anchor>
+		</Anchors>
+		</Button>		
+	
+		<Button name="$parentClassTab" inherits="EA_Button_Tab" id="3" textalign="center" layer="popup">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+			<Size>
+                   <AbsPoint x="100" y="35" />
+                 </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+				<AbsPoint x="215" y="38"/>
+			</Anchor>
+		</Anchors>
+		</Button>		
+		
+		
+		<Button name="$parentProfileTab" inherits="EA_Button_Tab" id="5" textalign="center" layer="popup">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+			<Size>
+                   <AbsPoint x="100" y="35" />
+                 </Size>
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+				<AbsPoint x="415" y="38"/>
+			</Anchor>
+		</Anchors>
+		</Button>		
+		
+	
+	
+        <!-- ListBox for list -->
+        <ListBox name="$parentList" color="155, 255, 155, 0" scrollbar="ScenarioSummaryVertScroll" rowdef="DeathblowWin1WindowTemplateListboxRow" visiblerows="17" rowcount="1150" rowspacing="0">
+		<Size>
+			<AbsPoint x="430" y="390" />
+		</Size>  
+		<Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentBackground">
+              <AbsPoint x="5" y="75"/>
+            </Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentBackground">
+              <AbsPoint x="-8" y="-42"/>
+            </Anchor>
+          </Anchors>
+			<EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU"/>              
+                    </EventHandlers>  
+  <ListData table="DeathblowWin1.Listdata" populationfunction="">
+            <ListColumns>
+				<ListColumn windowname="Title"   variable="Title"         format="wstring"/>
+				<ListColumn windowname="rank"   variable="rank" format="wstring"/>
+				<ListColumn windowname="Name" variable="index" format="wstring" />
+				<ListColumn windowname="kills" variable="kills" format="number"/>
+				<ListColumn windowname="deaths" variable="deaths" format="number" />
+				<ListColumn windowname="score" variable="score" format="number" />
+				<ListColumn windowname="icon" variable="icon" format="wstring" />
+				<ListColumn windowname="ratio" variable="ratio" format="wstring" />
+			</ListColumns>
+          </ListData>
+        </ListBox>
+          
+ </Windows>
+
+ </Window> <!-- name="DeathblowWin1Window" -->
+    <!-- Main window ends here and the rest are templates-->
+
+	
+	
+	
+	
+	
+    <!-- Row template for listbox -->
+    <Button name="DeathblowWin1WindowTemplateListboxRow" inherits="EA_Button_ResizeIconFrame_NoNormalImage" drawchildrenfirst="true">
+      <Size>
+        <AbsPoint x="500" y="28" />
+      </Size>
+	<Windows>
+        <Label name="$parentTitle" inherits="TOKText" textalign="left" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="350" y="225" />
+          </Size>
+		<Color r="255" g="218" b="73" />  	        
+		<Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+              <AbsPoint x="80" y="5" />
+            </Anchor>
+          </Anchors>
+        </Label>
+		
+		
+		    <Label name="$parentkills" inherits="TOKText" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="150" y="25" />
+          </Size>
+		<Color r="0" g="255" b="0" />
+		<Anchors>
+            <Anchor point="topright" relativePoint="topright" relativeTo="$parentTitle">
+              <AbsPoint x="-130" y="0" />
+            </Anchor>
+          </Anchors>
+        </Label>
+		
+		<Label name="$parentdeaths" inherits="TOKText" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="150" y="25" />
+          </Size>
+			<Color r="255" g="0" b="0" />  
+			<Anchors>
+            <Anchor point="topright" relativePoint="topright" relativeTo="$parentTitle">
+              <AbsPoint x="-80" y="0" />
+            </Anchor>
+          </Anchors>
+        </Label>	
+  
+	<Label name="$parentscore" inherits="TOKText" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="40" y="25" />
+          </Size>
+			<Color r="255" g="218" b="73" />  
+			<Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+              <AbsPoint x="-60" y="0" />
+            </Anchor>
+          </Anchors>
+        </Label>	
+		
+	<Label name="$parentratio" inherits="TOKText" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="40" y="25" />
+          </Size>
+			<Color r="200" g="200" b="200" />  
+			<Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+              <AbsPoint x="15" y="0" />
+            </Anchor>
+          </Anchors>
+        </Label>			
+		
+<Label name="$parenticon" font="font_clear_large" textalign="left" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="60" y="30" />
+          </Size>
+			<Color r="255" g="218" b="73" />  
+			<Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitle">
+
+			<AbsPoint x="-72" y="-3" />
+            </Anchor>
+          </Anchors>
+        </Label>	
+		
+		
+<Label name="$parentrank" inherits="TOKText" textalign="center" handleinput="true" autoresize="true" layer="popup">
+          <Size>
+            <AbsPoint x="60" y="30" />
+          </Size>
+			<Color r="255" g="218" b="73" />  
+			<Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentTitle">
+              <AbsPoint x="-53" y="0" />
+            </Anchor>
+          </Anchors>
+        </Label>	
+	
+
+
+	
+
+
+		<Label name="$parentcountvalue" font="font_default_text_large" textalign="left" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="300" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-425" y="485" />
+                     </Anchor>
+                 </Anchors>
+               <Color r="255" g="228" b="190" />  
+            </Label>
+
+	
+			<Label name="$parentnamesvalue" font="font_default_text_large" textalign="left" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="300" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-375" y="485" />
+                     </Anchor>
+                 </Anchors>
+               <Color r="255" g="228" b="190" />  
+            </Label>
+		
+		
+		
+		       <Label name="$parentkillsvalue" font="font_default_text_large" textalign="right" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="140" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-265" y="485" />
+                     </Anchor>
+                 </Anchors>
+                 <Color r="0" g="255" b="0" />
+            </Label>
+ 
+ 		       <Label name="$parentdeathsvalue" font="font_default_text_large" textalign="right" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="140" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-220" y="485" />
+                     </Anchor>
+                 </Anchors>
+                 <Color r="255" g="0" b="0" />
+            </Label>
+		
+			<Label name="$parentscorevalue" font="font_default_text_large" textalign="right" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="100" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-120" y="485" />
+                     </Anchor>
+                 </Anchors>
+					<Color r="255" g="218" b="73" />  
+            </Label>
+
+				<Label name="$parentratiovalue" font="font_default_text_large" textalign="right" handleinput="true" autoresize="true" layer="popup">
+                 <Size>
+                       <AbsPoint x="100" y="25" />
+                 </Size>
+                 <Anchors>
+                  <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+				<AbsPoint x="-60" y="485" />
+                     </Anchor>
+                 </Anchors>
+					<Color r="200" g="200" b="200" />  
+            </Label>
+			
+			<Label name="$parentrankvalue" font="font_default_text_large" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          
+            </Label>	
+
+			
+
+			
+			
+  </Windows>
+    </Button>
+
+		
+<!-- SETTINGS WINDOW -->
+			<Window name="SettingsWindow" handleinput="true" popable="false" movable="false" sticky="true" savesettings="false" alpha="0.9">
+			<Size>
+			<AbsPoint x="200" y="160" />
+			</Size>
+			<Anchors>
+			<Anchor point="right" relativePoint="left" relativeTo="DeathblowWin1Window" >
+			<AbsPoint x="0" y="150" />
+			</Anchor>
+			</Anchors>
+			<Windows>
+		 
+			<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" id="19">
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>
+			</Button> 
+				
+			<Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false" alpha="1">
+			<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+			<AbsPoint x="0" y="0" />
+			</Anchor>
+			<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+			<AbsPoint x="0" y="0" />
+			</Anchor>
+			</Anchors>
+			</Window>
+		
+			<Label name="SettingsLabel0" font="font_clear_medium_bold" autoresize="false" textalign="center" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false">
+			<Size>
+			<AbsPoint x="210" y="35" />
+			</Size>
+			<Anchors>
+			<Anchor point="top" relativePoint="top" relativeTo="$parent">
+			<AbsPoint x="0" y="2" />
+			</Anchor>
+			</Anchors>
+			<Color r="255" g="255" b="128" />
+			</Label>	
+	
+		
+			<Button name="$parentCheckBox1" inherits="EA_Button_DefaultCheckBox" id="20" handleinput="true" >
+			<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+			<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+			<AbsPoint x="10" y="40" />
+			</Anchor>
+			</Anchors>
+			</Button>
+				
+				
+			<Label name="SettingsLabel1" font="font_clear_medium" autoresize="false" textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false">
+				<Size>
+				<AbsPoint x="210" y="35" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox1">
+				<AbsPoint x="30" y="0" />
+				</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="128" />
+				</Label>
+	
+		<Button name="$parentCheckBox2" inherits="EA_Button_DefaultCheckBox" id="21" handleinput="true" >
+					<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox1">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+				</Button>
+				
+				
+			<Label name="SettingsLabel2" font="font_clear_medium" autoresize="false" textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false">
+				<Size>
+				<AbsPoint x="210" y="35" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox2">
+				<AbsPoint x="30" y="0" />
+				</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="128" />
+				</Label>	
+	
+		<Button name="$parentCheckBox3" inherits="EA_Button_DefaultCheckBox" id="22" handleinput="true" >
+					<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox2">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+				</Button>
+				
+				
+			<Label name="SettingsLabel3" font="font_clear_medium" autoresize="false" textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false">
+				<Size>
+				<AbsPoint x="210" y="35" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox3">
+				<AbsPoint x="30" y="0" />
+				</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="128" />
+				</Label>	
+	
+	
+		<Button name="$parentCheckBox4" inherits="EA_Button_DefaultCheckBox" id="23" handleinput="true" >
+					<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="Deathblow.OnTabLBU" />
+			</EventHandlers>	
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox3">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+				</Button>
+				
+				
+			<Label name="SettingsLabel4" font="font_clear_medium" autoresize="false" textalign="left" layer="popup" popable="false" handleinput="false" warnOnTextCropped="false">
+				<Size>
+				<AbsPoint x="210" y="35" />
+				</Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="SettingsWindowCheckBox4">
+				<AbsPoint x="30" y="0" />
+				</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="128" />
+				</Label>	
+	
+	
+		</Windows>
+	</Window>							
+								
+		
+		
+		
+  </Windows>
+</Interface>

@@ -1,0 +1,92 @@
+#+TITLE: WSCT Changelog
+*NOTE* Some of these entries have been imported from the original /readme.txt/ and reformatted.
+
+* 1.38
+  :PROPERTIES:
+  :CREATED:  [2024-01-31 Wed 14:37]
+  :END:
+  - Also skip outgoing damage of blessings or permanent buffs under presure
+  - Throttle animation update once instead of for each animation
+  - Delay the update notification for a permanent buff to avoid spam
+  - Also throttle animation update unless ideal fps or half of eventCount
+  - Don't show events for short term buffs when pressure is to high
+  - In case FPS is lower than 15% of the idealFPS skip adding combat events entirely
+
+
+* 1.37.99
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 20:46]
+  :END:
+  - Limit damage events targeting the player by FPS and throttle updating
+  - Reformat and update documentation
+
+* 1.37
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:59]
+  :END:
+  - Long overdue updates for career resources...minor stuff I don't remember =)
+
+* 1.3
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:36]
+  :END:
+  - Added skill icons.
+  - Options for icons are available for each frame.
+  - Icons will mostly only show for your skills, and buffs, but not always.
+  - Added Action Point event.
+  - Added Career Resource Event.
+  - Truncate will now also affect Buffs/Debuffs if on.
+
+* 1.22
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:37]
+  :END:
+  - Added name truncation options.
+  - Seperated out Parry, Dodge, and Block for individual options.
+  - Fixed various minor bugs from 1.1.
+
+
+* 1.21
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:38]
+  :END:
+  - Added ability and buff name options.
+  - Fixed alignment and sticky for labels
+    (you may need to adjust your settings).
+  - Fixed Buff Type display.
+  - Fixed Alpha for large/smaller texts.
+
+* 1.2
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:38]
+  :END:
+  - Added GUI options menu, most slash commands removed.
+  - Your options will reset, but should be much easier to configure now.
+  - Fixed Damage with Siege Weapons.
+  - Fixed some Morale Alert issues (still some remain).
+  - Low HP warning will fire only once every 5 seconds.
+  - Tweaked animations a bit.
+
+* 1.1
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:39]
+  :END:
+  - Added Morale ABility Alerts.
+  - Added Buff/Debuff Gains and Fades.
+  - Use LibSlash if available. Filter out random high number events.
+  - Lots of animation tweaks, offscreen attached damage will now appear at
+    its default location.
+
+* 1.01
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:40]
+  :END:
+  - Created own slash handler, so LibSlash not
+  - required Tweaked animation when on targets.
+  - Misc clean up.
+
+* 1.0
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:40]
+  :END:
+  - Initial release

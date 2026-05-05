@@ -1,0 +1,111 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <!--
+    This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see
+    <http://www.gnu.org/licenses/>.
+    -->
+    <Scripts>
+        <Script file="Source/AuraColorPicker.lua"/>
+    </Scripts>
+    <Windows>
+        <Window name="AuraColorPicker" inherits="EA_Window_Default" movable="false" layer="secondary">
+            <Size>
+                <AbsPoint x="300" y="205" />
+            </Size>
+            <Windows>
+                <!-- Default window background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+                <SliderBar name="$parentRed" inherits="EA_Default_SliderBar">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topright" relativeTo="$parent" >
+                            <AbsPoint x="-15" y="40" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSlide" function="AuraColorPicker.OnSlide" />
+                    </EventHandlers>
+                </SliderBar>
+                
+                <Label name="$parentRedLabel" inherits="Aura_Default_Label" textalign="right">
+                	<Size>
+                        <AbsPoint x="40" y="30" />
+                    </Size>
+                    <Anchors>
+                         <Anchor point="topleft" relativePoint="topright" relativeTo="$parentRed">
+                            <AbsPoint x="-10" y="7" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+                
+                <Label name="$parentGreenLabel" inherits="Aura_Default_Label" textalign="right">
+                    <Size>
+                        <AbsPoint x="60" y="30" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topright" relativeTo="$parentGreen">
+                            <AbsPoint x="-10" y="7" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+                <SliderBar name="$parentGreen" inherits="EA_Default_SliderBar">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentRed" >
+                            <AbsPoint x="0" y="7" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSlide" function="AuraColorPicker.OnSlide" />
+                    </EventHandlers>
+                </SliderBar>
+                <Label name="$parentBlueLabel" inherits="Aura_Default_Label" textalign="right">
+                    <Size>
+                        <AbsPoint x="50" y="30" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topright" relativeTo="$parentBlue">
+                            <AbsPoint x="-10" y="7" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+                <SliderBar name="$parentBlue" inherits="EA_Default_SliderBar">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentGreen" >
+                            <AbsPoint x="0" y="7" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSlide" function="AuraColorPicker.OnSlide" />
+                    </EventHandlers>
+                </SliderBar>
+                <Label name="$parentAlphaLabel" inherits="Aura_Default_Label" textalign="right">
+                    <Size>
+                        <AbsPoint x="60" y="30" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topright" relativeTo="$parentAlpha">
+                            <AbsPoint x="-10" y="7" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+                <SliderBar name="$parentAlpha" inherits="EA_Default_SliderBar">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topright" relativeTo="$parentBlue" >
+                            <AbsPoint x="0" y="7" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSlide" function="AuraColorPicker.OnSlide" />
+                    </EventHandlers>
+                </SliderBar>
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

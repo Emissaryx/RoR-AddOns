@@ -1,0 +1,14 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <Scripts>
+        <Script file="JunkDump.lua" />
+    </Scripts>
+    <Windows>
+		<Button name="JunkDumpButtonWin" inherits="EA_Button_DefaultResizeable" layer="popup" popable="false">
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="JunkDump.JunkBackpack" />
+				<EventHandler event="OnRButtonUp" function="JunkDumpOptions.Show" />
+				<EventHandler event="OnMouseOver" function="JunkDump.OnMouseOverButton" />
+			</EventHandlers>
+		</Button>
+	</Windows>
+</Interface>

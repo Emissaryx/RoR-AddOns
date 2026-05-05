@@ -1,0 +1,7 @@
+2008-11-16  thanners  <thantel@ninjasaurus.net>
+
+	* thinkoutloud.lua:
+	Added a 'smart channel' option, which uses /wb if in warband, /sc if
+	in scenario, /p if in a normal group, or /s otherwise.
+	[b34e9e8bcd40] [1.1.5]
+

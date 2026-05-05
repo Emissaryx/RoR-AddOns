@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModuleFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<UiMod name="Pure" version="1.2.5" date="2022/10">
+		<Author name="Wikki" email="wikkifizzle@gmail.com" />
+		<Description text="Pure - A unit frame addon." />
+		<VersionSettings gameVersion="1.4.0" windowsVersion="1.0" savedVariablesVersion="1.0" />
+		
+		<Dependencies>
+			<Dependency name="Ace" />			
+            <Dependency name="EATemplate_DefaultWindowSkin" />
+            <Dependency name="EATemplate_UnitFrames" />
+            <Dependency name="LibSlash" />
+        </Dependencies>
+        
+		<SavedVariables>
+			<SavedVariable name="PureDB" global="false" />
+		</SavedVariables>
+		
+		<Files>
+		
+			<File name="Assets/Fonts/PureFonts.xml" />
+			
+			<File name="Source/PureUIElementTemplates.xml" />
+			<File name="Source/PureUnitFrame.xml" />
+
+			<File name="Source/TargetInfoFix.lua" />
+			
+			<File name="Localization/enUS.lua" />
+			
+			<File name="Source/PureDefaultSettings.lua" />
+			<File name="Source/PureConstants.lua" />
+			
+			<!-- Start Configuration Windows -->
+			<File name="Configuration/PureConfig.xml" />
+			<File name="Configuration/PureConfig.lua" />
+			<File name="Configuration/PureConfig_General.lua" />
+			<File name="Configuration/PureConfig_Player.lua" />
+			<File name="Configuration/PureConfig_PlayerPet.lua" />
+			<File name="Configuration/PureConfig_PlayerPetTarget.lua" />
+			<File name="Configuration/PureConfig_TargetFriendly.lua" />
+			<File name="Configuration/PureConfig_TargetHostile.lua" />
+			<!-- Stop Configuration Windows -->
+			
+			<File name="Source/PureTemplates.lua" />
+			
+			<File name="Source/PureEffect.lua" />
+			<File name="Source/PureEffectTracker.lua" />
+			
+			<File name="Source/PurePlayer_UnitFrame.lua" />
+			<File name="Source/PurePlayerPet_UnitFrame.lua" />
+			<File name="Source/PurePlayerPetTarget_UnitFrame.lua" />
+			<File name="Source/PureTarget_UnitFrame.lua" />
+			
+			<File name="Source/PurePlayer.lua" />
+			<File name="Source/PurePlayerPet.lua" />
+			<File name="Source/PureTarget.lua" />
+			<File name="Source/PurePlayerPetTarget.lua" />
+			
+			<File name="Source/Pure.lua" />
+		</Files>
+		
+		<OnInitialize>
+			<CreateWindow name="PureConfig" show="false" />
+			<CallFunction name="Pure.OnInitialize" />
+		</OnInitialize>
+		
+		<OnUpdate>
+            <CallFunction name="PureConfig_Player_OnUpdate" />
+            <CallFunction name="PureConfig_PlayerPet_OnUpdate" />
+            <CallFunction name="PureConfig_PlayerPetTarget_OnUpdate" />
+            <CallFunction name="PureConfig_TargetFriendly_OnUpdate" />
+            <CallFunction name="PureConfig_TargetHostile_OnUpdate" />
+        </OnUpdate>
+		
+		<OnShutdown>
+			<CallFunction name="AceDBLogoutHandler" />
+        </OnShutdown> 
+		
+		<WARInfo>
+		    <Categories>
+		        <Category name="BUFFS_DEBUFFS" />
+		        <Category name="RVR" />
+		        <Category name="GROUPING" />
+		    </Categories>
+		    <Careers>
+		        <Career name="BLACKGUARD" />
+		        <Career name="WITCH_ELF" />
+		        <Career name="DISCIPLE" />
+		        <Career name="SORCERER" />
+		        <Career name="IRON_BREAKER" />
+		        <Career name="SLAYER" />
+		        <Career name="RUNE_PRIEST" />
+		        <Career name="ENGINEER" />
+		        <Career name="BLACK_ORC" />
+		        <Career name="CHOPPA" />
+		        <Career name="SHAMAN" />
+		        <Career name="SQUIG_HERDER" />
+		        <Career name="WITCH_HUNTER" />
+		        <Career name="KNIGHT" />
+		        <Career name="BRIGHT_WIZARD" />
+		        <Career name="WARRIOR_PRIEST" />
+		        <Career name="CHOSEN" />
+		        <Career name= "MARAUDER" />
+		        <Career name="ZEALOT" />
+		        <Career name="MAGUS" />
+		        <Career name="SWORDMASTER" />
+		        <Career name="SHADOW_WARRIOR" />
+		        <Career name="WHITE_LION" />
+		        <Career name="ARCHMAGE" />
+		    </Careers>
+		</WARInfo>
+	</UiMod>
+</ModuleFile>

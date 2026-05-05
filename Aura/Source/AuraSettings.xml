@@ -1,0 +1,207 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+<!--
+	This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see <http://www.gnu.org/licenses/>.
+-->
+	<Scripts>
+		<Script file="Source/AuraSettings.lua" />
+	</Scripts>
+	<Windows>
+		<!-- The basic definition of an aura row entry -->
+		<Window name="AuraWindowRow">
+			<Size>
+				<AbsPoint x="360" y="42"/>
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnMouseOver" function="AuraSettings.OnMouseOverAuraList" />
+				<EventHandler event="OnLButtonUp" function="AuraSettings.OnLButtonUpAuraList" />
+				<EventHandler event="OnRButtonUp" function="AuraSettings.OnRButtonUpAuraList" />
+			</EventHandlers>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+					<Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" />
+                        <Anchor point="bottomright" relativePoint="bottomright" />
+                    </Anchors>
+				</FullResizeImage>
+				
+				<Button name="$parentAuraTexture" inherits="EA_Button_DefaultIconFrame_Small" handleinput="false">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                            <AbsPoint x="0" y="1" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                
+              	<Label name="$parentName" inherits="Aura_Default_Label_SmallFont"  maxchars="80" handleinput="false">
+					<Size>
+						<AbsPoint x="300" y="30"/>
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentAuraTexture">
+							<AbsPoint x="10" y="2"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+		
+		<!-- The basic sort button definition -->
+		<Button name="AuraWindowSortButton" inherits="EA_Button_DefaultListSort" >
+			<Size>
+				<AbsPoint x="245" y="40" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="AuraSettings.ChangeSorting" />
+			</EventHandlers>
+		</Button>
+		
+		<!-- Aura Settings Window -->
+		<Window name="AuraSettings" movable="true" layer="default">
+			<Size>
+				<AbsPoint x="400" y="475" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" />
+			</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnHidden" function="AuraSettings.OnHidden" />
+			</EventHandlers>
+			<!-- Child Windows -->
+			<Windows>
+				<!-- Default window background -->
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+				<!-- Title Bar -->
+				<Window name ="$parentTitleBar"   inherits="EA_TitleBar_Default" />
+				<!-- Top Right Close Button -->
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.OnClose" />
+					</EventHandlers>
+				</Button>
+				<!-- Button Background on the buttom of the window -->
+				<Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+					<Size>
+						<AbsPoint x="0" y="120" />
+					</Size>
+				</Window>
+				<!-- Enable Addon Toggle -->
+				<Window name="$parentEnableAddonToggle" inherits="Aura_LabelCheckButton">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentButtonBackground">
+							<AbsPoint x="25" y="15" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.ConfigChange_EnableAddon" />
+					</EventHandlers>
+				</Window>
+				<!-- Enable Debugging Toggle -->
+				<Window name="$parentEnableDebuggingToggle" inherits="Aura_LabelCheckButton">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnableAddonToggle">
+							<AbsPoint x="0" y="-8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.ConfigChange_EnableDebugging" />
+					</EventHandlers>
+				</Window>
+				<!-- Share Button -->
+				<Button name="$parentSharesButton" inherits="AuraWindowButton">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parentButtonBackground">
+							<AbsPoint x="10" y="-10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.OnShare" />
+					</EventHandlers>
+				</Button>
+				<!-- Add Button -->
+				<Button name="$parentAddButton" inherits="AuraWindowButton">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parentButtonBackground">
+							<AbsPoint x="-10" y="25" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.OnAddAura" />
+					</EventHandlers>
+				</Button>
+				<!-- Close Button -->
+				<Button name="$parentCloseButton" inherits="AuraWindowButton">
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentButtonBackground">
+							<AbsPoint x="-10" y="-10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraSettings.OnClose" />
+					</EventHandlers>
+				</Button>
+				<!-- This allows the window to be resized -->
+				<!-- 
+				<Button name="$parentResizeButton" inherits="CoreWindowResizeButtonBottomRight" layer="popup" >
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonDown" function="AuraSettings.OnResizeBegin" />
+					</EventHandlers>
+				</Button>
+				-->
+				<Button name="$parentEnabled" inherits="AuraWindowSortButton" textalign="center" id="1">
+			    	<Size>
+		                <AbsPoint x="40" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+					        <AbsPoint x="7" y="0" />
+					    </Anchor>
+                    </Anchors>
+                </Button>
+				<Button name="$parentName" inherits="AuraWindowSortButton" textalign="center" id="2">
+					<Size>
+		                <AbsPoint x="200" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentEnabled">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="right" relativePoint="topright" relativeTo="$parentTitleBar">
+                            <AbsPoint x="-8" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                <ListBox name="$parentAuraList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AuraWindowRow" visiblerows="7" rowspacing="0">
+                	<Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentEnabled">
+                            <AbsPoint x="2" y="0" />
+                        </Anchor>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground">
+                            <AbsPoint x="-10" y="10"/>
+                        </Anchor>
+                    </Anchors>
+					<ListData table="AuraSettings.listDisplayData" populationfunction="AuraSettings.PopulateDisplay">
+						<ListColumns>
+							<ListColumn windowname="Name" variable="Name" format="wstring" />
+						</ListColumns>
+					</ListData>
+				</ListBox>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

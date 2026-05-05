@@ -1,0 +1,132 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Scripts>
+    <Script file="AutoBandWindowHistory.lua" />
+</Scripts>
+<Windows>
+
+    <!--*******************************************************************-->
+    <!--                      Whole Window Definition                      -->
+    <!--*******************************************************************-->
+    <Window name="AutoBandWindowHistory" layer="secondary" movable="false">
+        <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="AutoBandTabsWindow">
+                <AbsPoint x="0" y="0"/>
+            </Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright" relativeTo="AutoBandTabsWindow">
+                <AbsPoint x="0" y="0"/>
+            </Anchor>
+        </Anchors>
+        <EventHandlers>
+            <EventHandler event="OnInitialize" function="AutoBandWindowHistory.Initialize" />
+            <EventHandler event="OnShutdown" function="AutoBandWindowHistory.Shutdown" />
+        </EventHandlers>
+        <Windows>
+            <Window name="$parentSpaceAbove" handleinput="false">
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                        <AbsPoint x="0" y="0"/>
+                    </Anchor>
+                    <Anchor point="topright" relativePoint="bottomright" relativeTo="$parent">
+                        <AbsPoint x="0" y="40"/>
+                    </Anchor>
+                </Anchors>
+            </Window>
+        
+            <!-- ComboBox label --
+            <Label name="$parentComboBoxLabel" inherits="EA_Label_DefaultText" textalign="left">
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentComboBox">
+                        <AbsPoint x="0" y="-20" />
+                    </Anchor>
+                </Anchors>
+            </Label>
+            <!-- ComboBox --
+            <ComboBox name="$parentComboBox" inherits="EA_ComboBox_DefaultResizable" >
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove">
+                        <AbsPoint x="30" y="35" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnSelChanged" function="AutoBandWindowHistory.OnSelChangedComboBox" />
+                </EventHandlers>
+            </ComboBox>
+            
+
+            <Window name="$parentDisplaySeperator" inherits="EA_Window_DefaultSeparator" handleinput="false" >
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove" >
+                        <AbsPoint x="0" y="80" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentSpaceAbove" >
+                        <AbsPoint x="0" y="70" />
+                    </Anchor>
+                </Anchors>
+            </Window>
+            <!-- -->
+            <!-- AutoBand Log -->
+            <FullResizeImage name="$parentLogBackground" inherits="fullresize_dialog_background" >
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                        <AbsPoint x="3" y="3" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="">
+                        <AbsPoint x="-3" y="-3" />
+                    </Anchor>
+                </Anchors>
+            </FullResizeImage>
+            <!-- Log Text -->
+            <LogDisplay name="$parentText" font="font_clear_medium" scrollbar="$parentScrollbar" scrollbarPosition="right" background="" maxchars="4096">
+                <Size>
+                    <AbsPoint x="600" y="300" />
+                </Size>
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                        <AbsPoint x="7" y="40" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="">
+                        <AbsPoint x="-7" y="-7" />
+                    </Anchor>
+                </Anchors>
+                <Windows>
+                    <VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain">
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topleft">
+                                <AbsPoint x="-20" y="0" />
+                            </Anchor>
+                            <Anchor point="bottomright" relativePoint="bottomright"/>
+                        </Anchors>
+                    </VerticalScrollbar>
+                </Windows>
+            </LogDisplay>
+
+            <!-- Button bar -->
+            <Window name="$parentButtonBar" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+                <Size>
+                    <AbsPoint x="0" y="65" />
+                </Size>
+            </Window>
+
+            <!-- Reset button -->
+            <Button name="$parentResetButton" inherits="EA_Button_DefaultResizeable">
+                <Size>
+                    <AbsPoint x="200" y="39" />
+                </Size>
+                <Anchors>
+    <!--                <Anchor point="right" relativePoint="right" relativeTo="$parentButtonBar" >
+                        <AbsPoint x="-60" y="7" />
+                    </Anchor>
+    -->
+                    <Anchor point="center" relativePoint="center" relativeTo="$parentButtonBar" >
+                        <AbsPoint x="0" y="7" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="AutoBandWindowHistory.OnResetHistory" />
+                </EventHandlers>
+            </Button>
+
+        </Windows>
+    </Window>
+</Windows>
+</Interface>

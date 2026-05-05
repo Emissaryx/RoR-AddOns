@@ -1,0 +1,274 @@
+<Interface xmlns:xsi="http://wutf-8.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+				
+		<Window name="TurretRangeSetupDistanceWindow" inherits="EA_Window_Default" movable="false" layer="popup" savesettings="false" scale="1.0">
+			<EventHandlers>
+				<EventHandler event="OnHidden" function="TurretRange.Setup.Distance.OnHidden" />
+			</EventHandlers>
+			<Size>
+				<AbsPoint x="580" y="420" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+ 				</Anchor>
+			</Anchors>
+			<Windows>
+			
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<Anchors>
+						<Anchor point="topright" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="-15" y="15" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distance.OnCloseLUp" />
+                    </EventHandlers>
+                </Button>
+			
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="true">
+					<Anchors>
+           				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+           				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+       				</Anchors>
+				</Window>
+				
+				<Label name="$parentTitleLabel" font="font_default_text" textalign="left" maxchars="35">
+					<Size>
+						<AbsPoint x="480" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="20" y="20" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<Label name="$parentDistanceLabel" font="font_clear_small" textalign="left" maxchars="200">
+					<Size>
+						<AbsPoint x="400" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+							<AbsPoint x="10" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<EditBox name="$parentDistanceEditBox" inherits="EA_EditBox_DefaultFrame" maxchars="3" input="numbers">
+					<Size>
+						<AbsPoint x="80" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDistanceLabel">
+							<AbsPoint x="10" y="10"/>
+						</Anchor>
+					</Anchors>
+				</EditBox>
+				
+				<Label name="$parentColorLabel" font="font_clear_small" textalign="left" maxchars="200">
+					<Size>
+						<AbsPoint x="400" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDistanceEditBox">
+							<AbsPoint x="-10" y="20"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<Window name="$parentColor">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentColorLabel">
+							<AbsPoint x="10" y="0"/>
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsPoint x="280" y="140" />
+					</Size>
+					<Windows>
+						
+						<Label name="$parentTintRed" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="20" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintRedSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintRed">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Distance.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintRedEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintRedSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Distance.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+						
+						<Label name="$parentTintGreen" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTintRed">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintGreenSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintGreen">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Distance.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintGreenEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintGreenSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Distance.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+						
+						<Label name="$parentTintBlue" font="font_clear_small" textalign="left" maxchars="200">
+							<Size>
+								<AbsPoint x="60" y="20" />
+							</Size>
+							<Anchors>
+								<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTintGreen">
+									<AbsPoint x="0" y="20" />
+								</Anchor>
+							</Anchors>
+						</Label>
+						
+						<SliderBar name="$parentTintBlueSlider" inherits="EA_Default_SliderBar">
+							<Size>
+								<AbsPoint x="100" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintBlue">
+									<AbsPoint x="10" y="0" />
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnSlide" function="TurretRange.Setup.Distance.OnSlideTint" />
+							</EventHandlers>
+						</SliderBar>
+						
+						<EditBox name="$parentTintBlueEditBox" inherits="EA_EditBox_DefaultFrame" layer="default" maxchars="3" input="numbers">
+							<Size>
+								<AbsPoint x="60" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="right" relativePoint="left" relativeTo="$parentTintBlueSlider">
+									<AbsPoint x="10" y="0"/>
+								</Anchor>
+							</Anchors>
+							<EventHandlers>
+								<EventHandler event="OnTextChanged" function="TurretRange.Setup.Distance.OnTintChanged" />
+							</EventHandlers>
+						</EditBox>
+					</Windows>
+				</Window>
+				
+				<DynamicImage name="$parentColorExample" texture="EA_TintableImage" layer="default" handleinput="true">
+					<Size>
+						<AbsPoint x="40" y="40"/>
+					</Size>
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentColor">
+							<AbsPoint x="10" y="20"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+				
+				<Window name="$parentHide" inherits="EA_LabelCheckButton">
+					<Size>
+						<AbsPoint x="25" y="25" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentColor">
+							<AbsPoint x="-10" y="10"/>
+						</Anchor>
+					</Anchors>
+    			</Window>
+				
+				<Label name="$parentHideCheckboxLabel" font="font_clear_small" textalign="left" maxchars="200">
+					<Size>
+						<AbsPoint x="300" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentHide">
+							<AbsPoint x="10" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				<Button name="$parentApplyButton" inherits="EA_Button_DefaultResizeable">
+					<Size>
+						<AbsPoint x="200" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="-20" y="-20"/>
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distance.OnApplyLClick" />
+					</EventHandlers>
+				</Button>
+				
+				<Button name="$parentCreateButton" inherits="EA_Button_DefaultResizeable">
+					<Size>
+						<AbsPoint x="140" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topright" relativeTo="$parentApplyButton" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="TurretRange.Setup.Distance.OnCreateLClick" />
+					</EventHandlers>
+				</Button>
+				
+			</Windows>
+		</Window>
+		
+	</Windows>
+</Interface>

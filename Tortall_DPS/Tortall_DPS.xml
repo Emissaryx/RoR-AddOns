@@ -1,0 +1,829 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <Scripts>
+        <Script file="Tortall_DPS.lua" />
+    </Scripts>
+    <Windows>
+        <Window name="TortallDPSMeter" movable="true" layer="background" popable="false">
+            <EventHandlers>
+                <EventHandler event="OnInitialize" function="TortallDPSMeter.Initialize" />
+                <EventHandler event="OnRButtonUp" function="TortallDPSMeter.OnRButtonUp" />
+            </EventHandlers>
+            <Anchors>
+                <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                    <AbsPoint x="600" y="90" />
+                </Anchor>
+            </Anchors>
+            <Size>
+                <AbsPoint x="700" y="220" />
+            </Size>
+            <Windows>
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame" layer="background">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+                <Label name="$parentTitleLabel" font="font_clear_tiny" handleinput="true" textalign="center" layer="default">
+                    <EventHandlers>
+                        <EventHandler event="OnRButtonUp" function="TortallDPSMeter.OnRButtonUp" />
+                    </EventHandlers>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+                            <AbsPoint x="0" y="3" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="600" y="20" />
+                    </Size>
+                    <Color r="250" g="250" b="250" />
+                </Label>
+                <Window name="$parentSummary">
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleLabel">
+                            <AbsPoint x="10" y="40" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="680" y="110" />
+                    </Size>
+                    <Windows>
+                        <FullResizeImage name="$parentBG" inherits="EA_FullResizeImage_TintableSolidBackground"
+                                handleinput="false" layer="background" alpha="0.3">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft"/>
+                                <Anchor point="bottomright" relativePoint="bottomright"/>
+                            </Anchors>
+                            <TintColor r="250" g="0" b="0" />
+                        </FullResizeImage>
+
+
+
+<!-- top row w titles -->
+<Label name="TortallDPSMeterCountLabel" font="font_clear_small_bold" textalign="left" layer="default">
+    <Anchors>
+        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+            <AbsPoint x="140" y="0" />
+        </Anchor>
+    </Anchors>
+    <Size>
+        <AbsPoint x="100" y="20" />
+    </Size>
+    <Color r="255" g="255" b="255" />
+</Label>
+<Label name="TortallDPSMeterAverageLabel" font="font_clear_small_bold" textalign="left" layer="default">
+  <Anchors>
+      <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+          <AbsPoint x="250" y="0" />
+      </Anchor>
+  </Anchors>
+    <Size>
+        <AbsPoint x="100" y="20" />
+    </Size>
+    <Color r="255" g="255" b="255" />
+</Label>
+<Label name="TortallDPSMeterMinLabel" font="font_clear_small_bold" textalign="left" layer="default">
+  <Anchors>
+      <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+          <AbsPoint x="360" y="0" />
+      </Anchor>
+  </Anchors>
+    <Size>
+        <AbsPoint x="100" y="20" />
+    </Size>
+    <Color r="255" g="255" b="255" />
+</Label>
+<Label name="TortallDPSMeterMaxLabel" font="font_clear_small_bold" textalign="left" layer="default">
+  <Anchors>
+      <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+          <AbsPoint x="470" y="0" />
+      </Anchor>
+  </Anchors>
+    <Size>
+        <AbsPoint x="100" y="20" />
+    </Size>
+    <Color r="255" g="255" b="255" />
+</Label>
+<Label name="TortallDPSMeterAmountLabel" font="font_clear_small_bold" textalign="left" layer="default">
+    <Anchors>
+        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+            <AbsPoint x="580" y="0" />
+        </Anchor>
+    </Anchors>
+    <Size>
+        <AbsPoint x="100" y="20" />
+    </Size>
+    <Color r="255" g="255" b="255" />
+</Label>
+
+
+<!-- left column -->
+
+
+                        <Label name="TortallDPSMeterNormalLabel" font="font_clear_small_bold" textalign="left" layer="default">
+                          <Anchors>
+                              <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                  <AbsPoint x="10" y="20" />
+                              </Anchor>
+                          </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="122" g="122" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterTotalLabel" font="font_clear_small_bold" textalign="left" layer="default">
+                          <Anchors>
+                              <Anchor point="topleft" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                  <AbsPoint x="0" y="20" />
+                              </Anchor>
+                          </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+			<Label name="TortallDPSMeterCritLabel" font="font_clear_small_bold" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="122" b="122" />
+                        </Label>
+                        <Label name="TortallDPSMeterPSLabel" font="font_clear_small_bold" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="0" y="20" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="90" y="20" />
+                            </Size>
+                            <Color r="122" g="255" b="122" />
+                        </Label>
+
+
+<!--
+TortallDPSMeterAmount
+TortallDPSMeterCount
+TortallDPSMeterAverage
+TortallDPSMeterMin
+TortallDPSMeterMax
+
+TortallDPSMeterNormalDamage
+TortallDPSMeterNormalCount
+TortallDPSMeterNormalAverage
+TortallDPSMeterNormalMin
+TortallDPSMeterNormalMax
+
+TortallDPSMeterCritDamage
+TortallDPSMeterCritCount
+TortallDPSMeterCritAverage
+TortallDPSMeterCritMin
+TortallDPSMeterCritMax
+
+TortallDPSMeterDamagePS
+TortallDPSMeterCountPS
+ -->
+
+                        <!-- Main part tables -->
+                        <Label name="TortallDPSMeterCount" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="130" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterNormalCount" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                    <AbsPoint x="130" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCritCount" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="130" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCountPS" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterPSLabel">
+                                    <AbsPoint x="130" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="122" g="255" b="122" />
+                        </Label>
+
+                        <Label name="TortallDPSMeterAverage" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="240" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="122" b="25" />
+                        </Label>
+                        <Label name="TortallDPSMeterNormalAverage" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                    <AbsPoint x="240" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCritAverage" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="240" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterDamagePS" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterPSLabel">
+                                    <AbsPoint x="240" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="122" g="255" b="122" />
+                        </Label>
+
+                        <Label name="TortallDPSMeterMin" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="350" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterNormalMin" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                    <AbsPoint x="350" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCritMin" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="350" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+
+                        <Label name="TortallDPSMeterMax" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="460" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterNormalMax" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                    <AbsPoint x="460" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCritMax" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="460" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+
+                        <Label name="TortallDPSMeterAmount" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterTotalLabel">
+                                    <AbsPoint x="570" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterNormalDamage" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterNormalLabel">
+                                    <AbsPoint x="570" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCritDamage" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterCritLabel">
+                                    <AbsPoint x="570" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                        <Label name="TortallDPSMeterCombatTime" font="font_clear_small" textalign="left" layer="default">
+                            <Anchors>
+                                <Anchor point="left" relativePoint="topleft" relativeTo="TortallDPSMeterPSLabel">
+                                    <AbsPoint x="570" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="20" />
+                            </Size>
+                            <Color r="255" g="122" b="255" />
+                        </Label>
+<!-- end of tables -->
+
+
+
+
+
+                    </Windows>
+                </Window>
+                <Button name="$parentDamage" inherits="EA_Button_Default" backgroundtexture="" highlighttexture="">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentSummary">
+                            <AbsPoint x="40" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.DamageTab" />
+                    </EventHandlers>
+                    <Windows>
+                        <FullResizeImage name="$parentBG" inherits="EA_FullResizeImage_TintableSolidBackground"
+                                handleinput="false" layer="background" alpha="0.7">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft"/>
+                                <Anchor point="bottomright" relativePoint="bottomright"/>
+                            </Anchors>
+                            <TintColor r="250" g="0" b="0" />
+                        </FullResizeImage>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentHealing" inherits="EA_Button_Default" backgroundtexture="" highlighttexture="">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentSummary">
+                            <AbsPoint x="140" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.HealingTab" />
+                    </EventHandlers>
+                    <Windows>
+                        <FullResizeImage name="$parentBG" inherits="EA_FullResizeImage_TintableSolidBackground"
+                                handleinput="false" layer="background" alpha="0.7">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft"/>
+                                <Anchor point="bottomright" relativePoint="bottomright"/>
+                            </Anchors>
+                            <TintColor r="0" g="0" b="250" />
+                        </FullResizeImage>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentReset" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-100" y="30" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.Reset" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentGroup" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-200" y="30" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.ToggleGroup" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentAbilities" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-100" y="-40" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.ToggleDetail" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="80" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentTargets" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-230" y="-40" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="110" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.ToggleDetail" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="110" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentWhatHM" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-410" y="-40" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="160" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.ToggleDetail" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="160" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+                <Button name="$parentWhoHM" inherits="EA_Button_Default" backgroundtexture="shared_01" highlighttexture="shared_01">
+                    <Anchors>
+                        <Anchor point="bottomright" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-590" y="-40" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="160" y="30" />
+                    </Size>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="TortallDPSMeter.ToggleDetail" />
+                    </EventHandlers>
+                    <Windows>
+                        <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                                <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                            </Anchors>
+                        </Window>
+                        <Label name="$parentLabel" font="font_clear_small_bold" textalign="center" layer="default">
+                            <Anchors>
+                                <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                    <AbsPoint x="0" y="0" />
+                                </Anchor>
+                            </Anchors>
+                            <Size>
+                                <AbsPoint x="160" y="30" />
+                            </Size>
+                            <Color r="255" g="255" b="255" />
+                        </Label>
+                    </Windows>
+                </Button>
+            </Windows>
+        </Window>
+
+        <Button name="TortallDPSGroupTemplate" inherits="EA_Button_Default" drawchildrenfirst="true">
+            <Size>
+              <AbsPoint x="660" y="25" />
+            </Size>
+            <Windows>
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+                <Label name="$parentName" font="font_clear_small" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="2" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="210" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentDPS" font="font_clear_small" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="230" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentMin" font="font_clear_small" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="320" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentMax" font="font_clear_small" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="410" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentAverage" font="font_clear_small" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="500" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+            </Windows>
+        </Button>
+
+        <Window name="TortallDPSMeterGroupWindow" movable="false" layer="background" popable="false">
+            <Anchors>
+                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="TortallDPSMeter">
+                    <AbsPoint x="0" y="0" />
+                </Anchor>
+            </Anchors>
+            <Size>
+                <AbsPoint x="700" y="154" />
+            </Size>
+            <Windows>
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+                <Label name="$parentName" font="font_clear_small_bold" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="4" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="210" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentDPS" font="font_clear_small_bold" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="230" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentMin" font="font_clear_small_bold" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="320" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentMax" font="font_clear_small_bold" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="410" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <Label name="$parentAverage" font="font_clear_small_bold" textalign="left" layer="default">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="500" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size>
+                        <AbsPoint x="80" y="20" />
+                    </Size>
+                    <Color r="255" g="255" b="255" />
+                </Label>
+                <ListBox name="$parentList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="TortallDPSGroupTemplate" visiblerows="5" rowcount="150" rowspacing="0">
+                    <Size>
+                        <AbsPoint x="680" y="128" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+                            <AbsPoint x="4" y="25" />
+                        </Anchor>
+                    </Anchors>
+
+                    <ListData table="TortallDPSMeter.GroupStats" populationfunction="TortallDPSMeter.PopulateGroupStats">
+
+                        <ListColumns>
+                            <ListColumn windowname="Name" variable="name" format="wstring"/>
+                            <ListColumn windowname="DPS" variable="dps" format="number"/>
+                            <ListColumn windowname="Min" variable="Name" format="number"/>
+                            <ListColumn windowname="Max" variable="Name" format="number"/>
+                            <ListColumn windowname="Average" variable="Name" format="number"/>
+                        </ListColumns>
+                    </ListData>
+                </ListBox>
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

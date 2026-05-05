@@ -1,0 +1,5 @@
+15-Nov-2018 by Quillog
+
+Added Magus Discs to exceptions
+Added Manticore and Griffon mounts to exceptions
+Added "Guild Recall Scroll" (destro) to exceptions  --- might not work for order, need item IDs to add other scrolls

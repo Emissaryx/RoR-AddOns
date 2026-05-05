@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+  <Scripts>
+    <Script file="GetStats.lua"/>
+  </Scripts>
+
+  <Windows>
+
+    <!-- Line template used for each stat row -->
+    <Window name="GetStatsLabelTemplate" layer="overlay" handleinput="true">
+      <Size>
+        <AbsPoint x="450" y="28"/>
+      </Size>
+      <Windows>
+        <Label name="$parentText"
+               font="font_clear_small_bold"
+               autoresize="false"
+               textalign="left"
+               layer="overlay"
+               handleinput="false"
+               wordwrap="false"
+               warnOnTextCropped="false"
+               ellipsisOnCrop="true">
+          <Size>
+            <AbsPoint x="430" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+              <AbsPoint x="10" y="4"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="255"/>
+        </Label>
+      </Windows>
+    </Window>
+
+    <!-- Main window -->
+    <Window name="GetStatsWindow" layer="default" movable="true" popable="false" handleinput="true" savesettings="false" clampToScreen="true">
+      <Size>
+        <AbsPoint x="460" y="320"/>
+      </Size>
+      <Anchors>
+        <Anchor point="center" relativePoint="center" relativeTo="Root">
+          <AbsPoint x="300" y="-300"/>
+        </Anchor>
+      </Anchors>
+
+      <Windows>
+
+        <Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false" alpha="1">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+              <AbsPoint x="0" y="0"/>
+            </Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+              <AbsPoint x="0" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Window>
+
+        <Label name="$parentTitle"
+               font="font_clear_large_bold"
+               autoresize="false"
+               textalign="center"
+               layer="overlay"
+               handleinput="false"
+               wordwrap="false"
+               warnOnTextCropped="false"
+               ellipsisOnCrop="true">
+          <Size>
+            <AbsPoint x="420" y="25"/>
+          </Size>
+          <Anchors>
+            <Anchor point="top" relativePoint="top" relativeTo="$parent">
+              <AbsPoint x="0" y="5"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="128"/>
+        </Label>
+
+        <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+          <EventHandlers>
+            <EventHandler event="OnLButtonUp" function="GetStats.CloseWindow"/>
+          </EventHandlers>
+          <Anchors>
+            <Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+              <AbsPoint x="0" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Button>
+
+      </Windows>
+    </Window>
+
+    <!-- Compare window positioned next to main -->
+    <Window name="GetStatsCompareWindow" layer="default" sticky="true" movable="false" popable="false" handleinput="true" savesettings="false" clampToScreen="true">
+      <Size>
+        <AbsPoint x="460" y="320"/>
+      </Size>
+      <Anchors>
+        <Anchor point="topleft" relativePoint="topright" relativeTo="GetStatsWindow">
+          <AbsPoint x="5" y="0"/>
+        </Anchor>
+      </Anchors>
+
+      <Windows>
+
+        <Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false" alpha="1">
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+              <AbsPoint x="0" y="0"/>
+            </Anchor>
+            <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+              <AbsPoint x="0" y="0"/>
+            </Anchor>
+          </Anchors>
+        </Window>
+
+        <Label name="$parentTitle"
+               font="font_clear_large_bold"
+               autoresize="false"
+               textalign="center"
+               layer="overlay"
+               handleinput="false"
+               wordwrap="false"
+               warnOnTextCropped="false"
+               ellipsisOnCrop="true">
+          <Size>
+            <AbsPoint x="420" y="25"/>
+          </Size>
+          <Anchors>
+            <Anchor point="top" relativePoint="top" relativeTo="$parent">
+              <AbsPoint x="0" y="5"/>
+            </Anchor>
+          </Anchors>
+          <Color r="255" g="255" b="128"/>
+        </Label>
+
+      </Windows>
+    </Window>
+
+  </Windows>
+</Interface>

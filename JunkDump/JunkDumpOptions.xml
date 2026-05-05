@@ -1,0 +1,809 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+    <Scripts>
+		<Script File="JunkDump.lua" />
+        <Script file="JunkDumpOptions.lua" />
+    </Scripts>
+    <Windows>
+		<Window name="JunkDumpOptionsWin" moveable="true" inherits="EA_Window_Default" layer="popup">
+		    <Size>
+                <AbsPoint x="720" y="400" /> 
+            </Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo=""><AbsPoint x="200" y="0" /></Anchor>
+			</Anchors>	
+			<Windows>
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <DynamicImage name="$parentCornerImage" inherits="EA_Default_MerchantImage"/>
+
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="JunkDumpOptions.Done" />
+                    </EventHandlers>
+                </Button>
+				<Window name="$parentBackground" inherits="EA_Window_DefaultContextMenuFrame">
+					<Size><AbsPoint x="720" y="400" /></Size>
+				</Window>
+
+				<!------------------------------------------------------------------------
+					Bag Mode Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentBagModeLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="80" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeCheckboxOn" inherits="EA_LabelCheckButton" id="81381">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeCheckboxOff" inherits="EA_LabelCheckButton" id="81382">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+	
+				<!------------------------------------------------------------------------
+					Show Gold Report Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentGoldReportLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="160" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentGoldReportCheckboxOn" inherits="EA_LabelCheckButton" id="81383">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateGoldReportOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentGoldReportOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentGoldReportCheckboxOff" inherits="EA_LabelCheckButton" id="81384">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateGoldReportOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentGoldReportOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+
+				<!------------------------------------------------------------------------
+					Show Item Report Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentItemReportLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="240" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentItemReportCheckboxOn" inherits="EA_LabelCheckButton" id="81385">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateItemReportOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="270" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentItemReportOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="270" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentItemReportCheckboxOff" inherits="EA_LabelCheckButton" id="81386">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateItemReportOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="270" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentItemReportOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="270" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+
+				<!------------------------------------------------------------------------
+					Bag Number Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentBagModeBagLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="320" y="80" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox1" inherits="EA_LabelCheckButton" id="81389">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="320" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagOneLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="345" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox2" inherits="EA_LabelCheckButton" id="81390">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="375" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagTwoLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="400" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox3" inherits="EA_LabelCheckButton" id="81391">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="430" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagThreeLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="455" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox4" inherits="EA_LabelCheckButton"  id="81392">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="485" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagFourLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="510" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox5" inherits="EA_LabelCheckButton" id="81393">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="540" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagFiveLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="565" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentBagModeBagCheckbox6" inherits="EA_LabelCheckButton" id="81394">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateBagModeBag" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="595" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentBagModeBagSixLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="620" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+
+				<!------------------------------------------------------------------------
+					Rarity Threshold Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentRarityLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="320" y="160" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox1" inherits="EA_LabelCheckButton" id="81395">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="320" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRarityOneLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="345" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox2" inherits="EA_LabelCheckButton" id="81396">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="430" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRarityTwoLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="455" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox3" inherits="EA_LabelCheckButton"  id="81397">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="540" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRarityThreeLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="565" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox4" inherits="EA_LabelCheckButton" id="81398">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="320" y="220" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRarityFourLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="345" y="220" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox5" inherits="EA_LabelCheckButton" id="81399">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="430" y="220" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRarityFiveLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="455" y="220" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentRarityCheckbox6" inherits="EA_LabelCheckButton" id="81400">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateRarity" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="540" y="220" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentRaritySixLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="565" y="220" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				
+				<Button name="$parentTestModeRunButton" inherits="EA_Button_DefaultResizeable" layer="popup">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="JunkDump.TestModeRun" />
+					</EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="300" y="320" /></Anchor>
+					</Anchors>
+				</Button>
+				<Button name="$parentTestModeClearButton" inherits="EA_Button_DefaultResizeable" layer="popup">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="JunkDump.TestModeClear" />
+					</EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="425" y="320" /></Anchor>
+					</Anchors>
+				</Button>
+				<Button name="$parentAboutButton" inherits="EA_Button_DefaultResizeable" layer="popup">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="JunkDumpOptions.ShowAbout" />
+					</EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="550" y="320" /></Anchor>
+					</Anchors>
+				</Button>
+				<Button name="$parentProfessionsButton" inherits="EA_Button_DefaultResizeable" layer="popup">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="JunkDumpOptions.ShowProfessions" />
+					</EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="35" y="320" /></Anchor>
+					</Anchors>
+				</Button>
+			</Windows>
+		</Window>
+		<Window name="JunkDumpOptionsProfessionsWin" moveable="true" inherits="EA_Window_Default" layer="popup">
+		    <Size>
+                <AbsPoint x="640" y="480" /> 
+            </Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo=""><AbsPoint x="200" y="0" /></Anchor>
+			</Anchors>	
+			<Windows>
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <DynamicImage name="$parentCornerImage" inherits="EA_Default_MerchantImage"/>
+
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="JunkDumpOptions.DoneProfessions" />
+                    </EventHandlers>
+                </Button>
+				<Window name="$parentBackground" inherits="EA_Window_DefaultContextMenuFrame">
+					<Size><AbsPoint x="640" y="480" /></Size>
+				</Window>
+
+				<!------------------------------------------------------------------------
+					Sell Apothecary Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentSellApothLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="80" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellApothCheckboxOn" inherits="EA_LabelCheckButton" id="81401">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellApothOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellApothOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellApothCheckboxOff" inherits="EA_LabelCheckButton" id="81402">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellApothOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="110" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellApothMaxLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="80" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Editbox name="$parentSellApothMax" inherits="EA_EditBox_DefaultFrame">
+					<Size>
+						<AbsPoint x="50" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="110" /></Anchor>
+					</Anchors>
+					<EventHandlers>
+                        <EventHandler event="OnTextChanged" function="JunkDumpOptions.UpdateApothMax" />
+                    </EventHandlers>
+				</Editbox>
+				<Label name="$parentSellApothOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="110" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+	
+				<!------------------------------------------------------------------------
+					Sell Talisman Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentSellTalismanLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="160" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellTalismanCheckboxOn" inherits="EA_LabelCheckButton" id="81403">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellTalismanOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellTalismanOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellTalismanCheckboxOff" inherits="EA_LabelCheckButton" id="81404">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellTalismanOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="190" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellTalismanOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="190" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentSellTalismanMaxLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="160" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Editbox name="$parentSellTalismanMax" inherits="EA_EditBox_DefaultFrame">
+					<Size>
+						<AbsPoint x="50" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="190" /></Anchor>
+					</Anchors>
+					<EventHandlers>
+                        <EventHandler event="OnTextChanged" function="JunkDumpOptions.UpdateTalismanMax" />
+                    </EventHandlers>
+				</Editbox>
+
+				<!------------------------------------------------------------------------
+					Sell Cultivation Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentSellCultivationLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="220" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="240" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellCultivationCheckboxOn" inherits="EA_LabelCheckButton" id="81405">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellCultivationOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="270" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellCultivationOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="270" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellCultivationCheckboxOff" inherits="EA_LabelCheckButton" id="81406">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellCultivationOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="270" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellCultivationOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="270" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentSellCultivationMaxLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="240" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Editbox name="$parentSellCultivationMax" inherits="EA_EditBox_DefaultFrame">
+					<Size>
+						<AbsPoint x="50" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="270" /></Anchor>
+					</Anchors>
+					<EventHandlers>
+                        <EventHandler event="OnTextChanged" function="JunkDumpOptions.UpdateCultivationMax" />
+                    </EventHandlers>
+				</Editbox>
+
+				<!------------------------------------------------------------------------
+					Sell Salvaging Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentSellSalvagingLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="320" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellSalvagingCheckboxOn" inherits="EA_LabelCheckButton" id="81407">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellSalvagingOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="350" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellSalvagingOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="350" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentSellSalvagingCheckboxOff" inherits="EA_LabelCheckButton" id="81408">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateSellSalvagingOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="350" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentSellSalvagingOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="350" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentSellSalvagingMaxLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="280" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="320" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Editbox name="$parentSellSalvagingMax" inherits="EA_EditBox_DefaultFrame">
+					<Size>
+						<AbsPoint x="50" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="340" y="350" /></Anchor>
+					</Anchors>
+					<EventHandlers>
+                        <EventHandler event="OnTextChanged" function="JunkDumpOptions.UpdateSalvagingMax" />
+                    </EventHandlers>
+				</Editbox>
+				
+				<!------------------------------------------------------------------------
+					Ignore Profession Rarity Setting
+				------------------------------------------------------------------------->
+	
+				<Label name="$parentIgnoreProfessionRarityLabel" font="font_default_text_large" textalign="left" handleinput="false">
+					<Size><AbsPoint x="300" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="400" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentIgnoreProfessionRarityCheckboxOn" inherits="EA_LabelCheckButton" id="81387">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateIgnoreProfessionRarityOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="20" y="430" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentIgnoreProfessionRarityOnLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="45" y="430" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentIgnoreProfessionRarityCheckboxOff" inherits="EA_LabelCheckButton" id="81388">
+		            <Size>
+		                <AbsPoint x="20" y="20" />
+		            </Size>
+		            <EventHandlers>
+		                <EventHandler event="OnLButtonUp" function="JunkDumpOptions.UpdateIgnoreProfessionRarityOnOff" />
+		            </EventHandlers>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="75" y="430" /></Anchor>
+					</Anchors>
+		        </Window>
+				<Label name="$parentIgnoreProfessionRarityOffLabel" font="font_default_text_small" textalign="left" handleinput="false">
+					<Size><AbsPoint x="200" y="25" /></Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft"><AbsPoint x="100" y="430" /></Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				
+			</Windows>
+		</Window>
+		<Window name="JunkDumpOptionsRowTemplate" handleinput="true">
+	      <Size>
+	        <AbsPoint x="300" y="40" />
+	      </Size>
+	      <EventHandlers>
+	        <!--<EventHandler event="OnLButtonUp" function="Somefunction" />-->
+	      </EventHandlers>
+	      <Windows>
+	        <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+	          <Anchors>
+	            <Anchor point="topleft" relativePoint="topleft" />
+	            <Anchor point="bottomright" relativePoint="bottomright" />
+	          </Anchors>
+	        </FullResizeImage>
+
+	        <!-- font_default_text font_default_sub_heading -->
+	        <Label name="$parentFriendsName" wordwrap="true" font="font_default_text" textalign="left" maxchars="80" inherits="EA_Label_DefaultText" handleinput="false">
+	          <Size>
+	            <AbsPoint x="280" y="25" />
+	          </Size>
+	          <Anchors>
+	            <Anchor point="center" relativePoint="center" relativeTo="$parent">
+	              <AbsPoint x="10" y="0" />
+	            </Anchor>
+	          </Anchors>
+	        </Label>
+	      </Windows>
+	    </Window>
+		
+	</Windows>
+</Interface>

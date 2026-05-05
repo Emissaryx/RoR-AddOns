@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+<Windows>
+	<Window name="WBTogglerTemplate" inherits="EA_Window_Default" movable="false" layer="secondary" >
+		<Size>
+			<AbsPoint x="130" y="30" />
+		</Size>
+		<Windows>
+			<FullResizeImage name="$parentBackground" inherits="ModBackgroundTemplate" />
+			<DynamicImage name="$parentIcon" handleinput="false">
+				<Size>
+					<AbsPoint x="25" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft">
+						<AbsPoint x="3" y="2" />
+					</Anchor>
+				</Anchors>
+			</DynamicImage>
+			<Label name="$parentLabel" font="font_clear_small_bold" skipinput="true" textalign="center">
+				<Size>
+					<AbsPoint x="98" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentIcon">
+						<AbsPoint x="2" y="0" />
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255" />
+			</Label>
+		</Windows>
+	</Window>
+</Windows>
+</Interface>

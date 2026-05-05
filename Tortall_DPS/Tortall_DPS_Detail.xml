@@ -1,0 +1,232 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+    <Scripts>
+        <Script file="Tortall_DPS_Detail.lua" />
+    </Scripts>
+
+    <Windows>
+
+        <!-- ========================================================= -->
+        <!-- Detail Row Template (FIXED WIDTH, WAR-SAFE)                -->
+        <!-- ========================================================= -->
+        <Button name="TortallDPSDetailTemplate"
+                inherits="EA_Button_Default"
+                drawchildrenfirst="true">
+
+            <Size>
+                <AbsPoint x="660" y="25" />
+            </Size>
+
+            <Windows>
+
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                    <Anchors>
+                        <Anchor point="topleft"     relativePoint="topleft"     relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+
+                <!-- Name -->
+                <Label name="$parent1" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="2" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="210" y="20" /></Size>
+                </Label>
+
+                <!-- Total -->
+                <Label name="$parent2" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="230" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="80" y="20" /></Size>
+                </Label>
+
+                <!-- Min -->
+                <Label name="$parent3" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="320" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="80" y="20" /></Size>
+                </Label>
+
+                <!-- Max -->
+                <Label name="$parent4" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="410" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="80" y="20" /></Size>
+                </Label>
+
+                <!-- Avg -->
+                <Label name="$parent5" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="500" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="80" y="20" /></Size>
+                </Label>
+
+                <!-- Crit % -->
+                <Label name="$parent6" font="font_clear_small" textalign="left">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="590" y="4" />
+                        </Anchor>
+                    </Anchors>
+                    <Size><AbsPoint x="80" y="20" /></Size>
+                </Label>
+
+            </Windows>
+        </Button>
+
+        <!-- ========================================================= -->
+        <!-- Detail Window                                             -->
+        <!-- ========================================================= -->
+        <Window name="TortallDPSMeterDetailWindow"
+                movable="false"
+                layer="background"
+                popable="false">
+
+            <Anchors>
+                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="TortallDPSMeter" />
+            </Anchors>
+
+            <Size>
+                <AbsPoint x="700" y="254" />
+            </Size>
+
+            <Windows>
+
+                <Window name="$parentBG" inherits="EA_Window_DefaultFrame">
+                    <Anchors>
+                        <Anchor point="topleft"     relativePoint="topleft"     relativeTo="$parent" />
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+                    </Anchors>
+                </Window>
+
+<!-- Header: Name -->
+<Button name="$parentBtn1" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="4" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="210" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold" textalign="left">
+            <Size><AbsPoint x="210" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+<!-- Header: Total -->
+<Button name="$parentBtn2" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="230" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="80" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+        <EventHandler event="OnRButtonUp" function="TortallDPSDetail.ShowColumnMenu" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold">
+            <Size><AbsPoint x="80" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+<!-- Header: Min -->
+<Button name="$parentBtn3" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="320" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="80" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+        <EventHandler event="OnRButtonUp" function="TortallDPSDetail.ShowColumnMenu" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold">
+            <Size><AbsPoint x="80" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+<!-- Header: Max -->
+<Button name="$parentBtn4" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="410" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="80" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+        <EventHandler event="OnRButtonUp" function="TortallDPSDetail.ShowColumnMenu" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold">
+            <Size><AbsPoint x="80" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+<!-- Header: Avg -->
+<Button name="$parentBtn5" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="500" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="80" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+        <EventHandler event="OnRButtonUp" function="TortallDPSDetail.ShowColumnMenu" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold">
+            <Size><AbsPoint x="80" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+<!-- Header: Crit % -->
+<Button name="$parentBtn6" backgroundtexture="" highlighttexture="">
+    <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="590" y="4" /></Anchor></Anchors>
+    <Size><AbsPoint x="80" y="20" /></Size>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="TortallDPSDetail.GenericSort" />
+        <EventHandler event="OnRButtonUp" function="TortallDPSDetail.ShowColumnMenu" />
+    </EventHandlers>
+    <Windows>
+        <Label name="$parentLabel" font="font_clear_small_bold">
+            <Size><AbsPoint x="80" y="20" /></Size>
+        </Label>
+    </Windows>
+</Button>
+
+
+                <!-- List -->
+                <ListBox name="$parentList"
+                         rowdef="TortallDPSDetailTemplate"
+                         scrollbar="EA_ScrollBar_DefaultVerticalChain"
+                         visiblerows="9"
+                         rowcount="150">
+
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="4" y="25" />
+                        </Anchor>
+                    </Anchors>
+
+                    <Size>
+                        <AbsPoint x="680" y="228" />
+                    </Size>
+
+                    <ListData populationfunction="TortallDPSDetail.Populate" />
+                </ListBox>
+
+            </Windows>
+        </Window>
+
+    </Windows>
+</Interface>

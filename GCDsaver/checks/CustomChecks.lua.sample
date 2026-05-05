@@ -1,0 +1,87 @@
+GCDsaverAPI.CustomChecks = {}
+
+--[[
+This file is for you to create your own checks to use in the addon command line.
+
+You need basically 2 things to set up your checks :
+    - a function, the check itself
+    - a unique name for your check
+
+== Function ==
+The check function can take two parameters, the first will always be the id of the ability the
+check is associated with in the command line, the second is a table of parameters that have been
+entered in the command line.
+
+You must also make a table of the parameters you will want to get from the command line for your
+function, each parameter must be described by a string unique for that check (two different checks
+can have a parameter named "need", but a sigle check can't have two parameters with the same name).
+
+== Name ==
+The name for your check can be any string, as long as it is not yet used by another custom check.
+
+You also can set a short name for your check, that will be used in the command line. If you don't
+set a short name, you will have to use the full name of the check.
+
+== Registration ==
+Once you have all of that, you have to register your chack using the following function :
+GCDsaverChecks.RegisterCheck(checkName, checkFunction, paramsTable, shortName)
+--]]
+
+--[[
+As an example let's redo the career check :
+
+local checkFullName = "CareerCheckAgain"
+local shortName = "cca"
+local parameters = { "career", "need", "target" }
+
+local checkFunction =
+function(abilityId, params)
+    local career = params["career"]
+    local needCareer = params["need"]
+    local target = params["target"]
+    
+    if not target then
+        target = GCDsaverAPI.GetDefaultTarget(abilityId)
+    end
+    
+    local isCareer = GCDsaverAPI.isCareer(career, target)
+    if needCareer == "-" then
+        return not isCareer
+    end
+    
+    return isCareer
+end
+
+GCDsaverChecks.RegisterCheck(checkFullName, checkFunction, parameters, shortName)
+--]]
+
+-- You can put your custom checks below this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

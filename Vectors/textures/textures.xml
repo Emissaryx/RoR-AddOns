@@ -1,0 +1,18 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Assets>
+		<Texture name="Vectors_Point" file="textures\point.dds" />
+		<Texture name="Vectors_Scope" file="textures\scope.dds" />
+		<Texture name="Vectors_UW" file="textures\UW.tga" />
+		<Texture name="Vectors_FUW" file="textures\FUW.tga" />
+		<Texture name="Vectors_FFUW" file="textures\FFUW.tga" />
+		<Texture name="Vectors_DW" file="textures\DW.tga" />
+		<Texture name="Vectors_FDW" file="textures\FDW.tga" />
+		<Texture name="Vectors_FFDW" file="textures\FFDW.tga" />
+		<Texture name="Vectors_FW" file="textures\FW.tga" />
+		<Texture name="Vectors_FFW" file="textures\FFW.tga" />
+		<Texture name="Vectors_FFFW" file="textures\FFFW.tga" />
+		<Texture name="Vectors_BW" file="textures\BW.tga" />
+		<Texture name="Vectors_FBW" file="textures\FBW.tga" />
+		<Texture name="Vectors_FFBW" file="textures\FFBW.tga" />
+	</Assets>
+</Interface>

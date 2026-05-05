@@ -1,0 +1,8 @@
+2009-08-29  Daegalus  <Daegalus>
+
+[f567ebbfc39b] [1.2.1]
+* JunkDump.lua:
+
+Fixed: If IgnoreProfessionRarity is off, JD was not honoring MaxProfessionSkill thresholds.
+
+

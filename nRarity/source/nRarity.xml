@@ -1,0 +1,88 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Assets>
+		<Texture name="nRarityBorderNormal" file="textures/normal3.tga" />
+		<Texture name="nRarityBorderHighlight" file="textures/highlight.tga" />
+	</Assets>
+
+	<Windows>
+	
+		<Window name="nRarityBorder" layer="overlay" sticky="false" handleinput="false">
+					<Size>
+					<AbsPoint x="64" y="64" />
+					</Size>			
+					<Windows>	
+	
+		<!-- nRarity border button -->
+		<Button name="$parentButton" inherits="EA_Button_Default" handleinput="false" movable="false" savesettings="false">
+			<Size>
+				<AbsPoint x="64" y="64"/>
+			</Size>
+			<TexCoords>
+				<Normal texture="nRarityBorderNormal" x="0" y="0" />
+				<NormalHighlit texture="nRarityBorderHighlight" x="0" y="0" />
+				<Pressed texture="nRarityBorderHighlight" x="0" y="0" />
+				<Disabled texture="nRarityBorderNormal" x="0" y="0" />
+			</TexCoords>
+			
+			  <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+              <AbsPoint x="0" y="0" />
+            </Anchor>
+          </Anchors>
+			
+		</Button>
+		     <DynamicImage name="$parentCareerIcon" textureScale="0.875" handleinput="false" layer="overlay">
+          <Size>
+            <AbsPoint x="28" y="28" />
+          </Size>
+          <Anchors>
+            <Anchor point="bottomleft" relativePoint="center" relativeTo="$parent">
+              <AbsPoint x="12" y="-12" />
+            </Anchor>
+          </Anchors>
+        </DynamicImage>
+		
+		    <DynamicImage name="$parentCareerIconBG" texture="EA_HUD_01" slice="Rank-Circle-ConTintable" textureScale="1.1" handleinput="false" layer="secondary">
+          <Size>
+            <AbsPoint x="34" y="34" />
+          </Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentCareerIcon">
+              <AbsPoint x="-3" y="-3" />
+            </Anchor>
+          </Anchors>
+        </DynamicImage>		
+		
+
+		  
+		  				<Label name="$parentName" font="font_clear_large_bold" textalign="right" handleinput="false" autoresize="false" layer="overlay">
+						  <Size>
+							<AbsPoint x="80" y="30" />
+						  </Size>
+						<Color r="255" g="218" b="73" />  	        
+						<Anchors>
+							<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+							  <AbsPoint x="-4" y="2" />
+							</Anchor>
+						  </Anchors>
+						</Label>	
+						<Label name="$parentNameBG" font="font_clear_large_bold" textalign="right" handleinput="false" autoresize="false" layer="secondary">
+						  <Size>
+							<AbsPoint x="80" y="30" />
+						  </Size>
+						<Color r="0" g="0" b="0" />  	        
+						<Anchors>
+							<Anchor point="topright" relativePoint="topright" relativeTo="$parentName">
+							  <AbsPoint x="1" y="1" />
+							</Anchor>
+						  </Anchors>
+						</Label>	
+
+				</Windows>
+				
+	</Window>
+		
+	</Windows>
+
+</Interface>

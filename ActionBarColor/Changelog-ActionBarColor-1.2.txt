@@ -1,0 +1,11 @@
+2008-10-27  aiiane  <aiiane@aiiane.net>
+
+	* ActionBarColor.mod:
+	Added dependency for EA_MoraleWindow (to guarantee it will be loaded
+	for morale button hooking).
+	[b617262723af] [1.2]
+
+5.3.6  stable  Updated ActionBarColor hooks: --- Emissary added
+               - Removed unused iconType check
+               - Added nil-guards to prevent errors
+               - Safer Initialize (no double-hooks)

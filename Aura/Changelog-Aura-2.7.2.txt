@@ -1,0 +1,110 @@
+------------------------------------------------------------------------
+r109 | wikki | 2010-12-19 21:30:11 +0000 (Sun, 19 Dec 2010) | 1 line
+Changed paths:
+   A /tags/2.7.2 (from /trunk:108)
+
+Tagging as 2.7.2
+------------------------------------------------------------------------
+r108 | wikki | 2010-12-19 21:29:26 +0000 (Sun, 19 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/AuraEngine.lua
+
+Fixed an issue created where code was inadvertently removed that was used to identify effects.
+------------------------------------------------------------------------
+r107 | wikki | 2010-12-19 17:09:21 +0000 (Sun, 19 Dec 2010) | 2 lines
+Changed paths:
+   M /trunk/Aura.mod
+   M /trunk/Source/Aura.lua
+   M /trunk/Source/AuraAddon.lua
+   M /trunk/Source/AuraEngine.lua
+
+Minor code clean up when dealing with versions.
+Removed the shutdown clean up code in hopes that its causing the saved var corruption.
+------------------------------------------------------------------------
+r105 | wikki | 2010-12-18 04:35:36 +0000 (Sat, 18 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Aura.mod
+   M /trunk/Source/AuraAddon.lua
+   M /trunk/Source/AuraEngine.lua
+
+Fixed the issue where auras were displayed incorrectly
+------------------------------------------------------------------------
+r103 | wikki | 2010-12-16 05:34:36 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/AuraConstants.lua
+
+Added a few more fade options
+------------------------------------------------------------------------
+r102 | wikki | 2010-12-16 03:25:56 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+   M /trunk/Source/AuraEngine.lua
+
+Adding the ability to enter in an effect ID as well as a name for the effect trigger.  These can be used together.
+------------------------------------------------------------------------
+r101 | wikki | 2010-12-16 03:11:56 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+   M /trunk/Source/AuraConstants.lua
+   M /trunk/Source/Templates.xml
+
+Little more clean up
+------------------------------------------------------------------------
+r100 | wikki | 2010-12-16 02:41:56 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+
+When hiding an activation animation, fade it out
+------------------------------------------------------------------------
+r99 | wikki | 2010-12-16 02:21:17 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+
+Fixed small screen flash activation/deactivation issue
+------------------------------------------------------------------------
+r98 | wikki | 2010-12-16 01:28:58 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/AuraConstants.lua
+
+Multi monitor goodness :/
+------------------------------------------------------------------------
+r97 | wikki | 2010-12-16 01:28:11 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/AuraConstants.lua
+
+Save first PWZ!
+------------------------------------------------------------------------
+r96 | wikki | 2010-12-16 01:27:49 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+   M /trunk/Source/AuraConstants.lua
+   M /trunk/Source/Templates.xml
+
+Small tweaks of the alpha settings
+------------------------------------------------------------------------
+r95 | wikki | 2010-12-16 01:03:28 +0000 (Thu, 16 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/Source/Aura.lua
+
+Fixed a small issue with deactivation events
+------------------------------------------------------------------------
+r94 | wikki | 2010-12-16 00:44:11 +0000 (Thu, 16 Dec 2010) | 2 lines
+Changed paths:
+   M /trunk/Aura.mod
+   M /trunk/Source/Aura.lua
+   M /trunk/Source/AuraAddon.lua
+   M /trunk/Source/AuraConfig.lua
+   M /trunk/Source/AuraConfig.xml
+   M /trunk/Source/AuraConstants.lua
+   M /trunk/Source/AuraEngine.lua
+   M /trunk/Source/Templates.xml
+
+Fixed a long standing issue effect triggers with combat/noncombat/etc options checked.
+Added new screen flash activation/deactivation animation
+------------------------------------------------------------------------
+r93 | wikki | 2010-11-30 07:03:48 +0000 (Tue, 30 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/Source/AuraConfig.lua
+
+Small image change
+------------------------------------------------------------------------

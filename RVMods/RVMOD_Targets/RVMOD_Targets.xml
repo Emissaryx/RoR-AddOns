@@ -1,0 +1,186 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Assets>
+		<Texture name="TextureTypeMouseOver" file="Textures/MouseOver.tga" />
+		<Texture name="TextureTypeFriendly" file="Textures/Friendly.tga" />
+		<Texture name="TextureTypeHostile" file="Textures/Hostile.tga" />
+		<Texture name="TextureTypeFormation" file="Textures/Formation.tga" />
+		<Texture name="TextureTypePet" file="Textures/Pet.tga" />
+	</Assets>
+
+	<Windows>
+
+		<FullResizeImage name="RVMOD_TargetsTC" inherits="DefaultWindowBackground" handleinput="true">
+			<Size>
+				<AbsPoint x="138" y="100" />
+			</Size>
+			<Windows>
+				<Label name="$parentTitle" inherits="EA_Label_DefaultText" textalign="center" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="220" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="top" relativeTo="$parent">
+							<AbsPoint x="0" y="10" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<Button name="$parentAddToList" inherits="EA_Button_DefaultResizeable" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom" relativeTo="$parent">
+							<AbsPoint x="0" y="-10" />
+						</Anchor>
+					</Anchors>
+				</Button>
+			</Windows>
+		</FullResizeImage>
+
+		<Window name="RVMOD_TargetsFrameRowTemplate" handleinput="true">
+			<Size>
+				<AbsPoint x="512" y="81" />
+			</Size>
+			<Windows>
+				<DynamicImage name="$parentBackground" layer="background" handleinput="false">
+					<Size>
+						<AbsPoint x="512" y="81" />
+					</Size>
+					<TexDims x="512" y="81" />
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" />
+					</Anchors>
+				</DynamicImage>
+				<Label name="$parentLabelTemplates" inherits="EA_Label_DefaultText" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="88" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="20" y="10" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<ComboBox name="$parentTemplates" inherits="EA_ComboBox_DefaultResizableSmall" >
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentLabelTemplates">
+							<AbsPoint x="5" y="-5" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSelChanged" function="RVMOD_Targets.OnComboBoxTemplateChange" />
+                    </EventHandlers>
+				</ComboBox>
+				<Label name="$parentLabelTypes" inherits="EA_Label_DefaultText" textalign="right" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="88" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="20" y="-5" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<ComboBox name="$parentTypes" inherits="EA_ComboBox_DefaultResizable" >
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentLabelTypes">
+							<AbsPoint x="5" y="-5" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnSelChanged" function="RVMOD_Targets.OnComboBoxConditionClick" />
+                    </EventHandlers>
+				</ComboBox>
+				<Button name="$parentEdit" inherits="EA_Button_DefaultResizeable" >
+					<Anchors>
+						<Anchor point="left" relativePoint="right" relativeTo="$parentDelete">
+							<AbsPoint x="0" y="-10" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="RVMOD_Targets.OnToggleRowSettings" />
+                    </EventHandlers>
+				</Button>
+				<Button name="$parentDelete" inherits="EA_Button_DefaultResizeable" >
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="-10" y="-10" />
+						</Anchor>
+					</Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="RVMOD_Targets.OnDeleteRow" />
+                    </EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+		<Window name="RVMOD_TargetsSettingsWindow">
+			<Windows>
+				<FullResizeImage name="$parentTCMouseOver" inherits="RVMOD_TargetsTC" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+					</Anchors>
+				</FullResizeImage>
+				<FullResizeImage name="$parentTCSelfFriendly" inherits="RVMOD_TargetsTC" handleinput="true">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTCMouseOver" />
+					</Anchors>
+				</FullResizeImage>
+				<FullResizeImage name="$parentTCSelfHostile" inherits="RVMOD_TargetsTC" handleinput="true">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTCSelfFriendly" />
+					</Anchors>
+				</FullResizeImage>
+				<FullResizeImage name="$parentTCFormation" inherits="RVMOD_TargetsTC" handleinput="true">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTCSelfHostile" />
+					</Anchors>
+				</FullResizeImage>
+				<FullResizeImage name="$parentTCPet" inherits="RVMOD_TargetsTC" handleinput="true">
+					<Anchors>
+						<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTCFormation" />
+					</Anchors>
+				</FullResizeImage>
+
+				<ScrollWindow name="$parentFrames" childscrollwindow="RVMOD_TargetsSettingsWindowFramesScrollChild" scrollbar="RVMOD_TargetsSettingsWindowFramesScrollbar" lineheight="18">
+					<Size>
+						<AbsPoint y="470" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="topright" relativeTo="$parentTCPet">
+							<AbsPoint x="-5" y="0" />
+						</Anchor>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+						<VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain" layer="popup">
+							<Size>
+								<AbsPoint x="20" y="400"/>
+							</Size>
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright">
+									<AbsPoint x="2" y="0"/>
+								</Anchor>
+							</Anchors>
+						</VerticalScrollbar>
+						<Window name="$parentScrollChild">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" >
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+								<Anchor point="topright" relativePoint="topright" >
+									<AbsPoint x="-17" y="0" />
+								</Anchor>
+							</Anchors>
+							<Windows>
+
+							</Windows>
+						</Window>
+					</Windows>
+				</ScrollWindow>
+			</Windows>
+		</Window>
+	</Windows>
+
+</Interface>

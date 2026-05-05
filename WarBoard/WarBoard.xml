@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Scripts>
+		<Script file="Source/WarBoard.lua" />
+	</Scripts>
+
+	<Windows>
+
+		<FullResizeImage name="ModBackgroundTemplate" inherits="EA_FullResizeImage_TintableSolidBackground">
+			<Size>
+				<AbsPoint x="" y="" />
+			</Size>
+			<Anchors>
+				<Anchor point="topleft" relativeTo="" relativePoint="topleft" />
+				<Anchor point="bottomright" relativeTo="" relativePoint="bottomright" />
+			</Anchors>
+		</FullResizeImage>
+
+		<Window name="LayoutTemplate" inherits="EA_Window_Default" skipinput="false" movable="false" layer="popup" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<EventHandlers>
+				<EventHandler event="OnRButtonUp" function="WarBoard.OpenLayoutMenu" />
+			</EventHandlers>
+			<Windows>
+
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+					<Size>
+						<AbsPoint x="0" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativeTo="" relativePoint="topleft" />
+						<Anchor point="topright" relativeTo="" relativePoint="topright" />
+					</Anchors>
+				</FullResizeImage>
+
+				<Button name="$parentLeft" inherits="EA_Button_DefaultBigLeftArrow" textureScale="0.5" >
+					<Size>
+						<AbsPoint x="15" y="28" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.MoveModLeft" />
+					</EventHandlers>
+				</Button>
+
+				<Button name="$parentRight" inherits="EA_Button_DefaultBigRightArrow" textureScale="0.5" >
+					<Size>
+						<AbsPoint x="15" y="28" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="right" />
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.MoveModRight" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+		<Window name="WarBoard" inherits="EA_Window_Default" movable="false" layer="background" savesettings="false" handleinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="0" y="32" />
+			</Size>
+			<Anchors>
+				<Anchor point="topleft" relativePoint="topleft"  relativeTo="Root" >
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+				<Anchor point="topright" relativePoint="topright"  relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+			</Anchors>
+
+			<Windows>
+
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground" handleinput="false">
+					<Anchors>
+						<Anchor point="topleft" relativeTo="" relativePoint="topleft" />
+						<Anchor point="bottomright" relativeTo="" relativePoint="bottomright" />
+					</Anchors>
+				</FullResizeImage>
+			</Windows>
+		</Window>
+
+		<Window name="WarBoardOptionsButtonWindow" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="26" y="26" />
+			</Size>
+			<Anchors>
+				<Anchor point="topright" relativePoint="topright" relativeTo="WarBoard" />
+			</Anchors>
+			<Windows>
+				<Button name="WarBoardOptionsButton" inherits="EA_Button_DefaultSmallSquare" handleinput="true" layer="popup" >
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" >
+							<AbsPoint x="" y="" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnOptionsButton" />
+						<EventHandler event="OnMouseOver" function="WarBoard.OnMouseOver" />
+						<EventHandler event="OnMouseOverEnd" function="WarBoard.OnMouseOverEnd" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+		<Window name="WarBoardLayoutModeButtonWindow" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="26" y="26" />
+			</Size>
+			<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="WarBoard" />
+			</Anchors>
+			<Windows>
+				<Button name="WarBoardLayoutModeButton" inherits="EA_Button_DefaultSmallSquare" handleinput="true" layer="popup" >
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" >
+							<AbsPoint x="" y="" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnLayoutModeButton" />
+						<EventHandler event="OnMouseOver" function="WarBoard.OnMouseOver" />
+						<EventHandler event="OnMouseOverEnd" function="WarBoard.OnMouseOverEnd" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+		<Window name="WarBoardBottomOptionsButtonWindow" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="26" y="26" />
+			</Size>
+			<Anchors>
+				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="BottomBoard" />
+			</Anchors>
+			<Windows>
+				<Button name="BottomBoardOptionsButton" inherits="EA_Button_DefaultSmallSquare" handleinput="true" layer="popup" >
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="bottomright" >
+							<AbsPoint x="" y="" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnOptionsButton" />
+						<EventHandler event="OnMouseOver" function="WarBoard.OnMouseOverBottom" />
+						<EventHandler event="OnMouseOverEnd" function="WarBoard.OnMouseOverEndBottom" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+		<Window name="WarBoardBottomLayoutModeButtonWindow" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+			<Size>
+				<AbsPoint x="26" y="26" />
+			</Size>
+			<Anchors>
+				<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="BottomBoard" />
+			</Anchors>
+			<Windows>
+				<Button name="BottomBoardLayoutModeButton" inherits="EA_Button_DefaultSmallSquare" handleinput="true" layer="popup" >
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" >
+							<AbsPoint x="" y="" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="WarBoard.OnLayoutModeButton" />
+						<EventHandler event="OnMouseOver" function="WarBoard.OnMouseOverBottom" />
+						<EventHandler event="OnMouseOverEnd" function="WarBoard.OnMouseOverEndBottom" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

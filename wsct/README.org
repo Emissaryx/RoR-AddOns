@@ -1,0 +1,59 @@
+#+TITLE: Warhammer Scrolling Combat Text
+
+Website - https://git.thaodan.de/Warhammer/wsct
+
+* What is it?
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:32]
+  :END:
+  The official port of SCT from WoW to WAR
+
+* What can it do?
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:32]
+  :END:
+  - Damage for incoming and outgoing with filtering for small damage.
+  - Heals for incoming and outgoing with filtering for small heals.
+  - All "Miss" events (dodge, block, immune, etc...)
+  - Custom Colors for all text events
+  - Low Health with values, and optional sounds
+  - Enter and Leave Combat Messages
+  - Renown, Experience, Influence Gain
+  - Morale Ability Alerts
+  - Buff/Debuff Gains and Fades
+  - Action Point Gains
+  - Career Resource Changes
+  - Skill names
+  - You skills icons
+  - Eight Animation Types (Vertical, Rainbow, Horizontal, Angled Down, Angled Up, Sprinkler, Curved HUD, Angled HUD)
+  - Five Fonts
+  - Three seperate Animation frames, each with their own settings. Assign any Event to each.
+  - Ability to flag any event as critical or as a text messages
+  - Options for text size, opacity, animation speed, movement speed, and on screen placement
+  - 5 built in profiles for easy experimentation.
+
+* How do I use it?
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:32]
+  :END:
+  Read [[./INSTALL.org][INSTALL.org]]
+* Slash Commands
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:33]
+  :END:
+
+  - ~/wsct menu~        :: Shows the option menu
+  - ~/wsct reset~       :: Resets settings back to defaults
+
+
+* Support
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:35]
+  :END:
+  Please post all errors and suggestions on FIXME
+
+* Version History
+  :PROPERTIES:
+  :CREATED:  [2024-01-06 Sat 19:35]
+  :END:
+  Refer to [[./CHANGELOG.org][CHANGELOG.org]]

@@ -1,0 +1,338 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Scripts><Script file="AggroMeter.lua" /></Scripts>
+   <Assets><Texture name="AggroMeterIcon" file="AggroMeterIcon.tga" /></Assets>
+ 
+	<Windows>
+  
+    <Window name="AggroSliders" layer="default" movable="false" popable="true" sticky="true" savesettings="false" handleinput="true">
+    <Size>
+<AbsPoint x="170" y="70" />
+</Size>
+<Windows>
+
+  <Label name="$parentValue" font="font_default_text" autoresize="true">
+    <Size>
+      <AbsPoint x="60" y="50" />
+    </Size>
+    <Anchors>
+      <Anchor point="right" relativePoint="right" relativeTo="$parentPlayers">
+        <AbsPoint x="70" y="0" />
+      </Anchor>
+    </Anchors>
+  </Label>
+  <Label name="$parentText" font="font_default_text" autoresize="true">
+      <Size>
+          <AbsPoint x="100" y="50" />
+      </Size>
+      <Anchors>
+          <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+              <AbsPoint x="0" y="5" />
+          </Anchor>
+      </Anchors>
+  </Label>
+  <SliderBar name="$parentPlayers" inherits="EA_Default_SliderBar" numticks="6" locktoticks="true" scale="0.4" >
+      <Size>
+          <AbsPoint x="140" y="33" />
+      </Size>
+      <Anchors>
+          <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentText">
+              <AbsPoint x="0" y="10" />
+          </Anchor>
+      </Anchors>
+      <EventHandlers>
+          <EventHandler event="OnSlide" function="AggroMeter.OnSetPlayers" />
+      </EventHandlers>
+  </SliderBar>
+</Windows>
+</Window>
+ 
+	          <HorizontalResizeImage name="Aggro_Bar" texture="EA_Interaction" >
+            <Size>
+                <AbsPoint x="50" y="20" />
+            </Size>
+            <Sizes left="0" middle="50" right="0" />
+            <TexCoords>
+                <Left x="380" y="990" />
+                <Middle x="380" y="990" />
+                <Right x="430" y="990" />
+            </TexCoords>
+        </HorizontalResizeImage>
+
+
+
+ 
+ 				<Window name="AggroWindow_Template" layer="default" movable="false" popable="false" sticky="true" handleinput="true">
+					<Size><AbsPoint x="310" y="30" /></Size>
+			
+						<Windows>
+							<Label name="$parentLabel" inherits="Aggro_Label_Template" font="font_default_text_large">	
+							<Anchors><Anchor point="left" relativePoint="right" relativeTo="$parentButton"><AbsPoint x="0" y="3" /></Anchor></Anchors>
+							</Label>
+						
+							<DynamicImage name="$parentTactic" inherits="Aggro_Tactic_Template">
+							<Anchors><Anchor point="left" relativePoint="left" relativeTo="$parent"><AbsPoint x="5" y="0" /></Anchor></Anchors>
+							</DynamicImage>			
+								
+							<Window name="$parentTimer" inherits="Aggro_Timer_Template">
+							<Anchors><Anchor point="right" relativePoint="right" relativeTo="$parent" ><AbsPoint x="-5" y="0" /></Anchor></Anchors>
+							</Window>
+							
+						<Button name="$parentButton" inherits="Aggro_Button_Template" >
+						<Anchors><Anchor point="left" relativePoint="right" relativeTo="$parentTimer"><AbsPoint x="0" y="-3" /></Anchor></Anchors>  
+						</Button>	
+							
+							<FullResizeImage name="$parentBorderCheck" inherits="EA_FullResizeImage_TintableSolidBackground" layer="background" alpha="0.3" handleinput="false">        
+							<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="3" y="0"/></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"><AbsPoint x="-3" y="0"/></Anchor></Anchors>
+							<TintColor r="0" g="0" b="0" a="30"/>
+							</FullResizeImage>								
+
+							<FullResizeImage name="$parentSeperator1" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup" alpha="0.3" handleinput="false">        
+							<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="10" y="30"/></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"><AbsPoint x="-10" y="3"/></Anchor></Anchors>
+							<TintColor r="200" g="185" b="110" a="30"/>
+							</FullResizeImage>		
+
+					<FullResizeImage name="$parentBorder" inherits="AggroMeter_Border">        
+					</FullResizeImage>	
+							
+							
+						</Windows>
+				</Window>		 
+  
+  
+	<Window name="AggroMeter_Toggler" layer="secondary" movable="true" popable="false"  handleinput="true"  savesettings="true">
+		<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/><EventHandler event="OnRButtonUp" function="AggroMeter.OnTabRBU"/></EventHandlers>
+		<Size><AbsPoint x="32" y="32"/></Size>
+		<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="EA_Window_OverheadMap"><AbsPoint x="130" y="255" /></Anchor></Anchors>
+		
+			<Windows>
+				<DynamicImage name="$parentIcon" texture="AggroMeterIcon" handleinput="false" textureScale="0.5" layer="overlay">
+				<Size><AbsPoint x="32" y="32" /></Size>
+				</DynamicImage>
+			</Windows>
+			
+	</Window>
+
+
+
+		<FullResizeImage name="AggroMeter_Border" handleinput="false" layer="default" textureAlpha="0.4" alpha="0.4" texture="EA_HUD_01">
+
+			    <Sizes>
+                <TopLeft x="10" y="10" />
+                <BottomRight x="10" y="9" />
+                <Middle x="50" y="23" />
+            </Sizes>
+            <TexCoords>
+                <TopLeft x="36" y="571" />
+                <TopCenter x="46" y="571" />
+                <TopRight x="137" y="571" />
+                <MiddleLeft x="36" y="581" />
+                <MiddleCenter x="46" y="581" />
+                <MiddleRight x="137" y="581" />
+                <BottomLeft x="36" y="609" />
+                <BottomCenter x="46" y="609" />
+                <BottomRight x="137" y="609" />
+            </TexCoords>
+			
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft">
+							<AbsPoint x="0" y="-5" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright">
+							<AbsPoint x="0" y="5" />
+						</Anchor>
+					</Anchors>
+			
+        </FullResizeImage>
+
+
+	    <Button name="AggroMeterGrayTemplateListboxRow" inherits="EA_Button_ResizeIconFrame_NoNormalImage" drawchildrenfirst="true">
+      <Size><AbsPoint x="340" y="26" /></Size>
+	<Windows>
+        <Label name="$parentName" inherits="TOKText" textalign="left" ellipsisOnCrop="true" handleinput="true" autoresize="false" layer="popup">
+          <Size><AbsPoint x="210" y="20" /></Size>
+		<Color r="255" g="218" b="73" />  	        
+		<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo=""><AbsPoint x="27" y="0" /></Anchor></Anchors>
+        </Label>
+		
+		
+        <Label name="$parentRank" inherits="TOKText" textalign="right" handleinput="true" autoresize="true" layer="popup">
+          <Size><AbsPoint x="120" y="20" /></Size>
+		<Color r="255" g="218" b="73" />  	        
+		<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo=""><AbsPoint x="210" y="0" /></Anchor></Anchors>
+        </Label>	
+		</Windows>
+		</Button>
+
+						<Button name="Aggro_Button_Template" handleinput="true" inherits="EA_Button_Default" backgroundtexture="EA_Training_Specialization" highlighttexture="EA_Training_Specialization"  textureScale="0.62" layer="default" drawchildrenfirst="false">
+							<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers>
+						<Size><AbsPoint x="36" y="36" /></Size>					   
+								<TexSlices>
+								<Normal          id="morale-yellow"   />
+								<NormalHighlit   id="morale-white"   />
+								<Pressed         id="morale-white"  />
+								<PressedHighlit  id="morale-white"  />
+								<Disabled        id="morale-white"   />
+								<DisabledPressed id="morale-white"  />
+							</TexSlices>
+							<Windows>
+								<CircleImage name="$parentIcon" textureScale="0.8" numsegments="32"  texture="" layer="overlay" sticky="true" handleinput="false" popable="false">
+								<Size><AbsPoint x="21" y="21" /></Size>
+								<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="7" y="10" /></Anchor></Anchors>          
+								<TexCoords x="0" y="0" />
+								</CircleImage>									
+							</Windows>
+						</Button>
+	
+					<Label name="Aggro_Label_Template" font="font_default_text" ellipsisOnCrop="true" autoresize="false" textalign="right" wordwrap="false" layer="overlay" alpha="1" popable="false" handleinput="true">	
+					<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.SelectChar"/><EventHandler event="OnLButtonUp" function="AggroMeter.SelectChar" /><EventHandler event="OnRButtonUp" function="AggroMeter.TaskTip" /></EventHandlers>
+					<Size><AbsPoint x="135" y="22" /></Size>
+					<Color r="255" g="255" b="225" />
+					</Label>
+ 
+					<DynamicImage name="Aggro_Tactic_Template" texture="" texturescale="0.35" handleinput="true" >
+					<EventHandlers><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers> 
+					<Size><AbsPoint x="22" y="22" /></Size>
+					</DynamicImage>			
+	  
+					<Window name="Aggro_Timer_Template" inherits="EA_Window_DefaultFrameStatusBar" layer="overlay" handleinput="true" >
+					<EventHandlers> <EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers> 
+					<Size><AbsPoint x="100" y="23" /></Size>        
+					</Window>
+	  
+	  
+
+		<Window name="AggroMeterGrayWindow" handleinput="true" sticky="false" popable="true" layer="default" savesettings="true" movable="true" >		
+		<Size><AbsPoint x="375" y="410" /></Size>
+		<Anchors>
+			<Anchor point="center" relativePoint="center" relativeTo="Root"> <AbsPoint x="0" y="0" /></Anchor>
+		</Anchors>
+			<Windows>
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers><EventHandler event="OnLButtonUp" function="AggroMeter.Close" /></EventHandlers>
+				</Button> 
+			
+				<Label name="$parentLabel" font="font_clear_medium_bold" ellipsisOnCrop="true" autoresize="true" textalign="left" layer="overlay" popable="false" handleinput="false">	
+				<Size><AbsPoint x="270" y="40" /></Size>
+				<Color r="155" g="155" b="255" /> 
+				<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="10" y="7" /></Anchor></Anchors>
+				</Label>
+			
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" sticky="false" alpha="0.85">	
+				<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="0" y="0" /></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+				</Window>
+				
+		<Button name="$parentListTab" inherits="EA_Button_Tab" id="1" textalign="center" layer="popup">
+		<EventHandlers><EventHandler event="OnLButtonUp" function="AggroMeter.OnTabLBU" /><EventHandler event="OnRButtonUp" function="AggroMeter.OnClearUp" /><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers>
+		<Size><AbsPoint x="100" y="35" /></Size>
+		<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="15" y="30"/></Anchor></Anchors>
+		</Button>
+				
+		<Button name="$parentWhiteTab" inherits="EA_Button_Tab" id="2" textalign="center" layer="popup">
+		<EventHandlers><EventHandler event="OnLButtonUp" function="AggroMeter.OnTabLBU" /><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers>
+		<Size><AbsPoint x="100" y="35" /></Size>
+		<Anchors><Anchor point="topright" relativePoint="topleft" relativeTo="$parentListTab"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+		</Button>				
+
+		<Button name="$parentBlackTab" inherits="EA_Button_Tab" id="3" textalign="center" layer="popup">
+		<EventHandlers><EventHandler event="OnLButtonUp" function="AggroMeter.OnTabLBU" /><EventHandler event="OnMouseOver" function="AggroMeter.OnMouseOverStart"/></EventHandlers>
+		<Size><AbsPoint x="100" y="35" /></Size>
+		<Anchors><Anchor point="topright" relativePoint="topleft" relativeTo="$parentWhiteTab"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+		</Button>						
+
+				<Window name="$parentTabSeparatorLeft" inherits="EA_Window_TabSeparatorLeftSide" layer="popup">
+				<Size><AbsPoint x="13" y="20" /></Size>
+            	<Anchors><Anchor point="bottomleft" relativePoint="topright" relativeTo="$parentListTab"><AbsPoint x="0" y="-6" /></Anchor></Anchors>
+				</Window>				
+	
+				<Window name="$parentTabSeparatorRight" inherits="EA_Window_TabSeparatorRightSide" handleinput="true" layer="popup">
+					<Size><AbsPoint x="13" y="20" /></Size>
+            		<Anchors><Anchor point="topright" relativePoint="topright" relativeTo="$parent"><AbsPoint x="0" y="59" /></Anchor></Anchors>
+				</Window>
+
+                <HorizontalResizeImage name="$parentSeparatorMiddle" inherits="EA_HorizontalResizeImage_TabSeparatorMiddle" layer="background">
+					<Anchors><Anchor point="bottomright" relativePoint="bottomleft" relativeTo="$parentBlackTab"><AbsPoint x="0" y="0" /></Anchor><Anchor point="topleft" relativePoint="topright" relativeTo="$parentTabSeparatorRight"><AbsPoint x="0" y="1" /></Anchor></Anchors>
+                </HorizontalResizeImage>
+					
+		<ListBox name="AggroMeterGrayListBox" color="155, 255, 155, 0" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AggroMeterGrayTemplateListboxRow" visiblerows="13" rowcount="120" rowspacing="0">
+		<Size><AbsPoint x="375" y="390" /></Size>  
+		<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parentBackground"><AbsPoint x="5" y="70"/></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentBackground"><AbsPoint x="-5" y="-3"/></Anchor></Anchors>
+			<EventHandlers>
+			<EventHandler event="OnRButtonUp" function="AggroMeter.PickedListMenu"/>
+			</EventHandlers>  
+			<ListData table="AggroMeter.Listdata" populationfunction="">
+            <ListColumns>
+				<ListColumn windowname="Name"   variable="Name" format="wstring"/>
+				<ListColumn windowname="Rank"   variable="RankN" format="wstring"/>
+			</ListColumns>
+          </ListData>
+        </ListBox>
+	</Windows>
+</Window>	  
+	  
+	  
+	  
+		<Window name="AggroMeterWindow" layer="default" movable="false" popable="false" sticky="true" handleinput="true">
+        <Size><AbsPoint x="310" y="165" /></Size>
+        <Anchors><Anchor point="topright" relativePoint="topright" relativeTo="AggroMeter_Toggler"><AbsPoint x="-20" y="20" /></Anchor></Anchors>
+		
+		<Windows>
+			<FullResizeImage name="$parentBorderCheck" inherits="EA_FullResizeImage_BlackTransparent" layer="background" alpha="0.5" handleinput="false">        
+            <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="0" y="0"/></Anchor><Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+			</FullResizeImage>	
+								
+			<Label name="$parentNameLabel" font="font_default_text_large" textalign="left" autoresizewidth="true"  autoresizeheight="true" autoresize="true" ellipsisOnCrop="true" warnOnTextCropped="false"  layer="default" alpha="1" popable="false" handleinput="false">	
+			<Size><AbsPoint x="215" y="45" /></Size>
+			<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="10" y="5" /></Anchor></Anchors>
+			<Color r="255" g="55" b="55" />			
+			</Label>
+
+			<Label name="$parentUnitLabel" font="font_default_text_small" autoresize="true" textalign="left" wordwrap="false" ellipsisOnCrop="true" warnOnTextCropped="false"  layer="default" alpha="1" popable="false" handleinput="false">	
+			<Size><AbsPoint x="35" y="25" /></Size>
+			<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentNameLabel"><AbsPoint x="5" y="-2" /></Anchor></Anchors>
+			<Color r="255" g="55" b="55" />			
+			</Label>
+	
+			<Label name="$parentCombatLabel" font="font_default_text_large" autoresize="true" textalign="right" wordwrap="true" layer="default" alpha="1" popable="false" handleinput="false">	
+			<Size><AbsPoint x="75" y="45" /></Size>
+			<Anchors><Anchor point="topright" relativePoint="topright" relativeTo="$parent"><AbsPoint x="-10" y="5" /></Anchor></Anchors>
+			<Color r="245" g="245" b="245" />			
+			</Label>
+			
+			 <StatusBar name="$parentHealth" handleinput="false" foreground="Aggro_Bar" background="" layer="background" alpha="0.7" popable="false">
+             <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="2" y="4" /></Anchor><Anchor point="topright" relativePoint="topright" relativeTo="$parent"><AbsPoint x="-2" y="4" /> </Anchor></Anchors>
+             </StatusBar>
+			
+			<!-- Aggro Holder #1 -->
+				<Window name="$parent_AggroWindow1" inherits="AggroWindow_Template">	
+					<Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="0" y="30" /></Anchor></Anchors>
+				</Window>		
+
+			<!-- Aggro Holder #2 -->			
+				<Window name="$parent_AggroWindow2" inherits="AggroWindow_Template">
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parent_AggroWindow1"><AbsPoint x="0" y="7" /></Anchor></Anchors>
+				</Window>		
+					
+			<!-- Aggro Holder #3 -->		
+				<Window name="$parent_AggroWindow3" inherits="AggroWindow_Template">
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parent_AggroWindow2"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+				</Window>		
+				
+			<!-- Aggro Holder #4 -->		
+				<Window name="$parent_AggroWindow4" inherits="AggroWindow_Template">
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parent_AggroWindow3"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+				</Window>		
+						
+			<!-- Aggro Holder #5 -->		
+				<Window name="$parent_AggroWindow5" inherits="AggroWindow_Template">				
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parent_AggroWindow4"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+				</Window>		
+			
+			<!-- Aggro Holder #6 -->		
+				<Window name="$parent_AggroWindow6" inherits="AggroWindow_Template">				
+					<Anchors><Anchor point="bottomright" relativePoint="topright" relativeTo="$parent_AggroWindow5"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+				</Window>		
+						
+		</Windows>
+	</Window>		
+   </Windows>
+</Interface>

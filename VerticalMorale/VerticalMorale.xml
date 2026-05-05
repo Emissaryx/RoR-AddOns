@@ -1,0 +1,33 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+		<VerticalResizeImage name="VerticalMoraleBarSlice" texture="EA_VictoryPoints01_32b" handleinput="false" savesettings="false">
+			<Sizes left="0" middle="21" right="0" />
+			<TexSlices>
+				<Middle id="Order-VP-Bar-vert" />
+			</TexSlices>
+		</VerticalResizeImage>
+		<DynamicImage name="VerticalMoraleBarBackground" texture="EA_HUD_01" slice="Morale-Bar-BG" handleinput="false" layer="background" sticky="false">
+			<Size>
+				<AbsPoint x="295" y="26" />
+			</Size>
+		</DynamicImage>
+		<DynamicImage name="VerticalMoraleBarOverlay" texture="EA_HUD_01" slice="Morale-Over-Frame" handleinput="false" sticky="false">
+			<Size>
+				<AbsPoint x="295" y="26" />
+			</Size>
+		</DynamicImage>
+		<Window name="VerticalMoraleBar" handleinput="false" savesettings="false" sticky="false" popable="false">
+			<Size>
+				<AbsPoint x="20" y="259" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnShutdown" function="VerticalMorale.Shutdown" />
+			</EventHandlers>
+			<Windows>
+				<VerticalResizeImage name="$parent1" inherits="VerticalMoraleBarSlice" textureScale="0.3333" />
+				<VerticalResizeImage name="$parent2" inherits="VerticalMoraleBarSlice" textureScale="0.6666" />
+				<VerticalResizeImage name="$parent3" inherits="VerticalMoraleBarSlice" />
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

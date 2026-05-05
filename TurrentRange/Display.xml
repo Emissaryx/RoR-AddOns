@@ -1,0 +1,192 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Assets>
+		<Texture name="TurretRange_Graphic" file="Textures/pentagon.tga" />
+			<Texture name="TurretRange_BG" file="Textures/pentagonBG.tga" />	
+		<Texture name="TurretRange_Circle" file="Textures/circle.tga" />
+	</Assets>
+	<Windows>
+	
+		<Window name="TurretRangeDisplay" movable="false" handleinput="false" layer="background" savesettings="false">
+		
+			<Size>
+				<AbsPoint x="125" y="125" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="150" y="-50" />
+				</Anchor>
+			</Anchors>
+							
+			<Windows>
+
+					<DynamicImage name="$parentBG" texture="TurretRange_BG" alpha="0.5" handleinput="false" layer="background">
+					<Size>
+						<AbsPoint x="125" y="125"/>
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="0" y="-5"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+			
+				
+				<DynamicImage name="$parentGraphic" texture="TurretRange_Graphic" handleinput="false" layer="background">
+					<Size>
+						<AbsPoint x="125" y="125"/>
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="0" y="-5"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+			
+				<DynamicImage name="$parentCircle" texture="TurretRange_Circle" handleinput="false" layer="default">
+					<Size>
+						<AbsPoint x="25" y="25"/>
+					</Size>
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+				
+				
+					<DynamicImage name="$parentCircle2" texture="TurretRange_Circle" handleinput="false" layer="background">
+					<Size>
+						<AbsPoint x="25" y="25"/>
+					</Size>
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</DynamicImage>
+				
+				<!--
+				<Label name="$parentName" font="font_clear_small_bold" textalign="left" autoresize="true" layer="secondary">
+					<Size>
+						<AbsPoint x="150" y="54" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCircle">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				-->
+				<Label name="$parentDistance" font="font_clear_small_bold" textalign="center" autoresize="true" layer="secondary">
+					<Size>
+						<AbsPoint x="100" y="14" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="bottom" relativeTo="$parent">
+							<AbsPoint x="0" y="-25" />
+						</Anchor>
+					</Anchors>
+				</Label>
+						
+			</Windows>
+
+		</Window>
+		
+		<Window name="TurretRangeBox" movable="false" handleinput="false" savesettings="true">
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="TurretRange.OnBoxLUp" />
+			</EventHandlers>
+			<Size>
+				<AbsPoint x="65" y="45" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+			</Anchors>
+			<Windows>
+					
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" handleinput="false">
+					<Anchors>
+           				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" />
+           				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent"/>
+       				</Anchors>
+				</Window>
+					
+				
+				<Label name="$parentDistance" font="font_clear_small_bold" textalign="center" autoresize="true">
+					<Size>
+						<AbsPoint x="100" y="14" />
+					</Size>
+					<Anchors>
+						<Anchor point="center" relativePoint="center" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				
+			
+				
+				
+				
+			</Windows>
+			
+		</Window>
+		
+			<Window name="TurretMap" layer="background" savesettings="false">
+			<Size>
+                <AbsPoint x="12" y="12" />
+            </Size>
+						<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root">
+					<AbsPoint x="150" y="-50" />
+				</Anchor>
+			</Anchors>
+			<Windows>
+					
+					
+					
+				<MapDisplay name="$parentDisplay" loadingAnim="MapLoadingAnim" pinTexture="map_markers01" iconScale="0.45"  shape="circle"  movable="false" sticky="true" popable="false"  layer="Overlay">
+					<Size>
+						<!--<AbsPoint x="344" y="344" />-->
+						<!--<AbsPoint x="520" y="520" />-->
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+					
+						<!--<EventHandler event="OnPointMouseOver" function="Tooltips.OnMouseOverMapPoint" />-->
+						<EventHandler event="OnPointMouseOver" function="Map.OnMouseOverPoint" />
+						<EventHandler event="OnMButtonUp" function="Map.OnMButtonUp" />
+						<!--<EventHandler event="OnUpdate" function="Map.Update" />-->
+						<!--<EventHandler event="OnMouseWheel" function="EA_Window_WorldMap.HandleMouseWheel" />-->
+						<EventHandler event="OnLButtonUp" function="Map.OnClickMap" />
+						<EventHandler event="OnRButtonUp" function="Map.OnRClickMap" />
+					</EventHandlers>
+				</MapDisplay>
+					
+
+					<CircleImage name="TurretPortrait" textureScale="0.12" numsegments="16" popable="false" layer="background">
+                    <Size>
+                        <AbsPoint x="12" y="12" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="center" relativePoint="center" relativeTo="$parent">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </CircleImage>		
+
+					
+			</Windows>
+		</Window>
+		
+	</Windows>
+</Interface>

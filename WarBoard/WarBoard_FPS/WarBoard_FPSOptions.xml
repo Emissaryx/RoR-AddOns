@@ -1,0 +1,361 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+<Windows>
+	<Window name="WarBoard_FPSOptions" layer="secondary" movable="true" savesettings="false">
+		<Size>
+			<AbsPoint x="450" y="600" />
+		</Size>
+		<Anchors>
+			<Anchor point="center" relativePoint="center">
+				<AbsPoint x="" y="0"/>
+			</Anchor>
+		</Anchors>
+		<EventHandlers>
+			<EventHandler event="OnShown" function="WarBoard_FPSOptions.OnShown" />
+		</EventHandlers>
+
+		<Windows>
+			<!--TitleBar-->
+			<Window name="$parentTitleBar" inherits="EA_TitleBar_Default"/>
+
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" >
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="WarBoard_FPS.OnOptionsButton" />
+				</EventHandlers>
+				</Button>
+
+			<Window name="$parentBackground" inherits="EA_Window_DefaultContextMenuFrame" layer="background">
+				<Size>
+					<AbsPoint x="450" y="600"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+						<AbsPoint x="" y="30"/>
+					</Anchor>
+				</Anchors>
+			</Window>
+
+			<!--Tan Borders-->
+			<FullResizeImage name="$parent_Tan1" inherits="EA_FullResizeImage_TanBorder">
+				<Size>
+					<AbsPoint x="400" y="100" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativeTo="" relativePoint="topleft">
+						<AbsPoint x="25" y="60" />
+					</Anchor>
+				</Anchors>
+			</FullResizeImage>
+			<Label name="$parent_lblMiscSettings" font="font_clear_small_bold" autoresize="true" textalign="left" layer="popup" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x="300" y="32" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativeTo="$parent_Tan1" relativePoint="bottomleft">
+						<AbsPoint x="5" y="-5" />
+					</Anchor>
+				</Anchors>
+				<Color r="100" g="20" b="200" a="255" />
+			</Label>
+
+			<FullResizeImage name="$parent_Tan2" inherits="EA_FullResizeImage_TanBorder">
+				<Size>
+					<AbsPoint x="400" y="200" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativeTo="$parent_Tan1" relativePoint="topleft">
+						<AbsPoint x="" y="25" />
+					</Anchor>
+				</Anchors>
+			</FullResizeImage>
+			<Label name="$parent_lblColor" font="font_clear_small_bold" autoresize="true" textalign="left" layer="popup" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x="300" y="32" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativeTo="$parent_Tan2" relativePoint="bottomleft">
+						<AbsPoint x="5" y="-5" />
+					</Anchor>
+				</Anchors>
+				<Color r="100" g="20" b="200" a="255" />
+			</Label>
+
+			<FullResizeImage name="$parent_Tan3" inherits="EA_FullResizeImage_TanBorder">
+				<Size>
+					<AbsPoint x="400" y="200" />
+				</Size>
+				<Anchors>
+					<Anchor point="bottomleft" relativeTo="$parent_Tan2" relativePoint="topleft">
+						<AbsPoint x="" y="25" />
+					</Anchor>
+				</Anchors>
+			</FullResizeImage>
+			<Label name="$parent_lblCounter" font="font_clear_small_bold" autoresize="true" textalign="left" layer="popup" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x="300" y="32" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativeTo="$parent_Tan3" relativePoint="bottomleft">
+						<AbsPoint x="5" y="-5" />
+					</Anchor>
+				</Anchors>
+				<Color r="100" g="20" b="200" a="255" />
+			</Label>
+
+			<!--Checkbox-->
+			<Label name="$parent_lblShowAvg" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_Tan1">
+						<AbsPoint x="20" y="20"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+
+			<Button name="$parent_chkShowAvg" inherits="EA_Button_DefaultCheckBox" layer="popup">
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblShowAvg">
+						<AbsPoint x="325" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="WarBoard_FPSOptions.OnToggleAvg" />
+				</EventHandlers>
+			</Button>
+
+			<!--Editbox-->
+			<Label name="$parent_lblRefreshRate" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_lblShowAvg">
+						<AbsPoint x="" y="45"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+			<EditBox name="$parent_edtRefreshRate" inherits="EA_EditBox_DefaultFrame" scrolling="horiz" history="10">
+				<Size>
+					<AbsPoint x="70" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblRefreshRate">
+						<AbsPoint x="300" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnKeyEnter" function="WarBoard_FPSOptions.OnEnterKeyPressed" />
+				</EventHandlers>
+			</EditBox>
+
+			<Label name="$parent_lblFPSCounterLow" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_Tan3">
+						<AbsPoint x="20" y="20"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+			<EditBox name="$parent_edtFPSCounterLow" inherits="EA_EditBox_DefaultFrame" scrolling="horiz" history="10">
+				<Size>
+					<AbsPoint x="70" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblFPSCounterLow">
+						<AbsPoint x="300" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnKeyEnter" function="WarBoard_FPSOptions.OnEnterKeyPressed" />
+				</EventHandlers>
+			</EditBox>
+
+			<Label name="$parent_lblAvgCounterLow" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_lblFPSCounterLow">
+						<AbsPoint x="" y="45"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+			<EditBox name="$parent_edtAvgCounterLow" inherits="EA_EditBox_DefaultFrame" scrolling="horiz" history="10">
+				<Size>
+					<AbsPoint x="70" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblAvgCounterLow">
+						<AbsPoint x="300" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnKeyEnter" function="WarBoard_FPSOptions.OnEnterKeyPressed" />
+				</EventHandlers>
+			</EditBox>
+
+			<Label name="$parent_lblFPSCounterMed" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_lblAvgCounterLow">
+						<AbsPoint x="" y="45"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+			<EditBox name="$parent_edtFPSCounterMed" inherits="EA_EditBox_DefaultFrame" scrolling="horiz" history="10">
+				<Size>
+					<AbsPoint x="70" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblFPSCounterMed">
+						<AbsPoint x="300" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+				    <EventHandler event="OnKeyEnter" function="WarBoard_FPSOptions.OnEnterKeyPressed" />
+				</EventHandlers>
+			</EditBox>
+
+			<Label name="$parent_lblAvgCounterMed" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="150" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_lblFPSCounterMed">
+						<AbsPoint x="" y="45"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+			<EditBox name="$parent_edtAvgCounterMed" inherits="EA_EditBox_DefaultFrame" scrolling="horiz" history="10">
+				<Size>
+					<AbsPoint x="70" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblAvgCounterMed">
+						<AbsPoint x="300" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnKeyEnter" function="WarBoard_FPSOptions.OnEnterKeyPressed" />
+				</EventHandlers>
+			</EditBox>
+
+			<!--ComboBox-->
+			<Label name="$parent_lblLName" inherits="DefaultWindowSmallText" textalign="left">
+				<Size>
+					<AbsPoint x="225" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_Tan2">
+						<AbsPoint x="20" y="20"/>
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="255" b="255" a="255"/>
+			</Label>
+
+			<ComboBox name="$parent_cmbLName" inherits="EA_ComboBox_DefaultResizableSmall" layer="popup">
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parent_lblLName">
+						<AbsPoint x="250" y="-10"/>
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnSelChanged" function="WarBoard_FPSOptions.OnCmbChange" />
+				</EventHandlers>
+			</ComboBox>
+
+			<!--Slider-->
+			<SliderBar name="$parent_SliderR" inherits="EA_Default_SliderBar" numticks="5" >
+				<Size>
+					<AbsPoint x="200" y="32" />
+				</Size>
+
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_lblLName">
+						<AbsPoint x="" y="45"/>
+					</Anchor>
+				</Anchors>
+
+				<EventHandlers>
+					<EventHandler event="OnSlide" function="WarBoard_FPSOptions.OnSlidingColor" />
+				</EventHandlers>
+			</SliderBar>
+
+			<Label name="$parent_lblRColor" font="font_clear_medium_bold" autoresize="true" textalign="left" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x= "200" y="32"/>
+				</Size>	
+				<Anchors>
+					<Anchor point ="right" relativePoint="right" relativeTo="$parent_SliderR">
+						<AbsPoint x="300" y="0" />
+					</Anchor>
+				</Anchors>
+				<Color r="255" g="0" b="0" a="255" />
+			</Label>
+
+			<SliderBar name="$parent_SliderG" inherits="EA_Default_SliderBar" numticks="5" >
+				<Size>
+					<AbsPoint x="200" y="32" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_SliderR" >
+						<AbsPoint x="" y="45" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnSlide" function="WarBoard_FPSOptions.OnSlidingColor" />
+				</EventHandlers>
+			</SliderBar>
+
+			<Label name="$parent_lblGColor" font="font_clear_medium_bold" autoresize="true" textalign="left" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x= "200" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point ="right" relativePoint="right" relativeTo="$parent_SliderG">
+						<AbsPoint x="300" y="0" />
+					</Anchor>
+				</Anchors>
+				<Color r="0" g="255" b="0" a="255" />
+			</Label>
+
+			<SliderBar name="$parent_SliderB" inherits="EA_Default_SliderBar" numticks="5" >
+				<Size>
+					<AbsPoint x="200" y="32" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent_SliderG" >
+						<AbsPoint x="" y="45" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnSlide" function="WarBoard_FPSOptions.OnSlidingColor" />
+				</EventHandlers>
+			</SliderBar>
+
+			<Label name="$parent_lblBColor" font="font_clear_medium_bold" autoresize="true" textalign="left" popable="false" handleinput="false">
+				<Size>
+					<AbsPoint x= "200" y="32"/>
+				</Size>	
+				<Anchors>
+					<Anchor point ="right" relativePoint="right" relativeTo="$parent_SliderB">
+						<AbsPoint x="300" y="0" />
+					</Anchor>
+				</Anchors>
+				<Color r="0" g="0" b="255" a="255" />
+			</Label>
+		</Windows>
+	</Window>   
+</Windows>
+</Interface>

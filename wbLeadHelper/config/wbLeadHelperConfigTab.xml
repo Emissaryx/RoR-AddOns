@@ -1,0 +1,289 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Windows>
+	<Window name="wbLeadHelperConfigTab" layer="secondary" movable="false">
+		<Anchors>
+			<Anchor point="topleft" relativePoint="topleft" relativeTo="wbLeadHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+			<Anchor point="bottomright" relativePoint="bottomright" relativeTo="wbLeadHelperConfigWindowTabsContent">
+				<AbsPoint x="0" y="0"/>
+			</Anchor>
+		</Anchors>
+		<EventHandlers>
+			<EventHandler event="OnInitialize" function="wbLeadHelperConfigTab.Initialize" />
+		</EventHandlers>
+		
+		<Windows>
+			<Window name="$parentSpaceAbove" handleinput="false">
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+						<AbsPoint x="0" y="0"/>
+					</Anchor>
+					<Anchor point="topright" relativePoint="bottomright" relativeTo="$parent">
+						<AbsPoint x="0" y="40"/>
+					</Anchor>
+				</Anchors>
+			</Window>
+
+
+			<Label name="$parentMessageLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentSpaceAbove">
+						<AbsPoint x="30" y="15" />
+					</Anchor>
+				</Anchors>
+			</Label>
+
+			<Label name="$parentMessageStartLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<EditBox name="$parentMessageStartText" inherits="EA_EditBox_DefaultFrame" maxchars="100">
+				<Size>
+					<AbsPoint x="250" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageStartLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverMessageStartLabel" />
+                    <EventHandler event="OnTextChanged" function="wbLeadHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</EditBox>
+			<Button name="$parentChooseIconButtonMessageStart" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="40" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageStartText">
+						<AbsPoint x="6" y="6" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.ChooseIconMessageStart" />
+				</EventHandlers>
+			</Button>
+
+			<Label name="$parentMessageEndLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageStartLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<EditBox name="$parentMessageEndText" inherits="EA_EditBox_DefaultFrame" maxchars="100">
+				<Size>
+					<AbsPoint x="250" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageEndLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverMessageEndLabel" />
+                    <EventHandler event="OnTextChanged" function="wbLeadHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</EditBox>
+			<Button name="$parentChooseIconButtonMessageEnd" inherits="EA_Button_DefaultText" textalign="left" font="font_chat_text">
+				<Size>
+					<AbsPoint x="40" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageEndText">
+						<AbsPoint x="6" y="6" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.ChooseIconMessageEnd" />
+				</EventHandlers>
+			</Button>
+
+			<Label name="$parentMessageTextColorLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false">
+				<Size>
+					<AbsPoint x="110" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageEndLabel">
+						<AbsPoint x="0" y="50" />
+					</Anchor>
+				</Anchors>
+			</Label>
+			<ComboBox name="$parentMessageTextColorCombobox" inherits="EA_ComboBox_DefaultResizable">
+				<Size>
+					<AbsPoint x="290" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentMessageTextColorLabel">
+						<AbsPoint x="0" y="-5" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverMessageTextColorLabel" />
+                    <EventHandler event="OnSelChanged" function="wbLeadHelperConfigTab.OnChanged" />
+                </EventHandlers>
+			</ComboBox>
+
+				<Label name="$parentLfgIconsLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false" handleinput="true">
+					<Size>
+						<AbsPoint x="110" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentMessageTextColorLabel">
+							<AbsPoint x="0" y="50" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverLfgIconsLabel" />
+						<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnLfgIconsCheckBoxUp" />
+					</EventHandlers>
+				</Label>
+					<Button name="$parentLfgIconsCheckBox" inherits="EA_Button_DefaultCheckBox">
+						<Anchors>
+								<Anchor point="left" relativePoint="left" relativeTo="$parentLfgIconsLabel">
+									<AbsPoint x="210" y="-5"/>
+								</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverLfgIconsCheckBox" />
+						<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnLfgIconsCheckBoxUp" />
+						</EventHandlers>
+					</Button>
+
+					<Label name="$parentDisableAltSpecCheckLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false" handleinput="true">
+						<Size>
+							<AbsPoint x="220" y="30" />
+						</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLfgIconsLabel">
+							<AbsPoint x="0" y="50" />
+						</Anchor>
+						</Anchors>
+						<EventHandlers>
+							<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverDisableAltSpecCheckLabel" />
+							<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnDisableAltSpecCheckCheckBoxUp" />
+						</EventHandlers>
+					</Label>
+					<Button name="$parentDisableAltSpecCheckCheckBox" inherits="EA_Button_DefaultCheckBox">
+						<Anchors>
+								<Anchor point="left" relativePoint="left" relativeTo="$parentDisableAltSpecCheckLabel">
+									<AbsPoint x="210" y="-5"/>
+								</Anchor>
+						</Anchors>
+						<EventHandlers>
+							<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverDisableAltSpecCheckCheckBox" />
+							<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnDisableAltSpecCheckCheckBoxUp" />
+						</EventHandlers>
+					</Button>
+
+					<Label name="$parentDisableAltSpecCheckForRunePriestZealotLabel" inherits="EA_Label_DefaultText" textalign="left" wordwrap="false" handleinput="true">
+						<Size>
+							<AbsPoint x="220" y="30" />
+						</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentDisableAltSpecCheckLabel">
+							<AbsPoint x="0" y="50" />
+						</Anchor>
+						</Anchors>
+						<EventHandlers>
+							<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverDisableAltSpecCheckForRunePriestZealotLabel" />
+							<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnDisableAltSpecCheckForRunePriestZealotCheckBoxUp" />
+						</EventHandlers>
+					</Label>
+					<Button name="$parentDisableAltSpecCheckForRunePriestZealotCheckBox" inherits="EA_Button_DefaultCheckBox">
+						<Anchors>
+								<Anchor point="left" relativePoint="left" relativeTo="$parentDisableAltSpecCheckForRunePriestZealotLabel">
+									<AbsPoint x="210" y="-5"/>
+								</Anchor>
+						</Anchors>
+						<EventHandlers>
+							<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverDisableAltSpecCheckForRunePriestZealotCheckBox" />
+							<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnDisableAltSpecCheckForRunePriestZealotCheckBoxUp" />
+						</EventHandlers>
+					</Button>
+
+
+						<!-- Separator 1 -->
+						<Window name="$parentDisplaySeperator1" inherits="EA_Window_DefaultSeparator" handleinput="false">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentDisableAltSpecCheckForRunePriestZealotLabel" >
+									<AbsPoint x="-30" y="50" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentDisableAltSpecCheckForRunePriestZealotLabel" >
+									<AbsPoint x="230" y="50" />
+								</Anchor>
+							</Anchors>
+						</Window>
+
+
+
+
+
+
+
+
+
+			<!-- Button bar -->
+			<Window name="$parentButtonBar" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+				<Size>
+					<AbsPoint x="0" y="65" />
+				</Size>
+			</Window>
+
+			<!-- Save button -->
+			<Button name="$parentSaveButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="left" relativePoint="left" relativeTo="$parentButtonBar" >
+						<AbsPoint x="10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverSaveButton" />
+					<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnSave" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Reset button -->
+			<Button name="$parentResetButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentSaveButton" >
+						<AbsPoint x="5" y="0" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverResetButton" />
+					<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnReset" />
+				</EventHandlers>
+			</Button>
+
+			<!-- Preview button -->
+			<Button name="$parentApplyButton" inherits="EA_Button_DefaultResizeable">
+				<Anchors>
+					<Anchor point="right" relativePoint="right" relativeTo="$parentButtonBar" >
+						<AbsPoint x="-10" y="7" />
+					</Anchor>
+				</Anchors>
+				<EventHandlers>
+					<EventHandler event="OnMouseOver" function="wbLeadHelperConfigTab.OnMouseOverApplyButton" />
+					<EventHandler event="OnLButtonUp" function="wbLeadHelperConfigTab.OnPreview" />
+				</EventHandlers>
+			</Button>
+
+		</Windows>
+	</Window>
+</Windows>
+</Interface>

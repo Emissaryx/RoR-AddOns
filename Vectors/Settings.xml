@@ -1,0 +1,870 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+		<Window name="Vectors_Settings" movable="true">
+			<Size>
+				<AbsPoint x="700" y="750" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root" />
+			</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnUpdate" function="Vectors.Settings.OnUpdateInteractiveSelection" />
+			</EventHandlers>
+			<Windows>
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" >
+							<AbsPoint x="27" y="0" />
+						</Anchor>
+						<Anchor point="topright" relativePoint="topright">
+							<AbsPoint x="-3" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnUpdate" function="Vectors.Vis.Update" />
+					</EventHandlers>
+				</Window>
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.Close" />
+					</EventHandlers>
+				</Button>
+
+				<Window name="$parentBackground" inherits="EA_Window_DefaultFrame" handleinput="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+							<AbsPoint x="0" y="-10" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+
+				<ScrollWindow name="$parent_ScrollWindow" childscrollwindow="$parent_ScrollChild" scrollbar="$parent_Scrollbar" lineheight="18">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="35" y="40" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+					<Windows>
+						<VerticalScrollbar name="$parent_Scrollbar" inherits="EA_ScrollBar_DefaultVerticalChain" layer="popup">
+							<Size>
+								<AbsPoint x="20" y="360"/>
+							</Size>
+							<Anchors>
+								<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+									<AbsPoint x="-4" y="0"/>
+								</Anchor>
+							</Anchors>
+						</VerticalScrollbar>
+						<Window name="$parent_ScrollChild">
+							<Anchors>
+								<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+								<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+									<AbsPoint x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Windows>
+
+								<Window name="$parent_Profile" inherits="Vectors_Templates_WindowHider">
+									<Anchors>
+										<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+											<AbsPoint x="10" y="30" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_Profile_Content">
+									<Size>
+										<AbsPoint x="600" y="123"/>
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Profile">
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+									<Windows>
+										<Window name="$parent_Profile" inherits="Vectors_Templates_ComboBox">
+											<Anchors>
+												<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+													<AbsPoint x="0" y="0" />
+												</Anchor>
+											</Anchors>
+										</Window>
+										<Button name="$parent_AddProfile" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="185" y="39"/>
+											</Size>
+											<Anchors>
+												<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Profile" >
+													<AbsPoint x="225" y="0" />
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+											</EventHandlers>
+										</Button>
+										<Button name="$parent_DeleteProfile" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="185" y="39"/>
+											</Size>
+											<Anchors>
+												<Anchor point="right" relativePoint="left" relativeTo="$parent_AddProfile">
+													<AbsPoint x="5" y="0"/>
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+											</EventHandlers>
+										</Button>
+										<Button name="$parent_OpenImport" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="375" y="39"/>
+											</Size>
+											<Anchors>
+												<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_AddProfile" >
+													<AbsPoint x="0" y="5" />
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+											</EventHandlers>
+										</Button>
+									</Windows>
+								</Window>
+
+								<Window name="$parent_Window" inherits="Vectors_Templates_ComboBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ProfileEnd" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Button name="$parent_SwitchData" inherits="EA_Button_DefaultResizeable">
+									<Size>
+										<AbsPoint x="375" y="39"/>
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Window" >
+											<AbsPoint x="225" y="0" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+									</EventHandlers>
+								</Button>
+								<Button name="$parent_ReadoutData" inherits="EA_Button_DefaultResizeable">
+									<Size>
+										<AbsPoint x="205" y="39"/>
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_SwitchData" >
+											<AbsPoint x="0" y="10" />
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+									</EventHandlers>
+								</Button>
+								<Button name="$parent_ResetWindow" inherits="EA_Button_DefaultResizeable">
+									<Size>
+										<AbsPoint x="165" y="39"/>
+									</Size>
+									<Anchors>
+										<Anchor point="right" relativePoint="left" relativeTo="$parent_ReadoutData">
+											<AbsPoint x="5" y="0"/>
+										</Anchor>
+									</Anchors>
+									<EventHandlers>
+										<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+									</EventHandlers>
+								</Button>
+
+								<Window name="$parent_Anchor" inherits="Vectors_Templates_WindowHider">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ReadoutData" >
+											<AbsPoint x="-225" y="10" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_Anchor_Content">
+									<Size>
+										<AbsPoint x="600" y="79"/>
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Anchor">
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+									<Windows>
+										<Window name="$parent_Anchors" inherits="Vectors_Templates_ComboBox">
+											<Anchors>
+												<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+													<AbsPoint x="0" y="0" />
+												</Anchor>
+											</Anchors>
+										</Window>
+										<Button name="$parent_AddAnchor" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="185" y="39"/>
+											</Size>
+											<Anchors>
+												<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Anchors" >
+													<AbsPoint x="225" y="0" />
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+											</EventHandlers>
+										</Button>
+										<Button name="$parent_DeleteAnchor" inherits="EA_Button_DefaultResizeable">
+											<Size>
+												<AbsPoint x="185" y="39"/>
+											</Size>
+											<Anchors>
+												<Anchor point="right" relativePoint="left" relativeTo="$parent_AddAnchor">
+													<AbsPoint x="5" y="0"/>
+												</Anchor>
+											</Anchors>
+											<EventHandlers>
+												<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+											</EventHandlers>
+										</Button>
+									</Windows>
+								</Window>
+
+								<Window name="$parent_WindowPoint" inherits="Vectors_Templates_ComboBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_AnchorEnd" >
+											<AbsPoint x="0" y="10" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_ReferenceWindow" inherits="Vectors_Templates_ComboBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_WindowPoint" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_ReferenceWindowPoint" inherits="Vectors_Templates_ComboBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ReferenceWindow" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<Window name="$parent_Cross" inherits="Vectors_Templates_DoubleFloatEditPanel">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ReferenceWindowPoint" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<Window name="$parent_Scale" inherits="Vectors_Templates_SingleFloatEditPanel">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Cross" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_LockScale" inherits="Vectors_Templates_CheckBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Scale" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<Window name="$parent_MinScale" inherits="Vectors_Templates_SingleFloatEditPanel">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_LockScale" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+								<Window name="$parent_ShowMinScale" inherits="Vectors_Templates_CheckBox">
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_MinScale" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+								<Window name="$parent_EndSpace">
+									<Size>
+										<AbsPoint x="600" y="20" />
+									</Size>
+									<Anchors>
+										<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ShowMinScale" >
+											<AbsPoint x="0" y="0" />
+										</Anchor>
+									</Anchors>
+								</Window>
+
+							</Windows>
+						</Window>
+					</Windows>
+				</ScrollWindow>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Import" movable="true">
+			<Size>
+				<AbsPoint x="700" y="400" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="Root" />
+			</Anchors>
+			<Windows>
+				<Window name="$parentTitleBar" inherits="EA_TitleBar_Default" handleinput="true">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" >
+							<AbsPoint x="27" y="0" />
+						</Anchor>
+						<Anchor point="topright" relativePoint="topright">
+							<AbsPoint x="-3" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.CancelImport" />
+					</EventHandlers>
+				</Button>
+
+				<Window name="$parentBackground" inherits="EA_Window_DefaultFrame" handleinput="true">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+							<AbsPoint x="0" y="-10" />
+						</Anchor>
+						<Anchor point="bottomright" relativePoint="bottomright" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+
+				<Label name="$parent_Text" inherits="DefaultWindowText" textalign="left">
+					<Size>
+						<AbsPoint x="500" y="40" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="45" y="70" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parent_ImportProfiles" inherits="Vectors_Templates_ComboBox">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_Text" >
+							<AbsPoint x="0" y="10" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Window name="$parent_ImportRatios" inherits="Vectors_Templates_ComboBox">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ImportProfiles" >
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</Window>
+				<Button name="$parent_CancelImport" inherits="EA_Button_DefaultResizeable">
+					<Size>
+						<AbsPoint x="300" y="39"/>
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parent_ImportRatios" >
+							<AbsPoint x="5" y="10" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+					</EventHandlers>
+				</Button>
+				<Button name="$parent_Import" inherits="EA_Button_DefaultResizeable">
+					<Size>
+						<AbsPoint x="300" y="39"/>
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_CancelImport" >
+							<AbsPoint x="20" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ButtonClicked" />
+					</EventHandlers>
+				</Button>
+
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Templates_ComboBox">
+			<Size>
+				<AbsPoint x="600" y="40" />
+			</Size>
+			<Windows>
+				<Label name="$parentText" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="220" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="5" y="10" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<ComboBox name="$parentComboBox" inherits="EA_ComboBox_DefaultResizableLarge" layer="popup">
+					<Size>
+						<AbsPoint x="375" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentText">
+							<AbsPoint x="5" y="-5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSelChanged" function="Vectors.Settings.ComboBoxChanged" />
+					</EventHandlers>
+				</ComboBox>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Templates_CheckBox">
+			<Size>
+				<AbsPoint x="600" y="40" />
+			</Size>
+			<Windows>
+				<Label name="$parentText" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="220" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="5" y="10" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Window name="$parentCheckBox" inherits="EA_LabelCheckButton">
+					<Size>
+						<AbsPoint x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentText">
+							<AbsPoint x="350" y="-5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnInitialize" function="EA_LabelCheckButton.Initialize" />
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.CheckBoxToggled" />
+					</EventHandlers>
+				</Window>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Templates_WindowHider">
+			<Size>
+				<AbsPoint x="600" y="50" />
+			</Size>
+			<Windows>
+				<Label name="$parentText1" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="555" y="19" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="5" y="5" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Label name="$parentText2" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="555" y="19" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentText1" >
+							<AbsPoint x="0" y="2" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<Button name="$parentButtonClosed" inherits="EA_Button_Default" handleinput="true"
+						backgroundtexture="EA_HUD_01" highlighttexture="EA_HUD_01" >
+					<Size>
+						<AbsPoint x="22" y="38" />
+					</Size>
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright">
+							<AbsPoint x="0" y="6" />
+						</Anchor>
+					</Anchors>
+					<TexSlices>
+						<Normal          id="Quest-Tracker-Closed"            />
+						<NormalHighlit   id="Quest-Tracker-Closed-ROLLOVER"   />
+						<Pressed         id="Quest-Tracker-Closed"  />
+						<PressedHighlit  id="Quest-Tracker-Closed-ROLLOVER"  />
+					</TexSlices>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.WindowHiderClosedClicked" />
+					</EventHandlers>
+				</Button>
+				<Button name="$parentButtonOpen" inherits="EA_Button_Default" handleinput="true"
+						backgroundtexture="EA_HUD_01" highlighttexture="EA_HUD_01" >
+					<Size>
+						<AbsPoint x="36" y="38" />
+					</Size>
+					<Anchors>
+						<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+							<AbsPoint x="0" y="6" />
+						</Anchor>
+					</Anchors>
+					<TexSlices>
+						<Normal         id="Quest-Tracker-Open"  />
+						<NormalHighlit  id="Quest-Tracker-Open-ROLLOVER"  />
+						<Pressed        id="Quest-Tracker-Open"  />
+						<PressedHighlit id="Quest-Tracker-Open-ROLLOVER"  />
+					</TexSlices>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.WindowHiderOpenClicked" />
+					</EventHandlers>
+				</Button>
+				<Window name="$parentEnd">
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+							<AbsPoint x="0" y="5" />
+						</Anchor>
+					</Anchors>
+				</Window>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Templates_SingleFloatEditPanel">
+			<Size>
+				<AbsPoint x="600" y="40" />
+			</Size>
+			<Windows>
+				<Label name="$parentText" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="220" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+							<AbsPoint x="5" y="10" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<DynamicImage name="$parent_NF_BW" texture="Vectors_FFBW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentText">
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NN_BW" texture="Vectors_FBW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NF_BW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NS_BW" texture="Vectors_BW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NN_BW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<EditBox name="$parent_X_FloatEditBox"  inherits="EA_EditBox_DefaultFrame" history="0" scrolling="none" input="nospaces" maxChars="100">
+					<Size>
+						<AbsPoint x="114" y="27" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NS_BW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnTextChanged" function="Vectors.Settings.FloatEditBoxChanged" />
+					</EventHandlers>
+					<TextOffset x="2" y="3" />
+				</EditBox>
+				<DynamicImage name="$parent_S_FW" texture="Vectors_FW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_X_FloatEditBox">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_N_FW" texture="Vectors_FFW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_S_FW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_F_FW" texture="Vectors_FFFW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_N_FW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+			</Windows>
+		</Window>
+
+		<Window name="Vectors_Templates_DoubleFloatEditPanel">
+			<Size>
+				<AbsPoint x="600" y="300" />
+			</Size>
+			<Windows>
+				<Label name="$parentText" inherits="DefaultWindowSmallText" textalign="left">
+					<Size>
+						<AbsPoint x="220" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="left" relativePoint="left" relativeTo="$parent" >
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+				</Label>
+				<DynamicImage name="$parent_NF_BW" texture="Vectors_FFBW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentText">
+							<AbsPoint x="5" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NN_BW" texture="Vectors_FBW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NF_BW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NS_BW" texture="Vectors_BW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NN_BW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+
+				<DynamicImage name="$parent_NS_UW" texture="Vectors_UW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="topright" relativePoint="bottom" relativeTo="$parent_NS_BW">
+							<AbsPoint x="65" y="-8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NN_UW" texture="Vectors_FUW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="bottom" relativeTo="$parent_NS_UW">
+							<AbsPoint x="0" y="-8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_NF_UW" texture="Vectors_FFUW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="bottom" relativeTo="$parent_NN_UW">
+							<AbsPoint x="0" y="-8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+
+				<DynamicImage name="$parent_S_DW" texture="Vectors_DW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomright" relativePoint="top" relativeTo="$parent_NS_BW">
+							<AbsPoint x="65" y="8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_N_DW" texture="Vectors_FDW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parent_S_DW">
+							<AbsPoint x="0" y="8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_F_DW" texture="Vectors_FFDW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="20" y="35" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottom" relativePoint="top" relativeTo="$parent_N_DW">
+							<AbsPoint x="0" y="8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+
+				<EditBox name="$parent_X_FloatEditBox"  inherits="EA_EditBox_DefaultFrame" history="0" scrolling="none" input="nospaces" maxChars="100">
+					<Size>
+						<AbsPoint x="114" y="27" />
+					</Size>
+					<Anchors>
+						<Anchor point="top" relativePoint="bottom" relativeTo="$parent_N_FW">
+							<AbsPoint x="0" y="-8" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnTextChanged" function="Vectors.Settings.FloatEditBoxChanged" />
+					</EventHandlers>
+					<TextOffset x="2" y="3" />
+				</EditBox>
+
+				<EditBox name="$parent_Y_FloatEditBox"  inherits="EA_EditBox_DefaultFrame" history="0" scrolling="none" input="nospaces" maxChars="100">
+					<Size>
+						<AbsPoint x="114" y="27" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NN_UW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnTextChanged" function="Vectors.Settings.FloatEditBoxChanged" />
+					</EventHandlers>
+					<TextOffset x="2" y="3" />
+				</EditBox>
+
+				<DynamicImage name="$parent_S_FW" texture="Vectors_FW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_NS_BW">
+							<AbsPoint x="122" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_N_FW" texture="Vectors_FFW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_S_FW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+				<DynamicImage name="$parent_F_FW" texture="Vectors_FFFW" filtering="true" handleinput="true">
+					<Size>
+						<AbsPoint x="35" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parent_N_FW">
+							<AbsPoint x="8" y="0" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Vectors.Settings.ArrowClicked" />
+					</EventHandlers>
+				</DynamicImage>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

@@ -1,0 +1,289 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+<!--
+	This application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The applications is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the applications.  If not, see <http://www.gnu.org/licenses/>.
+-->
+	<Windows>
+	
+		<!-- This is the Aura Shares Import/Export window -->
+		<Window name="AuraSharesImportExport" movable="true" layer="secondary" savesettings="false">
+			<Size>
+				<AbsPoint x="500" y="250"/>
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center"/>
+			</Anchors>
+			<Windows>
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+                <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" >
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="AuraShares.OnCloseAuraSharesImportExportWindow" />
+                    </EventHandlers>
+                </Button>
+                <!-- Button Background Area -->
+				<Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+					<Size>
+						<AbsPoint x="0" y="70" />
+					</Size>
+				</Window>
+				
+				<EditBox name="$parentAuraText" inherits="EA_EditBox_DefaultFrame" maxchars="2048" scrolling="vert" taborder="1">
+                    <Size>
+                        <AbsPoint x="320" y="30" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar" >
+                            <AbsPoint x="5" y="0" />
+                        </Anchor>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground" >
+                            <AbsPoint x="-5" y="12" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnKeyEnter" function="" />
+                        <EventHandler event="OnKeyEscape" function="" />
+                    </EventHandlers>
+                </EditBox>
+                
+                <!-- Ok Button -->
+                <Button name="$parentOkButton" inherits="AuraWindowButton">
+					<Anchors>
+						<Anchor point="right" relativePoint="right" relativeTo="$parentButtonBackground">
+							<AbsPoint x="-10" y="7" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraShares.OnImportExportOkButton" />
+					</EventHandlers>
+				</Button>
+			</Windows>
+		</Window>
+			
+		<!-- The basic definition of an aura shares row entry -->
+		<Window name="AuraSharesRow">
+			<Size>
+				<AbsPoint x="700" y="42"/>
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnMouseOver" function="AuraShares.OnMouseOverAuraList" />
+				<EventHandler event="OnLButtonUp" function="AuraShares.OnLButtonUpAuraList" />
+				<EventHandler event="OnRButtonUp" function="AuraShares.OnRButtonUpAuraList" />
+			</EventHandlers>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+					<Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" />
+                        <Anchor point="bottomright" relativePoint="bottomright" />
+                    </Anchors>
+				</FullResizeImage>
+				
+				<Button name="$parentTexture" inherits="EA_Button_DefaultIconFrame_Small" handleinput="false">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                
+                <Label name="$parentCharacter" inherits="Aura_Default_Label_SmallFont"  maxchars="80" handleinput="false" textalign="leftcenter" autoresize="false" autoresizewidth="false">
+					<Size>
+						<AbsPoint x="240" y="30"/>
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentTexture">
+							<AbsPoint x="10" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+				
+				 <Label name="$parentType" inherits="Aura_Default_Label_SmallFont"  maxchars="80" handleinput="false" textalign="center" autoresize="false" autoresizewidth="false">
+					<Size>
+						<AbsPoint x="100" y="30"/>
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCharacter">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+                
+              	<Label name="$parentName" inherits="Aura_Default_Label_SmallFont"  maxchars="80" handleinput="false" textalign="leftcenter" autoresize="false" autoresizewidth="false">
+					<Size>
+						<AbsPoint x="240" y="30"/>
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentType">
+							<AbsPoint x="5" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+			</Windows>
+		</Window>
+		
+		<!-- The basic sort button definition -->
+		<Button name="AuraSharesSortButton" inherits="EA_Button_DefaultListSort" >
+			<Size>
+				<AbsPoint x="245" y="40" />
+			</Size>
+			<EventHandlers>
+				<EventHandler event="OnLButtonUp" function="AuraShares.ChangeSorting" />
+			</EventHandlers>
+		</Button>
+	
+		<!-- Aura Shares Window -->
+		<Window name="AuraShares" movable="false" layer="secondary" savesettings="false">
+			<Size>
+				<AbsPoint x="740" y="340" />
+			</Size>
+			<Anchors>
+				<Anchor point="topright" relativePoint="topleft" relativeTo="AuraSettings" />
+			</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnHidden" function="AuraShares.OnHidden" />
+			</EventHandlers>
+			<!-- Child Windows -->
+			<Windows>
+				<!-- Default window background -->
+				<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+				<!-- Title Bar -->
+				<Window name ="$parentTitleBar"   inherits="EA_TitleBar_Default" />
+				<!-- Top Right Close Button -->
+				<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraShares.OnClose" />
+					</EventHandlers>
+				</Button>
+				
+				<!-- Button Background Area -->
+				<Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+					<Size>
+						<AbsPoint x="0" y="70" />
+					</Size>
+				</Window>
+				
+				<!-- Sort Buttons -->
+				<Button name="$parentTexture" inherits="AuraSharesSortButton" textalign="center" id="1">
+			    	<Size>
+		                <AbsPoint x="40" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTitleBar">
+					        <AbsPoint x="7" y="0" />
+					    </Anchor>
+                    </Anchors>
+                </Button>
+                
+				<Button name="$parentCharacter" inherits="AuraSharesSortButton" textalign="center" id="2">
+			    	<Size>
+		                <AbsPoint x="240" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentTexture">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                
+                <Button name="$parentType" inherits="AuraSharesSortButton" textalign="center" id="3">
+					<Size>
+		                <AbsPoint x="100" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentCharacter">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                
+				<Button name="$parentName" inherits="AuraSharesSortButton" textalign="center" id="4">
+					<Size>
+		                <AbsPoint x="240" y="30" />
+		            </Size>
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentType">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentAuraList">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Button>
+                
+                <ListBox name="$parentAuraList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="AuraSharesRow" visiblerows="5" rowspacing="0">
+                	<Size>
+		                <AbsPoint x="300" y="180" />
+		            </Size>
+					<Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentTexture">
+                            <AbsPoint x="2" y="0" />
+                        </Anchor>
+                        <Anchor point="topright" relativePoint="bottomright" relativeTo="$parentButtonBackground">
+                            <AbsPoint x="-10" y="10"/>
+                        </Anchor>
+                    </Anchors>
+					<ListData table="AuraShares.listDisplayData" populationfunction="AuraShares.PopulateDisplay">
+						<ListColumns>
+							<ListColumn windowname="Character" variable="Character" format="wstring" />
+							<ListColumn windowname="Type" variable="Type" format="wstring" />
+							<ListColumn windowname="Name" variable="Name" format="wstring" />
+						</ListColumns>
+					</ListData>
+				</ListBox>
+                
+                <!-- Import Aura Button -->
+                <Button name="$parentImportAuraButton" inherits="AuraWindowButton">
+					<Anchors>
+						<Anchor point="right" relativePoint="right" relativeTo="$parentButtonBackground">
+							<AbsPoint x="-10" y="7" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraShares.OnImportAura" />
+					</EventHandlers>
+				</Button>
+				
+				<!-- Filter This Characters Auras Toggle -->
+				<Window name="$parentFilterCharactersAuras" inherits="Aura_LabelCheckButton">
+					<Size>
+	                    <AbsPoint x="280" y="18" />
+	                </Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentButtonBackground">
+							<AbsPoint x="15" y="22" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraShares.OnFilterCharactersAurasToggle" />
+					</EventHandlers>
+				</Window>
+				
+				<!-- Filter Auras With Same Name Toggle -->
+				<Window name="$parentFilterSameNameToggle" inherits="Aura_LabelCheckButton">
+					<Size>
+	                    <AbsPoint x="280" y="18" />
+	                </Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentFilterCharactersAuras">
+							<AbsPoint x="0" y="5" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="AuraShares.OnFilterSameNameToggle" />
+					</EventHandlers>
+				</Window>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

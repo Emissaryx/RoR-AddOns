@@ -1,0 +1,276 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+  <Assets>
+			<Texture name="Seq_Add" file="add.tga" />
+			 <Icon id="29958" texture="return.tga" name=" "/>
+			 <Icon id="29957" texture="cooldown.tga" name=" "/>
+  </Assets>
+  
+    <Windows>
+    <!-- Main Window Stuff here -->
+	
+			<Button name="SequencerButtonIcon" inherits="EA_Button_DefaultTimerFrame" layer="overlay" draganddrop="true" texturescale="0.6" handleinput="true" >
+			<Size>
+				<AbsPoint x="39" y="39" />
+			</Size>
+								<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="0" y="0" />
+						</Anchor>
+					</Anchors>
+			<EventHandlers>
+				<EventHandler event="OnLButtonDown" function="Sequencer.AbilityCursorSwap" />
+				<EventHandler event="OnLButtonUp" function="FrameManager.OnLButtonUp" />
+				<EventHandler event="OnRButtonDown" function="Sequencer.AbilityCursorClear" />
+				<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+				<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+			</EventHandlers>
+		</Button>
+
+
+				<!--DynamicImage name="$parentCornerImage" inherits="EA_Default_TrainingImage" layer="overlay"/-->
+
+			<Window name="Sequencer_Button" handleinput="true">
+			<Size>
+				<AbsPoint x="39" y="39" />
+			</Size>
+			<Windows>
+				<Button name="$parentAction" inherits="SequencerButtonIcon" />		
+			</Windows>
+			
+		</Window>
+
+
+			<Window name="Sequencer_Window" layer="secondary" movable="true" popable="true" handleinput="true">
+         <Size><AbsPoint x="505" y="150" /></Size>
+		  <EventHandlers><EventHandler event="OnShown" function="Sequencer.HelpSlot" /><EventHandler event="OnHidden" function="Sequencer.HelpSlot" /></EventHandlers>
+         <Anchors><Anchor point="center" relativePoint="center" relativeTo="Root"><AbsPoint x="0" y="0" /></Anchor></Anchors>		   
+			<Windows>
+			
+					<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" layer="overlay">
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="Sequencer.ToggleShowing"/>
+					</EventHandlers>
+				</Button>	
+			
+			<!--Window name="$parentButton1" inherits="Sequencer_Button">
+			</Window-->
+
+
+					<Window name="$parentBG3"  layer="default" >
+                     <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parentButton1Action">
+                            <AbsPoint x="-5" y="-5"/>
+                        </Anchor>
+                    </Anchors>
+                        <Size>
+                            <AbsPoint x="200" y="48" />
+                        </Size>
+						<Windows>
+					 <FullResizeImage name="$parentBackground" texture="EA_HUD_01" layer="background">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="0"/>
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                            <AbsPoint x="0" y="0"/>
+                        </Anchor>
+                    </Anchors>
+                    <Sizes>
+                        <TopLeft x="16" y="16" />
+                        <BottomRight x="16" y="16" />
+                        <Middle x="88" y="40" />
+                    </Sizes>
+                    <TexSlices>
+                        <TopLeft      id="Action-Bar-Frame-Top-Left" />
+                        <TopCenter    id="Action-Bar-Frame-Top-Center" />
+                        <TopRight     id="Action-Bar-Frame-Top-Right" />
+                        <MiddleLeft   id="Action-Bar-Frame-Middle-Left" />
+                        <MiddleCenter id="Action-Bar-Frame-Middle-Center" />
+                        <MiddleRight  id="Action-Bar-Frame-Middle-Right" />
+                        <BottomLeft   id="Action-Bar-Frame-Bottom-Left" />
+                        <BottomCenter id="Action-Bar-Frame-Bottom-Center" />
+                        <BottomRight  id="Action-Bar-Frame-Bottom-Right" />
+                    </TexSlices>
+                </FullResizeImage>
+						</Windows>
+                    </Window>
+
+
+		<Button name="$parentButton1Action" inherits="SequencerButtonIcon" >
+								<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="14" y="40" />
+						</Anchor>
+					</Anchors>
+		</Button>
+			
+	
+	                <Label name="$parentText" font="font_chat_text" textalign="left" handleinput="false" autoresize="true" wordwrap="false" layer="secondary">
+                    <Size>
+                        <AbsPoint x="300" y="25" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft">
+                            <AbsPoint x="14" y="-38" />
+                        </Anchor>
+                    </Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+                </Label>		
+		
+					<EditBox name="$parentTimerBox" inherits="EA_EditBox_DefaultFrame" maxchars="2" input="numbers">
+					<Size><AbsPoint x="40" y="28" /></Size>
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentCheckBoxTimer" ><AbsPoint x="2" y="0" /></Anchor></Anchors>
+					
+					<EventHandlers><EventHandler event="OnKeyEnter" function="" /><EventHandler event="OnKeyEscape" function="" /></EventHandlers>						
+				</EditBox>		
+
+									<Button name="$parentCheckBoxCombat" inherits="EA_Button_DefaultCheckBox" id="1" handleinput="true" >
+									<EventHandlers>
+									<EventHandler event="OnLButtonUp" function="Sequencer.ToggleReset" />
+									<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+									<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+									</EventHandlers>	
+									<Anchors>
+									<Anchor point="bottom" relativePoint="bottom" relativeTo="$parent">
+									<AbsPoint x="105" y="-12" />
+									</Anchor>
+									</Anchors>
+									</Button>	
+
+									<Button name="$parentCheckBoxEnemy" inherits="EA_Button_DefaultCheckBox" id="2" handleinput="true" >
+									<EventHandlers>
+									<EventHandler event="OnLButtonUp" function="Sequencer.ToggleReset" />
+									<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+									<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+									</EventHandlers>	
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCheckBoxCombat">
+									<AbsPoint x="4" y="0" />
+									</Anchor>
+									</Anchors>
+									</Button>	
+
+									<Button name="$parentCheckBoxFriend" inherits="EA_Button_DefaultCheckBox" id="3" handleinput="true" >
+									<EventHandlers>
+									<EventHandler event="OnLButtonUp" function="Sequencer.ToggleReset" />
+									<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+									<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+									</EventHandlers>	
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCheckBoxEnemy">
+									<AbsPoint x="4" y="0" />
+									</Anchor>
+									</Anchors>
+									</Button>	
+
+									<Button name="$parentCheckBoxTimer" inherits="EA_Button_DefaultCheckBox" id="4" handleinput="true" >
+									<EventHandlers>
+									<EventHandler event="OnLButtonUp" function="Sequencer.ToggleReset" />
+									<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+									<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+									</EventHandlers>	
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentCheckBoxFriend">
+									<AbsPoint x="4" y="0" />
+									</Anchor>
+									</Anchors>
+									</Button>	
+									
+									<Button name="$parentCheckBoxCooldown" inherits="EA_Button_DefaultCheckBox" id="5" handleinput="true" >
+									<EventHandlers>
+									<EventHandler event="OnLButtonUp" function="Sequencer.ToggleReset" />
+									<EventHandler event="OnMouseOver" function="Sequencer.OnMouseOver" />
+									<EventHandler event="OnMouseOverEnd" function="FrameManager.OnMouseOverEnd" />
+									</EventHandlers>	
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topright" relativeTo="$parentCheckBoxCombat">
+									<AbsPoint x="-30" y="0" />
+									</Anchor>
+									</Anchors>
+									</Button>										
+
+	                <Label name="$parentResetText" font="font_chat_text" textalign="left" handleinput="false" autoresize="true" wordwrap="false" layer="secondary">
+                    <Size>
+                        <AbsPoint x="300" y="25" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentCheckBoxCombat">
+                            <AbsPoint x="-5" y="-5" />
+                        </Anchor>
+                    </Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+                </Label>	
+
+
+	                <Label name="$parentCDText" font="font_clear_large" textalign="center" handleinput="false" autoresize="true" wordwrap="false" layer="secondary">
+                    <Size>
+                        <AbsPoint x="100" y="25" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="top" relativePoint="bottom" relativeTo="$parentCheckBoxCooldown">
+                            <AbsPoint x="0" y="-1" />
+                        </Anchor>
+                    </Anchors>
+					<Color r="255" g="255" b="255" a="255" />
+                </Label>	
+
+     				<Button name="$parentClearButton" font="font_clear_medium_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size><AbsPoint x="80" y="30" /></Size>  
+					<Anchors><Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent"><AbsPoint x="15" y="-1" /></Anchor></Anchors>
+                            <EventHandlers><EventHandler event="OnLButtonDown" function="Sequencer.Clear" /></EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+			</Button>			
+
+	
+     				<Button name="$parentSaveButton" font="font_clear_medium_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size><AbsPoint x="70" y="30" /></Size>  
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentClearButton"><AbsPoint x="20" y="0" /></Anchor></Anchors>
+                            <EventHandlers><EventHandler event="OnLButtonDown" function="Sequencer.Save" /></EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+			</Button>	
+
+     				<Button name="$parentLoadButton" font="font_clear_medium_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size><AbsPoint x="80" y="30" /></Size>  
+					<Anchors><Anchor point="right" relativePoint="left" relativeTo="$parentSaveButton"><AbsPoint x="10" y="0" /></Anchor></Anchors>
+                            <EventHandlers><EventHandler event="OnLButtonDown" function="Sequencer.ReLoad" /></EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+			</Button>	
+	
+			
+			    <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" />
+				<!--DynamicImage name="$parentCornerImage" inherits="EA_Default_TrainingImage" layer="overlay"/-->
+					                   <Window name="$parentSpecialBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" >
+                          <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Size>
+                            <AbsPoint x="0" y="73" />
+                        </Size>
+                    </Window>
+					
+                <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" /> 				
+			</Windows> 
+		</Window>
+   </Windows> 
+</Interface>

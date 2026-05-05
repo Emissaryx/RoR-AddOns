@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+	<Windows>
+		<Window name="WarBoard_GuildF" inherits="EA_Window_Default" movable="false" layer="secondary" savesettings="false" >
+			<!-- Anchors are not necessary, WarBoard sets them -->
+			<Size>
+				<AbsPoint x="120" y="30" /><!-- You can make the size anything you like but the height should probably stay at 30. But even that is not required. -->
+			</Size>
+
+			<EventHandlers>
+				<EventHandler event="OnMouseOver" function="WarBoard_GuildF.OnMouseOver" />
+				<EventHandler event="OnLButtonUp" function="WarBoard_GuildF.OnClick" />
+			</EventHandlers>
+
+			<Windows>
+			<FullResizeImage name="$parentBackground" inherits="ModBackgroundTemplate" />
+			<!-- Inherits this template so if I find a way to hack in some rounded corners all mods will have it -->
+			<!-- Add any sort of windows, buttons, status bars, images etc. you need -->
+
+			<Label name="$parentLabel" font="font_clear_small_bold" textalign="left" layer="default" handleinput="false">
+				<Size>
+					<AbsPoint x="65" y="25" />
+				</Size>
+
+				<Anchors>
+					<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+						<AbsPoint x="5" y="5" />
+					</Anchor>
+				</Anchors>      
+				<Color r="255" g="255" b="255" />
+			</Label>
+
+			<DynamicImage name="$parentIcon" textureScale="1.2" handleinput="false">
+				<Size>
+					<AbsPoint x="20" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="topLeft" relativePoint="topleft">
+						<AbsPoint x="15" y="5" />
+					</Anchor>
+				</Anchors>
+			</DynamicImage>
+			</Windows>
+		</Window>
+	</Windows>
+</Interface>

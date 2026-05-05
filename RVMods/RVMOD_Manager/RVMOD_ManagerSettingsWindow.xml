@@ -1,0 +1,82 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Windows>
+
+		<Window name="RVMOD_ManagerSettingsWindow">
+			<Windows>
+				<Label name="$parentLabelFadeInOutDelay" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="175" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="40" y="40" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<SliderBar name="$parentSliderFadeInOutDelay" inherits="RVMOD_ManagerSliderTemplate" handleinput="true" numticks="11">
+					<Size>
+						<AbsPoint x="574" y="33" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLabelFadeInOutDelay">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSlide" function="RVMOD_Manager.OnSlideFadeInOutDelay" />
+					</EventHandlers>
+				</SliderBar>
+
+				<Label name="$parentLabelZoomInOutDelay" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="175" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSliderFadeInOutDelay">
+							<AbsPoint x="0" y="40" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<SliderBar name="$parentSliderZoomInOutDelay" inherits="RVMOD_ManagerSliderTemplate" handleinput="true" numticks="11">
+					<Size>
+						<AbsPoint x="574" y="33" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLabelZoomInOutDelay">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSlide" function="RVMOD_Manager.OnSlideZoomInOutDelay" />
+					</EventHandlers>
+				</SliderBar>
+
+				<Label name="$parentLabelUseGlobalScale" inherits="EA_Label_DefaultText" textalign="left" autoresize="true" handlinput="false" warnOnTextCropped="false" ellipsisOnCrop="true">
+					<Size>
+						<AbsPoint x="175" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentSliderZoomInOutDelay">
+							<AbsPoint x="0" y="40" />
+						</Anchor>
+					</Anchors>
+				</Label>
+				<SliderBar name="$parentSliderScale" inherits="RVMOD_ManagerSliderTemplate" handleinput="true" numticks="11">
+					<Size>
+						<AbsPoint x="574" y="33" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parentLabelUseGlobalScale">
+							<AbsPoint x="0" y="30" />
+						</Anchor>
+					</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnSlide" function="RVMOD_Manager.OnSlideScale" />
+					</EventHandlers>
+				</SliderBar>
+			</Windows>
+		</Window>
+
+	</Windows>
+</Interface>

@@ -1,0 +1,934 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+
+	<Scripts>
+		<Script file="GM_Ticket.lua" />
+	</Scripts>
+	<Windows>
+
+
+	    <Button name="GM_Ticket_ItemRowTemplate" inherits="EA_Button_ResizeIconFrame_NoNormalImage" >
+			<Size>
+				<AbsPoint x="485" y="25" />
+			</Size>			
+			<EventHandlers>
+			<!--	<EventHandler event="OnMouseOver" function="EA_Window_Loot.OnMouseOverItem" /> -->
+				<EventHandler event="OnRButtonUp" function="GM_Ticket.Popup" />
+				<EventHandler event="OnLButtonUp" function="GM_Ticket.Edit" />
+			</EventHandlers>
+			<Windows>
+				<FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo=""/>
+						<Anchor point="bottomright" relativePoint="bottomright" relativeTo=""/>
+					</Anchors>
+						<TintColor r="80" g="15" b="15" a="200"/>
+				</FullResizeImage>
+                <DynamicImage name="$parentIcon" inherits="EA_Image_DefaultIcon"  handleinput="false" >
+			    	<Size>
+				        <AbsPoint x="23" y="23" />
+			        </Size>
+			        <Anchors>
+				        <Anchor point="topleft" relativePoint="topleft" relativeTo="">
+					        <AbsPoint x="1" y="0" />
+				        </Anchor>
+			        </Anchors>
+			        <Windows>
+			        	<DynamicImage name="$parentFrame" inherits="EA_Image_DefaultIconFrame"  handleinput="false" layer="background" >
+					        <Size>
+						    <AbsPoint x="23" y="23" />
+					        </Size>
+				        </DynamicImage>
+			        </Windows>
+			    </DynamicImage>
+				<Label name="$parentName" inherits="EA_Label_ChatText" font="font_clear_small_bold" textalign="right" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+						<AbsPoint x="110" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentTimer">
+							<AbsPoint x="0" y="0"/>
+						</Anchor>
+					</Anchors>
+					                  <Color r="235" g="235" b="235" />
+				</Label>
+		<!-- name is assinged name -->
+				<Label name="$parentType" inherits="EA_Label_ChatText" font="font_clear_small_bold" textalign="right" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+						<AbsPoint x="110" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="right" relativeTo="$parent">
+							<AbsPoint x="-5" y="2"/>
+						</Anchor>
+					</Anchors>
+				</Label>
+		
+				
+					<Label name="$parentCommand" inherits="EA_Label_DefaultText_Small" font="font_clear_small_bold" textalign="left" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+						<AbsPoint x="120" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+							<AbsPoint x="30" y="5"/>
+						</Anchor>
+					</Anchors>
+					  
+				</Label>
+				
+					<Label name="$parentTimer" inherits="EA_Label_DefaultText_Small" font="font_clear_small_bold" textalign="right" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+						<AbsPoint x="110" y="20" />
+					</Size>
+					<Anchors>
+						<Anchor point="right" relativePoint="left" relativeTo="$parentCommand">
+							<AbsPoint x="10" y="0"/>
+						</Anchor>
+					</Anchors>
+					<Color r="235" g="235" b="235" />
+				</Label>
+				
+				
+				
+				     <FullResizeImage name="$parentSelectionBorder" handleinput="false" layer="overlay" texture="EA_TilableSquareFrame_Highlight">
+                    <Size>
+                        <AbsPoint x="64" y="64" />
+                    </Size>
+                    <Sizes>
+                        <TopLeft x="10" y="10" />
+                        <BottomRight x="10" y="10" />
+                        <Middle x="44" y="44" />
+                    </Sizes>
+                    <TexCoords>
+                        <TopLeft x="0" y="0" />
+                        <TopCenter x="10" y="0" />
+                        <TopRight x="54" y="0" />
+                        <MiddleLeft x="0" y="10" />
+                        <MiddleCenter x="10" y="10" />
+                        <MiddleRight x="54" y="10" />
+                        <BottomLeft x="0" y="54" />
+                        <BottomCenter x="10" y="54" />
+                        <BottomRight x="54" y="54" />
+                    </TexCoords>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="-2" y="-2"/>
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                            <AbsPoint x="2" y="2"/>
+                        </Anchor>
+                    </Anchors>
+					<TintColor r="255" g="210" b="0" a="80"/>
+                </FullResizeImage>
+				
+				
+			</Windows>
+		</Button>
+
+
+		<Window name="GM_Ticket_Window" inherits="EA_Window_Default" movable="true" popable="true" savesettings="false" layer="default" >
+			<Size>
+				<AbsPoint x="525" y="565" />
+			</Size>
+			<Anchors>
+				<Anchor point="center" relativePoint="center" relativeTo="">
+					<AbsPoint x="0" y="0" />
+				</Anchor>
+			</Anchors>
+			<EventHandlers>
+			<EventHandler event="OnShown" function="GM_Ticket.Window_OnShow"/>		
+			</EventHandlers>
+			<Windows>
+								
+			
+  		 		<Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" sticky="false" alpha="0.85">	
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				</Anchors>
+				</Window>
+               <!-- <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />        -->
+                <Button name="$parentClose" inherits="GMT2_Close_Button" >
+				<Anchors>
+				<Anchor point="topright" relativePoint="topright" relativeTo="$parent">
+				<AbsPoint x="-3" y="2" />
+				</Anchor>
+				</Anchors>
+					<EventHandlers>
+						<EventHandler event="OnLButtonUp" function="GM_Ticket.Window_Toggle" />
+					</EventHandlers>
+				</Button>
+				
+				
+				
+				
+		<Label name="$parentText" font="font_clear_small_bold" textalign="center" handleinput="false" autoresize="false" layer="popup">
+          <Size><AbsPoint x="240" y="20" /></Size>
+		<Color r="255" g="218" b="73" />  	        
+		<Anchors><Anchor point="top" relativePoint="top" relativeTo="$parent"><AbsPoint x="0" y="7" /></Anchor></Anchors>
+        </Label>
+				
+				
+ 
+				<Label name="$parentTicketCount" inherits="EA_Label_DefaultSubHeading"  textalign="left" textAutoFitMinScale="0.5" >
+                    <Size>
+                        <AbsPoint x="200" y="20" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" >
+                            <AbsPoint x="210" y="-20" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="235" g="235" b="235" />
+                </Label>	
+	
+				<!-- List Box of Items  -->
+				
+				
+				
+				
+				
+	
+				<ListBox name="$parentList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="GM_Ticket_ItemRowTemplate"  autoHideScrollBar="true" visiblerows="16" rowcount="200" rowspacing="3">
+                    <Size>
+                        <AbsPoint x="508" y="445" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+                            <AbsPoint x="10" y="60" />
+                        </Anchor>
+                    </Anchors>
+
+                    <ListData table="GM_Ticket.TicketData" populationfunction="">
+                        <ListColumns>
+                            <ListColumn windowname="Icon" variable="iconNum" format="icon" />
+                            <ListColumn windowname="Name" variable="CharacterName" format="wstring" />  
+							<ListColumn windowname="Command" variable="WhatItMeans" format="wstring" />  
+							<ListColumn windowname="Timer" variable="CreatedTime" format="wstring" /> 							
+							<ListColumn windowname="Type" variable="AssignedAccountName" format="wstring" /> 	
+                        </ListColumns>
+                    </ListData>
+                </ListBox>		
+   
+
+<Button name="$parentTypeButton" inherits="EA_Button_ListSort" id="221" textalign="center">
+    <Size><AbsPoint x="150" y="30" /></Size>
+    <Anchors><Anchor point="topleft" relativePoint="bottomleft" relativeTo="$parentList"><AbsPoint x="-2" y="0"/></Anchor></Anchors>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="GM_Ticket.SortByType"/>
+    </EventHandlers>
+</Button>
+
+<Button name="$parentTimerButton" inherits="EA_Button_ListSort" id="221" textalign="center">
+    <Size><AbsPoint x="120" y="30" /></Size>
+    <Anchors><Anchor point="topright" relativePoint="topleft" relativeTo="$parentTypeButton"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="GM_Ticket.SortByTimer"/>
+    </EventHandlers>
+</Button>
+
+<Button name="$parentFiledButton" inherits="EA_Button_ListSort" id="221" textalign="center">
+    <Size><AbsPoint x="110" y="30" /></Size>
+    <Anchors><Anchor point="topright" relativePoint="topleft" relativeTo="$parentTimerButton"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="GM_Ticket.SortByFiledBy"/>
+    </EventHandlers>
+</Button>
+
+<Button name="$parentAssignedButton" inherits="EA_Button_ListSort" id="221" textalign="center">
+    <Size><AbsPoint x="110" y="30" /></Size>
+    <Anchors><Anchor point="topright" relativePoint="topleft" relativeTo="$parentFiledButton"><AbsPoint x="0" y="0"/></Anchor></Anchors>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="GM_Ticket.SortByAssigned"/>
+    </EventHandlers>
+</Button>
+					
+
+   
+                <!-- Buttons Section -->
+                <Window name="$parentButtonBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+                    <Size>
+                        <AbsPoint x="0" y="65" />
+                    </Size>
+                </Window>   
+								
+					
+				<!-- Loot All -->
+
+					<Button name="$parentUpdateButton" font="font_clear_small_bold" autoresize="false" textalign="right" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+                        <AbsPoint x="100" y="30" />
+                    </Size>  
+					<Anchors>
+                             <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                             <AbsPoint x="-15" y="-8" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                             <EventHandler event="OnLButtonUp" function="GM_Ticket.Clear" />
+                            </EventHandlers>
+					<TextColors>
+						<Normal r="50" g="255" b="50" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>
+<!--------------- added a exit button below here - Emissary ------------------------>
+<Button name="$parentClose" inherits="EA_Button_DefaultWindowClose">
+    <Anchors>
+        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+            <AbsPoint x="0" y="0" />
+        </Anchor>
+    </Anchors>
+    <EventHandlers>
+        <EventHandler event="OnLButtonUp" function="GM_Ticket.ExitWindow" />
+    </EventHandlers>
+</Button>					
+		<!--------------- added a exit button above here - Emissary ------------------------>	
+			</Windows>
+		</Window>
+		
+		
+		
+			<Window name="GM_Ticket_Info" handleinput="true"  id="221" sticky="true" movable="false" layer="default" savesettings="false">
+        <Size>
+		<AbsPoint x="500" y="565" />
+        </Size>
+        <Anchors>
+		<Anchor point="right" relativePoint="left" relativeTo="GM_Ticket_Window">
+		<AbsPoint x="0" y="0" />
+		</Anchor>
+        </Anchors>
+				<EventHandlers>				
+				<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+				</EventHandlers>		
+		<Windows>
+		
+						
+						
+                  <Window name="$parentBackground" inherits="EA_Window_DefaultBackgroundFrame" sticky="false" alpha="0.85">	
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				<Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+				<AbsPoint x="0" y="0" />
+				</Anchor>
+				</Anchors>
+				</Window>
+    
+
+				<!-- Labels Be here -->		
+					<Label name="$parentTitleLabel" inherits="EA_Label_DefaultHeading" textalign="center" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+					<AbsPoint x="350" y="55" />
+					</Size>
+					<Anchors>
+					<Anchor point="top" relativePoint="top" relativeTo="$parent">
+					<AbsPoint x="0" y="5"/>
+					</Anchor>
+					</Anchors>
+					</Label>
+					
+					<Label name="$parentReportLabel" inherits="EA_Label_DefaultHeading" textalign="center" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+					<AbsPoint x="350" y="35" />
+					</Size>
+					<Anchors>
+					<Anchor point="top" relativePoint="top" relativeTo="$parent">
+					<AbsPoint x="0" y="55"/>
+					</Anchor>
+					</Anchors>
+					<Color r="255" g="135" b="135" />
+					</Label>					
+					
+
+
+					<Window name="$parentItem1" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="490" y="20" /></Size>
+							 <Anchors><Anchor point="topleft" relativePoint="topleft" relativeTo="$parent"><AbsPoint x="13" y="55" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="false" >
+									<Size>
+									<AbsPoint x="350" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="320" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+			
+							</Windows>
+						</Window>	
+
+					
+					<Window name="$parentItem2" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem1"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>					
+
+
+
+					<Window name="$parentItem3" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem2"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>	
+						
+					<Window name="$parentItem4" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem3"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />	
+							
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<EventHandlers>										
+										<EventHandler event="OnHyperLinkMouseOver" function="GMT2.LinkStuff" />								
+									</EventHandlers>	
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>	
+	
+
+						<Window name="$parentItem5" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem4"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>
+			
+						<Window name="$parentItem6" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem5"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>
+						<Window name="$parentItem7" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem6"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>
+
+						<Window name="$parentItem8" handleinput="true" id="222" popable="true">
+							 <Size><AbsPoint x="345" y="20" /></Size>
+							 <Anchors><Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem7"><AbsPoint x="0" y="0" /></Anchor></Anchors>
+							<EventHandlers>				
+							<EventHandler event="OnLButtonUp" function="GMT2.EditBox" />			
+							</EventHandlers>		
+							 <Windows>
+
+									<Label name="$parentTitle" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="false" wordwrap="true" >
+									<Size>
+									<AbsPoint x="150" y="20" />
+									</Size>
+									<Anchors>
+									<Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+									<AbsPoint x="15" y="0" />
+									</Anchor>
+									</Anchors>
+									<Color r="255" g="255" b="255" />
+									</Label>		
+								
+									<Label name="$parentText" font="font_clear_small_bold" autoresize="true" textalign="left" layer="overlay" handleinput="true" wordwrap="true" >
+									<Size>
+									<AbsPoint x="235" y="24" />
+									</Size>
+									<Anchors>
+									<Anchor point="topright" relativePoint="topleft" relativeTo="$parentTitle">
+									<AbsPoint x="0" y="0" />
+									</Anchor>
+									</Anchors>								
+									<Color r="255" g="255" b="255" />
+									<EventHandlers><EventHandler event="OnHyperLinkRButtonUp" function="EA_ChatWindow.OnHyperLinkRButtonUp" /><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/></EventHandlers> 																
+									</Label>
+
+
+						<EditBox name="$parentEditBox" inherits="EA_EditBox_DefaultFrame" font="font_clear_small_bold" id="51" layer="overlay" maxchars="75" popable="true" handleinput="true" taborder="5">
+						<Size><AbsPoint x="235" y="24"/></Size>
+					   <Anchors><Anchor point="topright" relativePoint="topleft"  relativeTo="$parentTitle"><AbsPoint x="-9" y="-4" /></Anchor></Anchors>
+						<EventHandlers><EventHandler event="OnLButtonUp" function="GMT2.EditBox"/><EventHandler event="OnKeyEnter" function="GMT2.EditBox" /><EventHandler event="OnKeyEscape" function="GMT2.EditBox" /></EventHandlers>
+						</EditBox>		
+		
+							</Windows>
+						</Window>
+					
+                <EditBox name="$parentMessageBox" font="font_clear_small_bold" inherits="EA_EditBox_DefaultFrame_Multiline" maxchars="4092" scrolling="vert" scrollbar="EA_ScrollBar_DefaultVerticalChain" autoselect="false" autoHideScrollBar="true" taborder="2">
+                  <Anchors>
+                    <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem8">
+                      <AbsPoint x="10" y="30" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" >
+                      <AbsPoint x="-18" y="-70" />
+                    </Anchor>
+                  </Anchors>
+                  <EventHandlers>
+                    <EventHandler event="OnKeyEnter" function="" />
+                    <EventHandler event="OnKeyEscape" function="" />
+                  </EventHandlers>
+                </EditBox>					
+		
+
+                <LogDisplay name="$parentLogDisplay" font="font_clear_small_bold" scrollbar="$parentScrollbar" scrollbarPosition="right" background="" textFadeTime="0" maxchars="16384">
+                    <Anchors>
+                    <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentItem8">
+                      <AbsPoint x="10" y="30" />
+                    </Anchor>
+                    <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent" >
+                      <AbsPoint x="-18" y="-70" />
+                    </Anchor>
+                  </Anchors>
+                  <Windows>
+                    <VerticalScrollbar name="$parentScrollbar" inherits="EA_ScrollBar_DefaultVerticalChain">
+                      <Anchors>
+                        <Anchor point="topright" relativePoint="topleft">
+                          <AbsPoint x="-20" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright"/>
+                      </Anchors>
+                    </VerticalScrollbar>
+                  </Windows>
+                </LogDisplay>
+
+					
+					<Button name="$parentMessageButton" font="font_clear_small_bold" autoresize="false" textalign="left" id="1" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="85" y="20" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="topleft" relativePoint="bottom" relativeTo="$parentMessageBox">
+					<AbsPoint x="50" y="-2"/>
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.ButtonPressed" />
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="255" g="85" b="0" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>	
+					
+					<Button name="$parentCommentButton" font="font_clear_small_bold" autoresize="false" textalign="left" id="2" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="85" y="20" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="topright" relativePoint="topleft" relativeTo="$parentMessageButton">
+					<AbsPoint x="2" y="0"/>
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.ButtonPressed" />
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="255" g="85" b="0" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>	
+
+
+					
+					<Label name="$parentMessageLabel" font="font_clear_small_bold" textalign="center" warnOnTextCropped="false" handleinput="false" wordwrap="false">
+					<Size>
+					<AbsPoint x="100" y="20" />
+					</Size>
+					<Anchors>
+					<Anchor point="top" relativePoint="bottom" relativeTo="$parentMessageBox">
+					<AbsPoint x="0" y="-2"/>
+					</Anchor>
+					</Anchors>
+					</Label>
+				
+				<DynamicImage name="$parentMapIcon" texture="map_markers01" slice ="NPC-Travel" layer="overlay" textureScale="1" handleinput="true" >
+                <Size>
+                <AbsPoint x="32" y="32" />
+                </Size>
+				<Anchors>
+				<Anchor point="topleft" relativePoint="topright" relativeTo="$parentItem4Text">
+				<AbsPoint x="-2" y="-10" />
+				</Anchor>
+				</Anchors>
+				<EventHandlers><EventHandler event="OnLButtonUp" function="GM_Ticket.Map" /></EventHandlers>
+                </DynamicImage>       			
+				
+
+								
+					<Button name="$parentAssignMeButton" font="font_clear_small_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="110" y="30" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent">
+					<AbsPoint x="15" y="-5" />
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.Assign_Me" />
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>						
+
+					<Button name="$parentUnAssignButton" font="font_clear_small_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="105" y="30" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentAssignMeButton">
+					<AbsPoint x="0" y="0" />
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.UnAssign" />
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>							
+
+					<Button name="$parentAssignButton" font="font_clear_small_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="100" y="30" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentUnAssignButton">
+					<AbsPoint x="0" y="0" />
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.AssignDialog" />
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="175" b="73" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>				
+
+					<Button name="$parentAnswerButton" font="font_clear_small_bold" autoresize="false" textalign="left" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+					<AbsPoint x="110" y="30" />
+                    </Size>  
+					<Anchors>
+					<Anchor point="right" relativePoint="left" relativeTo="$parentAssignButton">
+					<AbsPoint x="5" y="0" />
+					</Anchor>
+					</Anchors>
+					<EventHandlers>
+					<EventHandler event="OnLButtonUp" function="GM_Ticket.AnswerDialog" />
+			         <EventHandler event="OnRButtonUp" function="GM_Ticket.OptionAnswerDialog" />		
+					</EventHandlers>
+					<TextColors>
+						<Normal r="255" g="275" b="173" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>									
+					
+					
+					<Button name="$parentDeleteTicketButton" font="font_clear_small_bold" autoresize="true" textalign="right" layer="popup" handleinput="true" warnOnTextCropped="false">
+					<Size>
+                        <AbsPoint x="150" y="30" />
+                    </Size>  
+					<Anchors>
+                             <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                             <AbsPoint x="-15" y="-45" />
+                                </Anchor>
+                            </Anchors>
+                            <EventHandlers>
+                             <EventHandler event="OnLButtonUp" function="GM_Ticket.DeleteDialog" />
+                            </EventHandlers>
+					<TextColors>
+						<Normal r="255" g="50" b="50" a="255"/>
+						<NormalHighlit r="255" g="85" b="0" a="255"/>
+						<Pressed r="95" g="57" b="36" a="255"/>
+						<PressedHighlit r="95" g="57" b="36" a="255"/>
+						<Disabled r="95" g="57" b="36" a="255" />
+						<DisabledPressed r="95" g="57" b="36" a="255" />
+					</TextColors>  
+					</Button>		
+
+				
+			</Windows>
+					
+	</Window>	
+		
+		
+		
+	</Windows>
+</Interface>
