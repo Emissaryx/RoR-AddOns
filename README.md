@@ -1,15 +1,17 @@
-# RoR AddOns
+# RoR Addons
 
-This repository is the canonical curated public Return of Reckoning addon distribution maintained by Emissary.
+Emissary's Return of Reckoning addon catalog prototype.
 
-## Repository boundary
+## Current slice
 
-`Emissaryx/addons` is an older, larger heterogeneous cache containing third-party packages, embedded bundles, and historical versions. It is retained for reference and recovery; it is not a source to mirror wholesale into this repository.
+- Idrinth-style public addon browsing with search and category filters.
+- Release detail drawer with version and download metadata.
+- Author portal entry point reserved for authenticated submissions.
+- Visible content-rights and security documentation.
+- GitHub-first distribution model; direct uploads remain moderated and quota-limited.
 
-Standalone addon repositories may remain canonical for their individual projects. Changes should be reconciled deliberately by addon and version rather than bulk-synchronized between collections.
+## Planned service boundary
 
-## Idrinth catalog archive
+The frontend will consume a stable addon API. A dedicated database schema will store metadata, rights declarations, authors, dependencies, and moderation events. Release archives will remain in GitHub releases or existing object storage rather than game-data tables.
 
-The dated archive under `archive/idrinth/` preserves addon releases downloaded from Idrinth's public catalog for migration research and recovery. Each release remains in its own ZIP with its source URL recorded in the adjacent `manifest.json`; the archive includes older releases that are not currently part of the curated root distribution.
-
-This archive is not a claim of authorship or a replacement for each addon author's source repository. Before publishing an addon through an Emissary-hosted catalog, verify the author's distribution permission, attribution, license, compatibility, and preferred support link.
+See [CONTENT-RIGHTS.md](CONTENT-RIGHTS.md), [DATA-MODEL.md](DATA-MODEL.md), and [SECURITY.md](SECURITY.md).

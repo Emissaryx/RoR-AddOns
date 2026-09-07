@@ -1,0 +1,11 @@
+# Addon content rights
+
+Submitting an addon does not transfer ownership of the addon to Emissary or to Return of Reckoning. The uploader must have the right to submit every file and asset included in the release. A listing on another addon site is not, by itself, proof that the release is authorized for Return of Reckoning; a specific maintainer or rights-holder authorization may be recorded.
+
+By submitting a release for Return of Reckoning, the uploader grants Emissary and the Return of Reckoning project maintainers a non-exclusive, worldwide, royalty-free license to host, store, reproduce, display, distribute, maintain, adapt, modify, create maintenance releases of, and remove the submitted addon and its documentation for the Return of Reckoning addon catalog, its game community, support, security review, and operation or promotion of Return of Reckoning services.
+
+The uploader must explicitly identify the target game(s): Return of Reckoning, Dawn of Reckoning, another project, or multiple projects. A release that is only authorized for another game must not be published as a Return of Reckoning addon. A multi-game listing requires permission for each named project. The uploader confirms that this license also covers third-party code or assets only when the applicable license permits it. The uploader must identify third-party dependencies and their licenses. This submission license does not grant ownership of the author's original work or authorize unrelated commercial use.
+
+Authors may request corrections or removal. Emissary may unpublish, replace, quarantine, or remove releases that are unsafe, infringing, misleading, incompatible, abandoned, or contrary to Return of Reckoning rules. A project may be maintained by Emissary or designated Return of Reckoning maintainers when necessary to keep it usable or safe.
+
+The final acceptance checkbox will state the exact target game(s) and rights granted, then record the accepted policy version, account, timestamp, release, checksum, source repository, and author declaration. Imported historical releases remain unverified until this acceptance exists. This text is an implementation draft and should receive legal review before production use.
