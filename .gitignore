@@ -1,6 +1,0 @@
-node_modules/
-build/
-.openai/
-.env
-.env.*
-!.env.example
